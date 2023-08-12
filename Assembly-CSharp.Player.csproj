@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\LaserBehaviour.cs" />
     <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
     <Compile Include="Assets\Scripts\SpawnManager.cs" />
+    <Compile Include="Assets\Scripts\TripleshotBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameDevHQ\FileBase\Projects\Tutorials\Starter_Files\2D_Galaxy_Assets\Materials\Shaders\Galaxy.shader" />

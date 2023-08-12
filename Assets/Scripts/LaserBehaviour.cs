@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LaserBehaviour : MonoBehaviour
-    //speed cariable of 8
 {
-    public float LaserSpeed = 8f;
     [SerializeField]
-    private GameObject _Laser;
+    private float _laserSpeed = 8f;
+    [SerializeField]
+    private GameObject _laser;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +19,14 @@ public class LaserBehaviour : MonoBehaviour
     void Update()
     {
         //translate laser up
-        transform.position += (new Vector3(0, 1, 0) * LaserSpeed * Time.deltaTime);
-        // once the position of the laser goes beyond the boundary of the scene then destroy the laser
+        transform.position += (new Vector3(0, 1, 0) * _laserSpeed * Time.deltaTime);
         if (transform.position.y >= 5.3f)
         {
-            Destroy(_Laser);
+            if (transform.parent != null) 
+            { 
+                Destroy(transform.parent.gameObject); 
+            }
+            Destroy(this.gameObject);
         }
     }
 }

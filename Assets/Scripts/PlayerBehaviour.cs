@@ -8,21 +8,22 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private float _speed = 5;
     [SerializeField]
-    private GameObject _Laser;
-    public float fireRate = .25f;
+    private GameObject _laser;
+    [SerializeField]
+    private float _fireRate = .25f;
     private float _canFire = 0.0f;
+    [SerializeField]
+    private GameObject _tripleshot;
+    [SerializeField]
+    private bool _tripleshotActive;
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
     private float _maxHealth = 100f;
     public float currentHealth = Mathf.Clamp(100f, 0f, 100f);
     [SerializeField]
-    private float _maxShield = Mathf.Clamp(100f, 0f, 100f);
+    private float _maxShield = 100f;
     public float currentShield = Mathf.Clamp(100f, 0f, 100f);
-    public Image healthBar;
-    public Image shieldBar;
-    public Image healthBubble;
-    public Image shieldBubble;
     private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
@@ -31,11 +32,10 @@ public class PlayerBehaviour : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 
-        if (_spawnManager != null )
+        if (_spawnManager == null )
         {
             Debug.LogError("The Spawn Manager is NULL.");
         }
-
     }
 
     // Update is called once per frame
@@ -67,10 +67,28 @@ public class PlayerBehaviour : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4.5f, 3f), 0);
     }
+
     void FireLaser()
     {
-        _canFire = Time.time + fireRate;
-        Instantiate(_Laser, transform.position + new Vector3(0, .75f, 0), Quaternion.identity);
+        _canFire = Time.time + _fireRate;
+        
+        if (_tripleshotActive == true)
+        {
+            Instantiate(_tripleshot, transform.position + new Vector3(-.16f, 0, 0), Quaternion.identity);
+        }
+        else Instantiate(_laser, transform.position + new Vector3(0, .75f, 0), Quaternion.identity);
+    }
+
+    public void TripleShotActive()
+    {
+        _tripleshotActive = true;
+        StartCoroutine(PowerDown());
+    }
+
+    IEnumerator PowerDown()
+    {
+            yield return new WaitForSecondsRealtime(5f);
+            _tripleshotActive = false;
     }
 
     public void Damage()
@@ -93,65 +111,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Destroy(this.gameObject);
             _spawnManager.OnPlayerDeath();
-        }
-    }
-    void FillHealth(float healthIn)
-    {
-        float addHealth = _maxHealth * healthIn;
-        currentHealth += addHealth;
-        if (currentHealth > _maxHealth)
-        {
-            currentHealth = _maxHealth;
-        }
-    }
-    void HealthUp(float valueUp)
-    {
-        _maxHealth += valueUp;
-        currentHealth += valueUp;
-        healthBar.fillAmount = (float)currentHealth / (float)_maxHealth;
-        if(healthBubble != null)
-        {
-            healthBubble.fillAmount = (float)currentHealth / (float)_maxHealth;
-        }
-    }
-
-    void FillShield(float shieldIn)
-    {
-        float addShield = _maxShield * shieldIn;
-        currentShield += addShield;
-        if (currentShield > _maxShield)
-        {
-            currentShield = _maxShield;
-        }
-    }
-    void ShieldUp(float valueUp)
-    {
-        _maxShield += valueUp;
-        currentShield += valueUp;
-        shieldBar.fillAmount = (float)currentShield / (float)_maxShield;
-        if (shieldBubble != null)
-        {
-            shieldBubble.fillAmount = (float)currentShield / (float)_maxShield;
-        }
-    }
-
-    void Health(float healthIn)
-    {
-        currentHealth += healthIn;
-        healthBar.fillAmount = (float)currentHealth / (float)_maxHealth;
-        if (healthBubble != null)
-        {
-            healthBubble.fillAmount = (float)currentHealth / (float)_maxHealth;
-        }
-    }
-
-    void Shield(float shieldIn)
-    {
-        currentShield += shieldIn;
-        shieldBar.fillAmount = (float)currentShield / (float)_maxShield;
-        if (shieldBubble != null)
-        {
-            shieldBubble.fillAmount = (float)currentShield / (float)_maxShield;
         }
     }
 }
