@@ -6,11 +6,7 @@ using UnityEngine.UI;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _tripleshotPrefab;
-    [SerializeField] 
-    private GameObject _speedPrefab;
-    [SerializeField]
-    private GameObject _shieldPrefab;
+    private GameObject[] _powerUps;
     [SerializeField]
     private GameObject _enemy1Prefab;
     [SerializeField] 
@@ -34,7 +30,8 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             float randomX = Random.Range(-8.5f, 7.6f);
-            GameObject newEnemy1 = Instantiate(_enemy1Prefab, transform.position + new Vector3(randomX, 9, 0), Quaternion.identity);
+            Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
+            GameObject newEnemy1 = Instantiate(_enemy1Prefab, spawnPosition, Quaternion.identity);
             newEnemy1.transform.parent = _enemyContainer.transform;
             yield return new WaitForSecondsRealtime(5f);
         }
@@ -45,12 +42,10 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             float randomX = Random.Range(-8.5f, 7.6f);
-            GameObject newTripleShot_PowerUp = Instantiate(_tripleshotPrefab, transform.position + new Vector3(randomX, 9, 0), Quaternion.identity);
+            Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
+            int randomPowerUp = Random.Range(0, 3);
+            GameObject newPowerUp = Instantiate(_powerUps[randomPowerUp], spawnPosition, Quaternion.identity);
             yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
-            GameObject newSpeed_PowerUp = Instantiate(_speedPrefab, transform.position + new Vector3(randomX, 9, 0), Quaternion.identity);
-            yield return new WaitForSecondsRealtime(Random.Range(5f, 12f));
-            GameObject newShield_PowerUp = Instantiate(_shieldPrefab, transform.position + new Vector3(randomX, 9, 0), Quaternion.identity);
-            yield return new WaitForSecondsRealtime(Random.Range(7f,17f));
         }
     }
 
