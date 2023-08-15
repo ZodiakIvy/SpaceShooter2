@@ -8,6 +8,8 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private float _speed = 5;
     [SerializeField]
+    private bool _speedActive;
+    [SerializeField]
     private GameObject _laser;
     [SerializeField]
     private float _fireRate = .25f;
@@ -24,6 +26,8 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private float _maxShield = 100f;
     public float currentShield = Mathf.Clamp(100f, 0f, 100f);
+    [SerializeField]
+    private bool _shieldActive;
     private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
@@ -66,6 +70,10 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4.5f, 3f), 0);
+        if (_speedActive == false)
+        { _speed = 5; }
+        else if (_speedActive == true) 
+        { _speed = 10; }
     }
 
     void FireLaser()
@@ -85,19 +93,36 @@ public class PlayerBehaviour : MonoBehaviour
         StartCoroutine(PowerDown());
     }
 
+    public void SpeedActive()
+    {
+        _speedActive = true;
+        StartCoroutine(PowerDown());
+    }
     IEnumerator PowerDown()
     {
-            yield return new WaitForSecondsRealtime(5f);
-            _tripleshotActive = false;
+        yield return new WaitForSecondsRealtime(5f);
+        _tripleshotActive = false;
+        yield return new WaitForSecondsRealtime(5f);
+        _speedActive = false;
+
+    }
+
+    public void ShieldActive() 
+    {
+        _shieldActive = true;
+        if (_shieldActive == true)
+        {
+            currentShield = _maxShield;
+        }
     }
 
     public void Damage()
     {
-        currentShield = currentShield - 25;
+        currentShield = currentShield - 25f;
 
-        if (currentShield <= 0)
+        if (currentShield < 1)
         {
-            currentShield = 0;
+            _shieldActive = false;
             currentHealth = currentHealth - 25;
         }
 

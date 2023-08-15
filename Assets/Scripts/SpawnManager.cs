@@ -7,17 +7,20 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _tripleshotPrefab;
+    [SerializeField] 
+    private GameObject _speedPrefab;
+    [SerializeField]
+    private GameObject _shieldPrefab;
     [SerializeField]
     private GameObject _enemy1Prefab;
     [SerializeField] 
     private GameObject _enemyContainer;
-    private bool _tripleshotActive = false;
     private bool _stopSpawning = false;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Enemy1_SpawnRoutine());
-        StartCoroutine(TripleShot_SpawnRoutine());
+        StartCoroutine(PowerUp_SpawnRoutine());
     }
 
     // Update is called once per frame
@@ -37,13 +40,17 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    IEnumerator TripleShot_SpawnRoutine()
+    IEnumerator PowerUp_SpawnRoutine()
     {
-        while (_tripleshotActive == false)
+        while (_stopSpawning == false)
         {
             float randomX = Random.Range(-8.5f, 7.6f);
             GameObject newTripleShot_PowerUp = Instantiate(_tripleshotPrefab, transform.position + new Vector3(randomX, 9, 0), Quaternion.identity);
-            yield return new WaitForSecondsRealtime(Random.Range(3f,7f));
+            yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
+            GameObject newSpeed_PowerUp = Instantiate(_speedPrefab, transform.position + new Vector3(randomX, 9, 0), Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(5f, 12f));
+            GameObject newShield_PowerUp = Instantiate(_shieldPrefab, transform.position + new Vector3(randomX, 9, 0), Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(7f,17f));
         }
     }
 

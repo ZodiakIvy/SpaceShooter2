@@ -8,6 +8,8 @@ TagManager:
   - Laser
   - Tripleshot
   - 3Shot
+  - Speed
+  - Shield
   layers:
   - Default
   - TransparentFX
