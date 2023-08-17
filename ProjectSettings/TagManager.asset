@@ -10,6 +10,7 @@ TagManager:
   - 3Shot
   - Speed
   - Shield
+  - ShieldBubble
   layers:
   - Default
   - TransparentFX

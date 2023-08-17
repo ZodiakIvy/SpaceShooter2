@@ -20,12 +20,12 @@ public class PlayerBehaviour : MonoBehaviour
     private bool _tripleshotActive;
     [SerializeField]
     private int _lives = 3;
+    private int _maxHealth = 100;
+    public int currentHealth = Mathf.Clamp(100, 0, 100);
+    private int _maxShield = 50;
+    public int currentShield = Mathf.Clamp(0, 0, 50);
     [SerializeField]
-    private float _maxHealth = 100f;
-    public float currentHealth = Mathf.Clamp(100f, 0f, 100f);
-    [SerializeField]
-    private float _maxShield = 100f;
-    public float currentShield = Mathf.Clamp(100f, 0f, 100f);
+    private GameObject _shieldBubble;
     [SerializeField]
     private bool _shieldActive;
     private SpawnManager _spawnManager;
@@ -110,6 +110,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void ShieldActive() 
     {
         _shieldActive = true;
+        gameObject.transform.GetChild(0).gameObject.SetActive(true);
         if (_shieldActive == true)
         {
             currentShield = _maxShield;
@@ -118,12 +119,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Damage()
     {
-        currentShield = currentShield - 25f;
-
-        if (currentShield < 1)
+        if (_shieldActive == true)
         {
             _shieldActive = false;
-            currentHealth = currentHealth - 25;
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            currentShield = currentShield - 50;
+            return;
+        }
+
+
+        if (_shieldActive == false)
+        {
+            currentHealth = currentHealth - 50;
         }
 
         if (currentHealth == 0)
