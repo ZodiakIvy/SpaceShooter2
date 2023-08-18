@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -144,5 +145,11 @@ public class PlayerBehaviour : MonoBehaviour
             Destroy(this.gameObject);
             _spawnManager.OnPlayerDeath();
         }
+    }
+
+    //Method to add 10 to the score
+   public void Score()
+    {
+        other.transform.GetComponent<UIManager>().Enemy1Hit();
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class Enemy1Behaviour : MonoBehaviour
 {
@@ -40,8 +42,10 @@ public class Enemy1Behaviour : MonoBehaviour
         Debug.Log("Hit: " + other.transform.name);
         if (other.tag == "Laser")
         {
-            Destroy(other.gameObject); 
+            Destroy(other.gameObject);
+            other.transform.GetComponent<PlayerBehaviour>().Score();
             Destroy(this.gameObject);
+            
         }
 
         if (other.tag == "Player")
