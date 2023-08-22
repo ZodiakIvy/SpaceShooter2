@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -21,8 +22,6 @@ public class PlayerBehaviour : MonoBehaviour
     private bool _tripleshotActive;
     [SerializeField]
     private int _lives = 3;
-    private int _maxHealth = 100;
-    public int currentHealth = Mathf.Clamp(100, 0, 100);
     private int _maxShield = 50;
     public int currentShield = Mathf.Clamp(0, 0, 50);
     [SerializeField]
@@ -30,16 +29,28 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private bool _shieldActive;
     private SpawnManager _spawnManager;
+    [SerializeField]
+    private int _score;
+    private UIManager _uiManager;
+    private GameManager _gameManager;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
 
         if (_spawnManager == null )
         {
             Debug.LogError("The Spawn Manager is NULL.");
+        }
+
+        if (_uiManager == null )
+        {
+            Debug.LogError("The UI Manager is null.");
         }
     }
 
@@ -131,25 +142,30 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (_shieldActive == false)
         {
-            currentHealth = currentHealth - 50;
+            _lives--;
+            _uiManager.UpdateLives(_lives);
         }
 
-        if (currentHealth == 0)
-        {
-            _lives--; 
-            currentHealth = _maxHealth;
-        }
-
-        if (_lives < 1)
+        if(_lives < 1)
         {
             Destroy(this.gameObject);
+            GameOverSequence();
             _spawnManager.OnPlayerDeath();
         }
     }
 
-    //Method to add 10 to the score
-   public void Score()
+    void GameOverSequence()
     {
-        other.transform.GetComponent<UIManager>().Enemy1Hit();
+        _gameManager.GameOver();
+        _uiManager.transform.GetChild(2).gameObject.SetActive(true);
+        _uiManager.transform.GetChild(3).gameObject.SetActive(true);
     }
-}
+    public void Score()
+    {
+        _score += 10;
+        _uiManager.Enemy1Hit(_score);
+
+    }
+
+
+    }

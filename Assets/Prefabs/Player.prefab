@@ -97,16 +97,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _speedActive: 0
   _laser: {fileID: 3682781163553607249, guid: cb24fb92d4bf40d4588a4192fe100f33, type: 3}
   _fireRate: 0.25
   _tripleshot: {fileID: 701587167046306578, guid: e23d612ed27a286499faba9dd8df9f2b,
     type: 3}
   _tripleshotActive: 0
   _lives: 3
-  _maxHealth: 100
   currentHealth: 100
-  _maxShield: 100
   currentShield: 100
+  _shieldBubble: {fileID: 4881350935845249554, guid: f1a32a6f8ebc11b45ab19a029d0cc55d,
+    type: 3}
+  _shieldActive: 0
 --- !u!50 &32454397564595667
 Rigidbody2D:
   serializedVersion: 4

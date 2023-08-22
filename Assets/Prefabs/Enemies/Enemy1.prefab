@@ -95,10 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cc05e29fd37564a899b9493153f652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Enemy1: {fileID: 3069132567701881082}
-  _Laser: {fileID: 3682781163553607249, guid: cb24fb92d4bf40d4588a4192fe100f33, type: 3}
-  _Player: {fileID: 7188756234579100703, guid: a3a1e06eb45961c47bf7d7e2c554554e, type: 3}
-  _MoveSpeed: 4
+  _enemy1: {fileID: 3069132567701881082}
+  _laser: {fileID: 3682781163553607249, guid: cb24fb92d4bf40d4588a4192fe100f33, type: 3}
+  _player: {fileID: 7188756234579100703, guid: a3a1e06eb45961c47bf7d7e2c554554e, type: 3}
+  _moveSpeed: 4
 --- !u!61 &4651477261684524602
 BoxCollider2D:
   m_ObjectHideFlags: 0
