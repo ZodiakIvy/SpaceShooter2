@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1278536443234350850}
   - component: {fileID: 7465546543284484410}
   - component: {fileID: 4651477261684524602}
+  - component: {fileID: 9155406040769570454}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy1
@@ -97,7 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemy1: {fileID: 3069132567701881082}
   _laser: {fileID: 3682781163553607249, guid: cb24fb92d4bf40d4588a4192fe100f33, type: 3}
-  _player: {fileID: 7188756234579100703, guid: a3a1e06eb45961c47bf7d7e2c554554e, type: 3}
   _moveSpeed: 4
 --- !u!61 &4651477261684524602
 BoxCollider2D:
@@ -125,3 +125,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2698319, y: 1.8245187}
   m_EdgeRadius: 0
+--- !u!95 &9155406040769570454
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069132567701881082}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f72e69af22e54b346a3f56e7f5446ac4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
