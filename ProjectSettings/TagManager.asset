@@ -11,6 +11,7 @@ TagManager:
   - Speed
   - Shield
   - ShieldBubble
+  - Asteroid
   layers:
   - Default
   - TransparentFX
