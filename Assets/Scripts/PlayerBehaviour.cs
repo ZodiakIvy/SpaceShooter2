@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 5;
-    [SerializeField]
     private bool _speedActive;
     [SerializeField]
     private GameObject _laser;
@@ -18,19 +18,17 @@ public class PlayerBehaviour : MonoBehaviour
     private float _canFire = 0.0f;
     [SerializeField]
     private GameObject _tripleshot;
-    [SerializeField]
     private bool _tripleshotActive;
     [SerializeField]
     private int _lives = 3;
     private int _maxShield = 50;
     public int currentShield = Mathf.Clamp(0, 0, 50);
-    [SerializeField]
-    private GameObject _shieldBubble;
-    [SerializeField]
     private bool _shieldActive;
     private SpawnManager _spawnManager;
     [SerializeField]
     private int _score;
+    [SerializeField]
+    private GameObject[] _damage;
     private UIManager _uiManager;
     private GameManager _gameManager;
     
@@ -129,6 +127,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    
+
     public void Damage()
     {
         if (_shieldActive == true)
@@ -144,6 +144,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             _lives--;
             _uiManager.UpdateLives(_lives);
+            int randomDamage = Random.Range(2, 5);
+            gameObject.transform.GetChild(randomDamage).gameObject.SetActive(true);
         }
 
         if(_lives < 1)

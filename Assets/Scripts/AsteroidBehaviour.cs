@@ -60,6 +60,7 @@ public class AsteroidBehaviour : MonoBehaviour
             _moveSpeed = 0;
             GameObject newAsteroid = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(newAsteroid, 2.4f);
+            _spawnManager.StartSpawning();
             Destroy(this.gameObject);
            
         }
@@ -71,6 +72,7 @@ public class AsteroidBehaviour : MonoBehaviour
             _moveSpeed = 0;
             GameObject newAsteroid = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(newAsteroid, 2.4f);
+            _spawnManager.StartSpawning();
             Destroy(this.gameObject);
         }
 
