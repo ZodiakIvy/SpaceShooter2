@@ -10,8 +10,12 @@ public class AsteroidBehaviour : MonoBehaviour
     private float _rotateSpeed = 19f;
     [SerializeField]
     private float _moveSpeed = .5f;
+    [SerializeField]
+    private GameObject _explosionPrefab;
     private Animator _anim;
     private  PlayerBehaviour _player;
+    private SpawnManager _spawnManager;
+    
 
 
     // Start is called before the first frame update
@@ -26,6 +30,11 @@ public class AsteroidBehaviour : MonoBehaviour
         if (_anim == null)
         {
             Debug.LogError("The Animator is NULL");
+        }
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (_spawnManager == null)
+        {
+            Debug.LogError("The Spawn Manager is NULL");
         }
     }
 
@@ -46,22 +55,23 @@ public class AsteroidBehaviour : MonoBehaviour
         Debug.Log("Hit: " + other.transform.name);
         if (other.tag == "Laser")
         {
+            
             Destroy(other.gameObject);
-
-            _anim.SetTrigger("OnEnemyDeath");
             _moveSpeed = 0;
-
-            Destroy(this.gameObject, 2.4f);
-
+            GameObject newAsteroid = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(newAsteroid, 2.4f);
+            Destroy(this.gameObject);
+           
         }
 
         if (other.tag == "Player")
         {
             PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();
             other.transform.GetComponent<PlayerBehaviour>().Damage();
-            _anim.SetTrigger("OnEnemyDeath");
             _moveSpeed = 0;
-            Destroy(this.gameObject, 2.4f);
+            GameObject newAsteroid = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(newAsteroid, 2.4f);
+            Destroy(this.gameObject);
         }
 
 
