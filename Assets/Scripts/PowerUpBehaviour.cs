@@ -8,14 +8,6 @@ public class PowerUpBehaviour : MonoBehaviour
 {
     [SerializeField]
     private float _moveSpeed = 3;
-
-    [SerializeField]
-    private GameObject _tripleshotPrefab;
-    [SerializeField]
-    private GameObject _speedPrefab;
-    [SerializeField]
-    private GameObject _shieldPrefab;
-    [SerializeField]
     private int _powerupID;
     // Start is called before the first frame update
     void Start()
