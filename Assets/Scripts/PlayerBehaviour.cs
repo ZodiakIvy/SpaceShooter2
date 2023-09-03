@@ -26,12 +26,17 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject _leftEngine, _rightEngine;
     [SerializeField]
+    private GameObject _shieldBubble;
+    [SerializeField]
     private bool _shieldActive;
     private SpawnManager _spawnManager;
     [SerializeField]
     private int _score;
     private UIManager _uiManager;
     private GameManager _gameManager;
+    [SerializeField]
+    private AudioClip _laserSound;
+    private AudioSource _audioSource;
     
 
     // Start is called before the first frame update
@@ -41,6 +46,7 @@ public class PlayerBehaviour : MonoBehaviour
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _audioSource = GetComponent<AudioSource>();
 
         if (_spawnManager == null )
         {
@@ -50,6 +56,15 @@ public class PlayerBehaviour : MonoBehaviour
         if (_uiManager == null )
         {
             Debug.LogError("The UI Manager is null.");
+        }
+
+        if (_audioSource == null ) 
+        { 
+            Debug.LogError("Audio Source on the Player is NULL"); 
+        }
+        else
+        {
+            _audioSource.clip = _laserSound;
         }
     }
 
@@ -96,12 +111,19 @@ public class PlayerBehaviour : MonoBehaviour
     void FireLaser()
     {
         _canFire = Time.time + _fireRate;
-        
+
         if (_tripleshotActive == true)
         {
             Instantiate(_tripleshot, transform.position + new Vector3(-.16f, 0, 0), Quaternion.identity);
         }
-        else Instantiate(_laser, transform.position + new Vector3(0, .75f, 0), Quaternion.identity);
+        else
+        {
+            Instantiate(_laser, transform.position + new Vector3(0, .75f, 0), Quaternion.identity);
+        }
+        
+        _audioSource.Play();
+
+
     }
 
     public void TripleShotActive()
@@ -129,7 +151,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void ShieldActive() 
     {
         _shieldActive = true;
-        gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        _shieldBubble.SetActive(true);
     }
 
     
@@ -139,7 +161,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (_shieldActive == true)
         {
             _shieldActive = false;
-            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            _shieldBubble.SetActive(false);
             return;
         }
 

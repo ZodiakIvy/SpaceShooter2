@@ -132,9 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
-  _tripleshotPrefab: {fileID: 6495722717953212760, guid: 6014344027bb20b4ebd165d6ed8355d4,
-    type: 3}
-  _speedPrefab: {fileID: 4330129998581949817, guid: 3d7828b320f567746aab9d24e4492555,
-    type: 3}
-  _shieldPrefab: {fileID: 4384872693715077767}
-  _powerupID: 2
+  _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}

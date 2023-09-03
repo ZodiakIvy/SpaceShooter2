@@ -113,12 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
-  _tripleshotPrefab: {fileID: 6495722717953212760}
-  _speedPrefab: {fileID: 4330129998581949817, guid: 3d7828b320f567746aab9d24e4492555,
-    type: 3}
-  _shieldPrefab: {fileID: 4384872693715077767, guid: a7b1a205fba64504eb6ae5b764e2e178,
-    type: 3}
-  _powerupID: 0
+  _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
 --- !u!95 &7746164547153826560
 Animator:
   serializedVersion: 3

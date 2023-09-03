@@ -137,7 +137,9 @@ MonoBehaviour:
   _asteroid: {fileID: 6993094936646664035}
   _rotateSpeed: 19
   _moveSpeed: 0.5
-  _player: {fileID: 7188756234579100703, guid: a3a1e06eb45961c47bf7d7e2c554554e, type: 3}
+  _explosionPrefab: {fileID: 4453301767212026358, guid: 13f3429e26cc3fd40869d8627ce669eb,
+    type: 3}
+  _explosion_sound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
 --- !u!95 &431104936
 Animator:
   serializedVersion: 3
