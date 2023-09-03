@@ -702,6 +702,10 @@
       <Project>{45C83220-FB38-32B2-DCF8-BCA0B7307E87}</Project>
       <Name>PsdPlugin</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
+      <Project>{E02AD144-8149-3180-E3B0-37E02FC07AF7}</Project>
+      <Name>Unity.Postprocessing.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Rider.Editor.csproj">
       <Project>{AE05CCAE-8086-F860-FA29-864EB941DB35}</Project>
       <Name>Unity.Rider.Editor</Name>
@@ -725,6 +729,10 @@
     <ProjectReference Include="Unity.2D.Common.Runtime.csproj">
       <Project>{0CBFBBF6-6222-72E8-7F49-9EC0615E3FF0}</Project>
       <Name>Unity.2D.Common.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
+      <Project>{CF9C7FA1-71A1-AEA1-C38B-D7DC73DFD036}</Project>
+      <Name>Unity.Postprocessing.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
       <Project>{860B7D0C-987E-F1E0-A99B-AFFDF260E16D}</Project>
@@ -769,14 +777,6 @@
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{76C42FC1-15E1-77B2-8781-A9D496EE6C7D}</Project>
       <Name>UnityEditor.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
-      <Project>{E02AD144-8149-3180-E3B0-37E02FC07AF7}</Project>
-      <Name>Unity.Postprocessing.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
-      <Project>{CF9C7FA1-71A1-AEA1-C38B-D7DC73DFD036}</Project>
-      <Name>Unity.Postprocessing.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -20,12 +20,12 @@ public class Enemy1Behaviour : MonoBehaviour
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
-        if (_player == null ) 
+        if (_player == null) 
         { 
             Debug.LogError("Player is NULL"); 
         }
         _anim = GetComponent<Animator>();
-        if (_anim == null )
+        if (_anim == null)
         {
             Debug.LogError("The Animator is NULL");
         }
@@ -49,13 +49,13 @@ public class Enemy1Behaviour : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Hit: " + other.transform.name);
-        if (other.tag == "Laser")
+        if (other.CompareTag ("Laser"))
         {
             Destroy(other.gameObject);
             
             if (_player != null)
             {
-                _player.Score();
+               _player.Score();
             }
 
             _anim.SetTrigger("OnEnemyDeath");
@@ -65,10 +65,10 @@ public class Enemy1Behaviour : MonoBehaviour
             
         }
 
-        if (other.tag == "Player")
+        if (other.CompareTag ("Player"))
         {
             PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();
-            other.transform.GetComponent<PlayerBehaviour>().Damage();
+            player.Damage();
             _anim.SetTrigger("OnEnemyDeath");
             _moveSpeed = 0;
             Destroy(this.gameObject, 2.4f);

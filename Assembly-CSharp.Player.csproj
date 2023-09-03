@@ -332,6 +332,9 @@
     <Reference Include="PsdPlugin">
       <HintPath>Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
@@ -364,9 +367,6 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2019.4.40f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
@@ -739,6 +739,10 @@
       <Project>{6FBC4CDD-7C54-1706-5627-D5E4B9B5D16D}</Project>
       <Name>Unity.2D.Common.Runtime.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Runtime.Player.csproj">
+      <Project>{DC077B66-9EE5-8F27-531F-54826FECFCC5}</Project>
+      <Name>Unity.Postprocessing.Runtime.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.SpriteShape.Runtime.Player.csproj">
       <Project>{A3D76A3E-CB2A-E038-5D10-C5363DC1B634}</Project>
       <Name>Unity.2D.SpriteShape.Runtime.Player</Name>
@@ -750,10 +754,6 @@
     <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
       <Project>{05A0D7FC-61DE-5382-1BBD-2B979141D938}</Project>
       <Name>Unity.TextMeshPro.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Runtime.Player.csproj">
-      <Project>{DC077B66-9EE5-8F27-531F-54826FECFCC5}</Project>
-      <Name>Unity.Postprocessing.Runtime.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

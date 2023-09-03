@@ -10,6 +10,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 5;
+    [SerializeField]
     private bool _speedActive;
     [SerializeField]
     private GameObject _laser;
@@ -18,17 +19,17 @@ public class PlayerBehaviour : MonoBehaviour
     private float _canFire = 0.0f;
     [SerializeField]
     private GameObject _tripleshot;
+    [SerializeField]
     private bool _tripleshotActive;
     [SerializeField]
     private int _lives = 3;
-    private int _maxShield = 50;
-    public int currentShield = Mathf.Clamp(0, 0, 50);
+    [SerializeField]
+    private GameObject _leftEngine, _rightEngine;
+    [SerializeField]
     private bool _shieldActive;
     private SpawnManager _spawnManager;
     [SerializeField]
     private int _score;
-    [SerializeField]
-    private GameObject[] _damage;
     private UIManager _uiManager;
     private GameManager _gameManager;
     
@@ -67,6 +68,16 @@ public class PlayerBehaviour : MonoBehaviour
     {
         float _horizontalInput = Input.GetAxis("Horizontal");
         float _verticalInput = Input.GetAxis("Vertical");
+
+        if (_speedActive == true)
+        {
+            _speed = 10;
+        }
+        else if (_speedActive == false) 
+        { 
+            _speed = 5; 
+        }
+
         transform.Translate(new Vector3(1, 0, 0) * _horizontalInput * _speed * Time.deltaTime);
         transform.Translate(new Vector3(0, 1, 0) * _verticalInput * _speed * Time.deltaTime);
 
@@ -80,10 +91,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4.5f, 3f), 0);
-        if (_speedActive == false)
-        { _speed = 5; }
-        else if (_speedActive == true) 
-        { _speed = 10; }
     }
 
     void FireLaser()
@@ -100,31 +107,29 @@ public class PlayerBehaviour : MonoBehaviour
     public void TripleShotActive()
     {
         _tripleshotActive = true;
-        StartCoroutine(PowerDown());
+        StartCoroutine(PowerDown0());
     }
 
     public void SpeedActive()
     {
         _speedActive = true;
-        StartCoroutine(PowerDown());
+        StartCoroutine(PowerDown1());
     }
-    IEnumerator PowerDown()
+    IEnumerator PowerDown0()
     {
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSeconds(5f);
         _tripleshotActive = false;
-        yield return new WaitForSecondsRealtime(5f);
+    }
+    IEnumerator PowerDown1() 
+    { 
+        yield return new WaitForSeconds(5f);
         _speedActive = false;
-
     }
 
     public void ShieldActive() 
     {
         _shieldActive = true;
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        if (_shieldActive == true)
-        {
-            currentShield = _maxShield;
-        }
     }
 
     
@@ -135,7 +140,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             _shieldActive = false;
             gameObject.transform.GetChild(0).gameObject.SetActive(false);
-            currentShield = currentShield - 50;
             return;
         }
 
@@ -144,8 +148,16 @@ public class PlayerBehaviour : MonoBehaviour
         {
             _lives--;
             _uiManager.UpdateLives(_lives);
-            int randomDamage = Random.Range(2, 5);
-            gameObject.transform.GetChild(randomDamage).gameObject.SetActive(true);
+            if (_lives == 2)
+            {
+                _leftEngine.SetActive(true);
+            }
+            else if (_lives == 1)
+            {
+                _rightEngine.SetActive(true);
+            }
+            //int randomDamage = Random.Range(2, 5);
+            //gameObject.transform.GetChild(randomDamage).gameObject.SetActive(true);
         }
 
         if(_lives < 1)

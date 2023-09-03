@@ -104,11 +104,10 @@ MonoBehaviour:
     type: 3}
   _tripleshotActive: 0
   _lives: 3
-  currentHealth: 100
-  currentShield: 100
-  _shieldBubble: {fileID: 4881350935845249554, guid: f1a32a6f8ebc11b45ab19a029d0cc55d,
-    type: 3}
+  _leftEngine: {fileID: 0}
+  _rightEngine: {fileID: 0}
   _shieldActive: 0
+  _score: 0
 --- !u!50 &32454397564595667
 Rigidbody2D:
   serializedVersion: 4
@@ -140,7 +139,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0000028014183, y: -0.7146487}
