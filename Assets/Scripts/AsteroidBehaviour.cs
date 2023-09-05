@@ -15,9 +15,6 @@ public class AsteroidBehaviour : MonoBehaviour
     private Animator _anim;
     private  PlayerBehaviour _player;
     private SpawnManager _spawnManager;
-    private AudioSource _audioSource;
-    [SerializeField]
-    private AudioClip _explosion_sound;
     
 
 
@@ -42,16 +39,6 @@ public class AsteroidBehaviour : MonoBehaviour
             Debug.LogError("The Spawn Manager is NULL");
         }
 
-        _audioSource = GetComponent<AudioSource>();
-        if (_audioSource == null)
-        {
-            Debug.LogError("Audio Source on the Asteroid is NULL");
-        }
-        else
-        {
-            _audioSource.clip = _explosion_sound;
-        }
-
     }
 
     // Update is called once per frame
@@ -74,7 +61,6 @@ public class AsteroidBehaviour : MonoBehaviour
             
             Destroy(other.gameObject);
             _moveSpeed = 0;
-            _audioSource.Play();
             GameObject newAsteroid = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(newAsteroid, 2.4f);
             _spawnManager.StartSpawning();
@@ -87,7 +73,6 @@ public class AsteroidBehaviour : MonoBehaviour
             PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();
             player.Damage();
             _moveSpeed = 0;
-            _audioSource.Play();
             GameObject newAsteroid = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(newAsteroid, 2.4f);
             _spawnManager.StartSpawning();

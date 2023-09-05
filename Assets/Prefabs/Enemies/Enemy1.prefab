@@ -99,8 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemy1: {fileID: 3069132567701881082}
   _laser: {fileID: 3682781163553607249, guid: cb24fb92d4bf40d4588a4192fe100f33, type: 3}
+  _enemy1AttackPrefab: {fileID: 9017377484880139328, guid: 8bc9ff30ca49b184c8756c3b91a1c5c0,
+    type: 3}
+  _attackMoveSpeed: 5
   _moveSpeed: 4
   _explosion_sound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
 --- !u!61 &4651477261684524602
 BoxCollider2D:
   m_ObjectHideFlags: 0
