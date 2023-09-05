@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 
 public class PowerUpBehaviour : MonoBehaviour
 {
@@ -9,15 +6,9 @@ public class PowerUpBehaviour : MonoBehaviour
     private float _moveSpeed = 3;
     [SerializeField]
     private int _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield
-    private AudioSource _audioSource;
     [SerializeField]
     private AudioClip _clip;
-    // Start is called before the first frame update
-    void Start()
-    {
-     
-    }
-
+  
     // Update is called once per frame
     void Update()
     {

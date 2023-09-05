@@ -1,16 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 
 
 public class Enemy1Behaviour : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _enemy1;
-    [SerializeField]
-    private GameObject _laser;
     [SerializeField]
     private GameObject _enemy1AttackPrefab;
     private float _fireRate = 3f;

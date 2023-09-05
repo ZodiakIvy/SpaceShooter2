@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AsteroidBehaviour : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _asteroid;
     [SerializeField]
     private float _rotateSpeed = 19f;
     [SerializeField]
