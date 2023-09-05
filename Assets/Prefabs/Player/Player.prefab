@@ -104,10 +104,15 @@ MonoBehaviour:
     type: 3}
   _tripleshotActive: 0
   _lives: 3
-  _leftEngine: {fileID: 0}
-  _rightEngine: {fileID: 0}
+  _leftEngine: {fileID: 1701322873591658428, guid: 41713eb32380e9843b009fad5d75cedd,
+    type: 3}
+  _rightEngine: {fileID: 3047954991630991211, guid: 5434edcf42ee84542accdd38848cc3ac,
+    type: 3}
+  _shieldBubble: {fileID: 4881350935845249554, guid: f1a32a6f8ebc11b45ab19a029d0cc55d,
+    type: 3}
   _shieldActive: 0
   _score: 0
+  _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
 --- !u!50 &32454397564595667
 Rigidbody2D:
   serializedVersion: 4
