@@ -12,6 +12,10 @@ public class Enemy1Behaviour : MonoBehaviour
     [SerializeField]
     private GameObject _laser;
     [SerializeField]
+    private GameObject _enemy1AttackPrefab;
+    private float _fireRate = 3f;
+    private float _canFire = -1f;
+    [SerializeField]
     private float _moveSpeed = 4;
     private Animator _anim;
     private PlayerBehaviour _player;
@@ -44,12 +48,27 @@ public class Enemy1Behaviour : MonoBehaviour
             _audioSource.clip = _explosion_sound;
         }
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Enemy1Movement();    
+        Enemy1Movement(); 
+        
+        if (Time.deltaTime > _canFire)
+        {
+            _fireRate = Random.Range(3f, 7f);
+            _canFire = Time.deltaTime + _fireRate;
+        }
+        GameObject newEnemy1Attack =  Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -.75f, 0), Quaternion.identity);
+        LaserBehaviour[] lasers = newEnemy1Attack.GetComponentsInChildren<LaserBehaviour>();
+
+        for (int i = 0; i < lasers.Length; i++)
+        {
+            lasers[i].AssignEnemyLaser();
+        }
+
     }
 
     void Enemy1Movement()
