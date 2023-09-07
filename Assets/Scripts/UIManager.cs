@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,8 +9,6 @@ public class UIManager : MonoBehaviour
     private TMP_Text _scoreText;
     [SerializeField]
     private int _score;
-    [SerializeField]
-    private int _lives;
     [SerializeField]
     private Image _livesDisplayImg;
     [SerializeField]
@@ -30,12 +26,6 @@ public class UIManager : MonoBehaviour
         _gameOverText.gameObject.SetActive(false);
         StartCoroutine(GameOverFlickerRoutine());
         _restartText.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator GameOverFlickerRoutine()

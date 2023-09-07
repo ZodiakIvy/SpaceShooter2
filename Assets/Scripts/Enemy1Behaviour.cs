@@ -1,16 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 
 
 public class Enemy1Behaviour : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _enemy1;
-    [SerializeField]
-    private GameObject _laser;
     [SerializeField]
     private GameObject _enemy1AttackPrefab;
     private float _fireRate = 3f;
@@ -54,19 +46,23 @@ public class Enemy1Behaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Enemy1Movement(); 
-        
-        if (Time.deltaTime > _canFire)
+        Enemy1Movement();
+
+        if (Time.time > _canFire)
         {
             _fireRate = Random.Range(3f, 7f);
-            _canFire = Time.deltaTime + _fireRate;
-        }
-        GameObject newEnemy1Attack =  Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -.75f, 0), Quaternion.identity);
-        LaserBehaviour[] lasers = newEnemy1Attack.GetComponentsInChildren<LaserBehaviour>();
+            _canFire = Time.time + _fireRate;
 
-        for (int i = 0; i < lasers.Length; i++)
-        {
-            lasers[i].AssignEnemyLaser();
+            GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -.75f, 0), Quaternion.identity);
+
+            LaserBehaviour[] lasers = newEnemy1Attack.GetComponentsInChildren<LaserBehaviour>();
+
+
+            for (int i = 0; i < lasers.Length; i++)
+            {
+                lasers[i].AssignEnemyLaser();
+            }
+
         }
 
     }
