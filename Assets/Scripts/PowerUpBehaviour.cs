@@ -6,7 +6,10 @@ public class PowerUpBehaviour : MonoBehaviour
     private float _moveSpeed = 3;
     [SerializeField]
     private int _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield
+<<<<<<< HEAD
     private AudioSource _audioSource;
+=======
+>>>>>>> bc922f14701ad25fc66295d5799fea60dc902124
     [SerializeField]
     private AudioClip _clip;
   
