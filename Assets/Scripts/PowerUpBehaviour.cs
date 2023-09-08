@@ -7,7 +7,10 @@ public class PowerUpBehaviour : MonoBehaviour
     [SerializeField]
     private int _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield
 <<<<<<< HEAD
+<<<<<<< HEAD
     private AudioSource _audioSource;
+=======
+>>>>>>> bc922f14701ad25fc66295d5799fea60dc902124
 =======
 >>>>>>> bc922f14701ad25fc66295d5799fea60dc902124
     [SerializeField]
