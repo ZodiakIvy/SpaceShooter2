@@ -62,13 +62,6 @@ public class Enemy1Behaviour : MonoBehaviour
             {
                 lasers[i].AssignEnemyLaser();
             }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> bc922f14701ad25fc66295d5799fea60dc902124
-=======
->>>>>>> bc922f14701ad25fc66295d5799fea60dc902124
         }
 
     }

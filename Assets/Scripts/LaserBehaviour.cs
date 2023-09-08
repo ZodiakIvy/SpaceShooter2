@@ -5,18 +5,9 @@ public class LaserBehaviour : MonoBehaviour
     [SerializeField]
     private float _laserSpeed = 8f;
     [SerializeField]
-<<<<<<< HEAD
-<<<<<<< HEAD
     private GameObject _laser;
     [SerializeField]
     private bool _enemy1Attack = false;
-   
-=======
-    private bool _enemy1Attack = false;
->>>>>>> bc922f14701ad25fc66295d5799fea60dc902124
-=======
-    private bool _enemy1Attack = false;
->>>>>>> bc922f14701ad25fc66295d5799fea60dc902124
 
     // Update is called once per frame
     void Update()
