@@ -4,7 +4,9 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 5;
+    private float _speed;
+    [SerializeField]
+    private float _speedMultiplier = 2;
     [SerializeField]
     private bool _speedActive;
     [SerializeField]
@@ -81,15 +83,16 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (_speedActive == true)
         {
-            _speed = 10;
+            transform.Translate(new Vector3(1, 0, 0) * _horizontalInput * (_speed * _speedMultiplier) * Time.deltaTime);
+            transform.Translate(new Vector3(0, 1, 0) * _verticalInput * (_speed * _speedMultiplier) * Time.deltaTime);
         }
         else if (_speedActive == false) 
-        { 
-            _speed = 5; 
+        {
+            transform.Translate(new Vector3(1, 0, 0) * _horizontalInput * _speed * Time.deltaTime);
+            transform.Translate(new Vector3(0, 1, 0) * _verticalInput * _speed * Time.deltaTime);
         }
 
-        transform.Translate(new Vector3(1, 0, 0) * _horizontalInput * _speed * Time.deltaTime);
-        transform.Translate(new Vector3(0, 1, 0) * _verticalInput * _speed * Time.deltaTime);
+        
 
         if (transform.position.x >= 9.15f)
         {
