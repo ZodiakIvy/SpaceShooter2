@@ -73,13 +73,24 @@ public class PlayerBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
-        }
+        }    
 
     }
-    void PlayerMovement ()
+    void PlayerMovement()
     {
         float _horizontalInput = Input.GetAxis("Horizontal");
         float _verticalInput = Input.GetAxis("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _speed = _speed + 3f;
+        }
+        
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+           _speed = _speed - 3f;
+        }
+      
 
         if (_speedActive == true)
         {
