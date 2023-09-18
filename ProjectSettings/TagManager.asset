@@ -13,6 +13,9 @@ TagManager:
   - ShieldBubble
   - Asteroid
   - Explosion
+  - ShieldBubble2
+  - ShieldBubble1
+  - ShieldBubble3
   layers:
   - Default
   - TransparentFX

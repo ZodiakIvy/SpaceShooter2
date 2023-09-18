@@ -23,7 +23,11 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject _leftEngine, _rightEngine;
     [SerializeField]
-    private GameObject _shieldBubble;
+    private GameObject _shieldBubble3;
+    [SerializeField] 
+    private GameObject _shieldBubble2;
+    [SerializeField] 
+    private GameObject _shieldBubble1;
     [SerializeField]
     private bool _shieldActive;
     private SpawnManager _spawnManager;
@@ -160,19 +164,17 @@ public class PlayerBehaviour : MonoBehaviour
     public void ShieldActive() 
     {
         _shieldActive = true;
-        _shieldBubble.SetActive(true);
+        _shieldBubble3.SetActive(true);
     }
 
-    
+
 
     public void Damage()
     {
-        if (_shieldActive == true)
-        {
-            _shieldActive = false;
-            _shieldBubble.SetActive(false);
-            return;
-        }
+    
+    
+
+
 
 
         if (_shieldActive == false)
