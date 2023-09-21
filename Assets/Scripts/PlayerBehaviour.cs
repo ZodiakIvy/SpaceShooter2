@@ -10,7 +10,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private bool _speedActive;
     [SerializeField]
-    private int _ammo = 15;
+    private float _ammo = 15;
     [SerializeField]
     private GameObject _laser;
     [SerializeField]
@@ -84,7 +84,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             FireLaser();
             _ammo--;
-            _uiManager.ShotsFired(_ammo--);
+            _uiManager.ShotsFired(_ammo);
+            if (_ammo <= 0)
+            {
+                _ammo = 0;
+                _audioSource.clip = _noShot;
+                _audioSource.Play();
+            }
         }
 
     }
@@ -146,12 +152,6 @@ public class PlayerBehaviour : MonoBehaviour
 
             _audioSource.Play();
         }
-        else 
-        {
-            _audioSource.clip = _noShot;
-            _audioSource.Play();
-        }
-
 
     }
 
@@ -184,7 +184,10 @@ public class PlayerBehaviour : MonoBehaviour
         _shieldBubble3.SetActive(true);
     }
 
-
+    public void MoreBullets()
+    {
+        _ammo += 15;
+    }
 
     public void Damage()
     {

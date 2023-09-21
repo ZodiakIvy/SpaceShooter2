@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TMP_Text _ammoCount;
     [SerializeField]
-    private int _ammo = 15;
+    private float _ammo = Mathf.Clamp(15, 0, float.PositiveInfinity);
     [SerializeField]
     private Image _livesDisplayImg;
     [SerializeField]
@@ -53,13 +53,17 @@ public class UIManager : MonoBehaviour
        _scoreText.text = "Score: " + _score.ToString();
     }
 
-    public void ShotsFired(int _ammo)
+    public void ShotsFired(float _ammo)
     {
         _ammoCount.text = "Bullets: " + _ammo.ToString();
 
         if (_ammo <= 0) 
         {
             _ammoCount.text = "I Need More Bullets!";
+        }
+        else if (_ammo > 0)
+        {
+            _ammoCount.text = "Bullets: " + _ammo.ToString();
         }
     }
 }
