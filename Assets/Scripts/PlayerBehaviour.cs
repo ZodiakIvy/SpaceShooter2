@@ -10,6 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private bool _speedActive;
     [SerializeField]
+    private int _ammo = 15;
+    [SerializeField]
     private GameObject _laser;
     [SerializeField]
     private float _fireRate = .25f;
@@ -24,12 +26,14 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject _leftEngine, _rightEngine;
     [SerializeField]
     private GameObject _shieldBubble3;
-    [SerializeField] 
+    [SerializeField]
     private GameObject _shieldBubble2;
-    [SerializeField] 
+    [SerializeField]
     private GameObject _shieldBubble1;
     [SerializeField]
     private bool _shieldActive;
+    [SerializeField]
+    private int _shieldHealth;
     private SpawnManager _spawnManager;
     [SerializeField]
     private int _score;
@@ -37,8 +41,10 @@ public class PlayerBehaviour : MonoBehaviour
     private GameManager _gameManager;
     [SerializeField]
     private AudioClip _laserSound;
+    [SerializeField]
+    private AudioClip _noShot;
     private AudioSource _audioSource;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,19 +55,19 @@ public class PlayerBehaviour : MonoBehaviour
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _audioSource = GetComponent<AudioSource>();
 
-        if (_spawnManager == null )
+        if (_spawnManager == null)
         {
             Debug.LogError("The Spawn Manager is NULL.");
         }
 
-        if (_uiManager == null )
+        if (_uiManager == null)
         {
             Debug.LogError("The UI Manager is null.");
         }
 
-        if (_audioSource == null ) 
-        { 
-            Debug.LogError("Audio Source on the Player is NULL"); 
+        if (_audioSource == null)
+        {
+            Debug.LogError("Audio Source on the Player is NULL");
         }
         else
         {
@@ -77,7 +83,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
-        }    
+            _ammo--;
+            _uiManager.ShotsFired(_ammo--);
+        }
 
     }
     void PlayerMovement()
@@ -89,25 +97,25 @@ public class PlayerBehaviour : MonoBehaviour
         {
             _speed = _speed + 3f;
         }
-        
+
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-           _speed = _speed - 3f;
+            _speed = _speed - 3f;
         }
-      
+
 
         if (_speedActive == true)
         {
             transform.Translate(new Vector3(1, 0, 0) * _horizontalInput * (_speed * _speedMultiplier) * Time.deltaTime);
             transform.Translate(new Vector3(0, 1, 0) * _verticalInput * (_speed * _speedMultiplier) * Time.deltaTime);
         }
-        else if (_speedActive == false) 
+        else if (_speedActive == false)
         {
             transform.Translate(new Vector3(1, 0, 0) * _horizontalInput * _speed * Time.deltaTime);
             transform.Translate(new Vector3(0, 1, 0) * _verticalInput * _speed * Time.deltaTime);
         }
 
-        
+
 
         if (transform.position.x >= 9.15f)
         {
@@ -125,16 +133,24 @@ public class PlayerBehaviour : MonoBehaviour
     {
         _canFire = Time.time + _fireRate;
 
-        if (_tripleshotActive == true)
+        if (_ammo > 0)
         {
-            Instantiate(_tripleshot, transform.position + new Vector3(-.16f, 0, 0), Quaternion.identity);
+            if (_tripleshotActive == true)
+            {
+                Instantiate(_tripleshot, transform.position + new Vector3(-.16f, 0, 0), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_laser, transform.position + new Vector3(0, .75f, 0), Quaternion.identity);
+            }
+
+            _audioSource.Play();
         }
-        else
+        else 
         {
-            Instantiate(_laser, transform.position + new Vector3(0, .75f, 0), Quaternion.identity);
+            _audioSource.clip = _noShot;
+            _audioSource.Play();
         }
-        
-        _audioSource.Play();
 
 
     }
@@ -155,15 +171,16 @@ public class PlayerBehaviour : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _tripleshotActive = false;
     }
-    IEnumerator PowerDown1() 
-    { 
+    IEnumerator PowerDown1()
+    {
         yield return new WaitForSeconds(5f);
         _speedActive = false;
     }
 
-    public void ShieldActive() 
+    public void ShieldActive()
     {
         _shieldActive = true;
+        _shieldHealth = 3;
         _shieldBubble3.SetActive(true);
     }
 
@@ -171,8 +188,29 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Damage()
     {
-    
-    
+        //track the shields lives with a field variable 
+        if (_shieldActive == true)
+        {
+            _shieldHealth--;
+            switch (_shieldHealth)
+            {
+                case 2:
+                    _shieldBubble3.SetActive(false);
+                    _shieldBubble2.SetActive(true);
+                    break;
+                case 1:
+                    _shieldBubble2.SetActive(false);
+                    _shieldBubble1.SetActive(true);
+                    break;
+                case 0:
+                    _shieldBubble1.SetActive(false);
+                    _shieldActive = false;
+                    break;
+            }
+            return;
+        }
+
+
 
 
 
@@ -193,7 +231,7 @@ public class PlayerBehaviour : MonoBehaviour
             //gameObject.transform.GetChild(randomDamage).gameObject.SetActive(true);
         }
 
-        if(_lives < 1)
+        if (_lives < 1)
         {
             Destroy(this.gameObject);
             GameOverSequence();
@@ -215,4 +253,4 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
 
-    }
+}

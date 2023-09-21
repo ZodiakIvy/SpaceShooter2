@@ -10,6 +10,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private int _score;
     [SerializeField]
+    private TMP_Text _ammoCount;
+    [SerializeField]
+    private int _ammo = 15;
+    [SerializeField]
     private Image _livesDisplayImg;
     [SerializeField]
     private Sprite[] _livesSprites;
@@ -23,6 +27,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         _scoreText.text = "Score: " + _score;
+        _ammoCount.text = "Bullets: " + _ammo;
         _gameOverText.gameObject.SetActive(false);
         StartCoroutine(GameOverFlickerRoutine());
         _restartText.gameObject.SetActive(false);
@@ -46,5 +51,15 @@ public class UIManager : MonoBehaviour
     public void Enemy1Hit(int _score)
     {
        _scoreText.text = "Score: " + _score.ToString();
+    }
+
+    public void ShotsFired(int _ammo)
+    {
+        _ammoCount.text = "Bullets: " + _ammo.ToString();
+
+        if (_ammo <= 0) 
+        {
+            _ammoCount.text = "I Need More Bullets!";
+        }
     }
 }
