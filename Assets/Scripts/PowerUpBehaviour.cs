@@ -44,6 +44,9 @@ public class PowerUpBehaviour : MonoBehaviour
                     case 3:
                         player.MoreBullets();
                         break;
+                    case 4:
+                        player.HealthUp();
+                        break;
                     default:
                         Debug.Log("Default Value");
                         break;

@@ -242,6 +242,16 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    public void HealthUp()
+    {
+        _lives++;
+        _uiManager.UpdateLives(_lives);
+        if (_lives >= 3)
+        {
+            _lives = 3;
+        }
+    }
+
     void GameOverSequence()
     {
         _gameManager.GameOver();
