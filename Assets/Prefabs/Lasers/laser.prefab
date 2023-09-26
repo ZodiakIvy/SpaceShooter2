@@ -98,6 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserSpeed: 8
   _laser: {fileID: 3682781163553607249}
+  _plasma: {fileID: 1870081014813645350, guid: 2a0e18fe0bd3cdf40a62c30aeeed72de, type: 3}
+  _enemy1Attack: 0
 --- !u!50 &6160575850366221593
 Rigidbody2D:
   serializedVersion: 4

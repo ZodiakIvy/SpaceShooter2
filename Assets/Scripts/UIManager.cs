@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TMP_Text _ammoCount;
     [SerializeField]
-    private float _ammo = Mathf.Clamp(15, 0, float.PositiveInfinity);
+    private float _ammo = 15;
     [SerializeField]
     private Image _livesDisplayImg;
     [SerializeField]

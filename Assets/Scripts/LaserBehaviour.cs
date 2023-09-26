@@ -3,16 +3,22 @@
 public class LaserBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private float _laserSpeed = 8f;
+    private float _laserSpeed = 8;
     [SerializeField]
-    private GameObject _laser;
+    private float _plasmaSpeed = 12;
     [SerializeField]
     private bool _enemy1Attack = false;
 
     // Update is called once per frame
     void Update()
     {
-        
+        Laser();
+        TripleShot();
+        Plasma();
+    }
+
+    void Laser()
+    {
         if (_enemy1Attack == false)
         {
             MoveUp();
@@ -21,13 +27,30 @@ public class LaserBehaviour : MonoBehaviour
         {
             MoveDown();
         }
-      
     }
 
+    void TripleShot()
+    {
+        MoveUp();
+    }
+    
     void MoveUp()
     {
         //translate laser up
         transform.position += (new Vector3(0, 1, 0) * _laserSpeed * Time.deltaTime);
+        if (transform.position.y >= 5.3f)
+        {
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
+            Destroy(this.gameObject);
+        }
+    }
+
+    void Plasma()
+    {
+        transform.position += (new Vector3(0, 1, 0) * _plasmaSpeed * Time.deltaTime);
         if (transform.position.y >= 5.3f)
         {
             if (transform.parent != null)
