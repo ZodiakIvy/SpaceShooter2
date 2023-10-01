@@ -48,6 +48,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private AudioClip _noShot;
     private AudioSource _audioSource;
+    private CameraShakeBehaviour _cameraShakeBehaviour;
 
 
     // Start is called before the first frame update
@@ -57,6 +58,7 @@ public class PlayerBehaviour : MonoBehaviour
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
         _audioSource = GetComponent<AudioSource>();
 
         if (_spawnManager == null)
@@ -253,10 +255,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         }
 
-
-
-
-
+        _cameraShakeBehaviour.Shake();
 
         if (_shieldActive == false)
         {

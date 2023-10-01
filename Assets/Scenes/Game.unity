@@ -683,6 +683,8 @@ MonoBehaviour:
   - {fileID: 4384872693715077767, guid: a7b1a205fba64504eb6ae5b764e2e178, type: 3}
   - {fileID: 3286669447419196872, guid: 9183a40a893bab949b5150f0e2915ba1, type: 3}
   - {fileID: 1552266276167984716, guid: 9969a18a53f61c74fb9b5935190ebf2b, type: 3}
+  _plasmaShot: {fileID: 3945015640913487024, guid: 751a52b6a06db2b4b85d2f414094d034,
+    type: 3}
   _enemy1Prefab: {fileID: 3069132567701881082, guid: 56f52b506ccdf154c9148083fae60362,
     type: 3}
   _enemyContainer: {fileID: 1335750805}
@@ -1404,12 +1406,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1944391478}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 391858456}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1961800684}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1944391482
@@ -1472,6 +1474,52 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!1 &1961800682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1961800684}
+  - component: {fileID: 1961800683}
+  m_Layer: 0
+  m_Name: Camera_Shaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1961800683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961800682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 632aa0eec51693946a5671928b3acac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakerPos: {x: 0, y: 0, z: 0}
+  _shakeDuration: 0.25
+--- !u!4 &1961800684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961800682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1944391481}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1970486397 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
