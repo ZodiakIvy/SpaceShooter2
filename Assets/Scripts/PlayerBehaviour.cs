@@ -11,19 +11,17 @@ public class PlayerBehaviour : MonoBehaviour
     private bool _speedActive;
     [SerializeField]
     private float _ammo = 15;
-    [SerializeField]
-    private float _fireRate = .25f;
-    [SerializeField]
-    private float _fireRate2 = 1f;
     private float _canFire = 0.0f;
     [SerializeField]
     private GameObject[] _ammoType; //1 = _laser, 2 = _tripleShot, 3 = _plasma, 4 = _homing
     [SerializeField]
+    private GameObject _tripleShot;
+    [SerializeField]
+    private GameObject _laser;
+    [SerializeField]
     private int _ammoTypes;
     [SerializeField]
     private bool _tripleshotActive;
-    [SerializeField]
-    private bool _plasmaShotActive;
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
@@ -99,10 +97,10 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        else if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _plasmaShotActive == true)
-        {
-            FireLaser();
-        }
+       // else if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _plasmaShotActive == true)
+        //{
+        //    FireLaser();
+        //}
 
     }
     void PlayerMovement()
@@ -148,40 +146,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FireLaser()
     {
-        GameObject _shot = null;
-        if (_ammo > 0)
+        if (_ammo > 0 && _tripleshotActive == true)
         {
-          
-            switch (_ammoTypes)
-            {
-                case 1:
-                    if (_tripleshotActive == (true))
-                    {
-                        _canFire = Time.time + _fireRate;
-                        _shot = _ammoType[2];
-                        _audioSource.Play();
-                    }
-                        break;
-                    
-                
-                case 2: 
-                    _canFire = Time.time + _fireRate;
-                    _shot = _ammoType[1];
-                    _audioSource.Play();
-                    break;
-
-                case 3:
-                    if (_plasmaShotActive == (true))
-                    {
-                        _canFire = Time.time + _fireRate2;
-                        _shot = _ammoType[3];
-                        _audioSource.Play();
-                    }
-                    break;
-
-            }
-
-            GameObject _newShot = Instantiate(_shot, transform.position + new Vector3(-.16f, .75f, 0), Quaternion.identity);
+            Instantiate(_tripleShot, transform.position + new Vector3(-.16f, .75f, 0), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_laser, transform.position + new Vector3(-.16f, .75f, 0), Quaternion.identity);
         }
     }
 
@@ -196,12 +167,6 @@ public class PlayerBehaviour : MonoBehaviour
         _speedActive = true;
         StartCoroutine(PowerDown1());
     }
-
-    public void PlasmaShotActive()
-    {
-        _plasmaShotActive = true;
-        StartCoroutine(PowerDown2());
-    }
     IEnumerator PowerDown0()
     {
         yield return new WaitForSeconds(5f);
@@ -211,12 +176,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _speedActive = false;
-    }
-
-    IEnumerator PowerDown2()
-    {
-        yield return new WaitForSeconds(5f);
-        _plasmaShotActive = false;
     }
 
     public void ShieldActive()
