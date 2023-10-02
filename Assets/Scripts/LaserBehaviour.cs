@@ -5,13 +5,20 @@ public class LaserBehaviour : MonoBehaviour
     [SerializeField]
     private float _laserSpeed = 8;
     [SerializeField]
-    private bool _enemy1Attack = false;
+    private bool _enemy1Attack = true;
+    private GameObject _enemy1AttackPrefab;
+    private float _fireRate = 3f;
+    private float _canFire = -1f;
 
     // Update is called once per frame
     void Update()
     {
-        Laser();
-        TripleShot();
+        if (Time.time > _canFire)
+        {
+            _fireRate = Random.Range(3f, 7f);
+            _canFire = Time.time + _fireRate;
+        }
+            Laser();
     }
 
     void Laser()
@@ -21,15 +28,11 @@ public class LaserBehaviour : MonoBehaviour
             MoveUp();
         }
         else
-        {
+        { 
             MoveDown();
         }
     }
 
-    void TripleShot()
-    {
-        MoveUp();
-    }
     
     void MoveUp()
     {
@@ -45,8 +48,6 @@ public class LaserBehaviour : MonoBehaviour
         }
     }
 
-   
-
     void MoveDown()
     {
         //translate laser down
@@ -54,28 +55,24 @@ public class LaserBehaviour : MonoBehaviour
         if (transform.position.y <= -5.3f)
         {
             if (transform.parent != null)
-            {
-                Destroy(transform.parent.gameObject);
-            }
+            { Destroy(transform.parent.gameObject); }
             Destroy(this.gameObject);
         }
     }
 
-    public void AssignEnemyLaser()
-    {
-        _enemy1Attack = true;
+    public void AssignEnemyLaser() 
+    { 
+        _enemy1Attack = true; 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player" && _enemy1Attack == true)
-        {
-            PlayerBehaviour player = other.GetComponent<PlayerBehaviour>();
-            
-            if (player != null)
             {
-                player.Damage();
+                PlayerBehaviour player = other.GetComponent<PlayerBehaviour>();
+                if (player != null)
+                { player.Damage(); }
             }
-        }
     }
+
 }

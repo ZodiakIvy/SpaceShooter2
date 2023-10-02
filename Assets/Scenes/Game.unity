@@ -2139,6 +2139,12 @@ PrefabInstance:
       objectReference: {fileID: 17305428}
     - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
         type: 3}
+      propertyPath: _tripleShot
+      value: 
+      objectReference: {fileID: 701587167046306578, guid: e23d612ed27a286499faba9dd8df9f2b,
+        type: 3}
+    - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
       propertyPath: _rightEngine
       value: 
       objectReference: {fileID: 1673660953}
