@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6131597468459505216}
   m_Layer: 0
   m_Name: homing
-  m_TagString: Plasma
+  m_TagString: Homing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,5 +134,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _laserSpeed: 8
-  _plasmaSpeed: 12
   _enemy1Attack: 0

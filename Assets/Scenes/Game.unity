@@ -683,8 +683,7 @@ MonoBehaviour:
   - {fileID: 4384872693715077767, guid: a7b1a205fba64504eb6ae5b764e2e178, type: 3}
   - {fileID: 3286669447419196872, guid: 9183a40a893bab949b5150f0e2915ba1, type: 3}
   - {fileID: 1552266276167984716, guid: 9969a18a53f61c74fb9b5935190ebf2b, type: 3}
-  _plasmaShot: {fileID: 3945015640913487024, guid: 751a52b6a06db2b4b85d2f414094d034,
-    type: 3}
+  _ammoType: []
   _enemy1Prefab: {fileID: 3069132567701881082, guid: 56f52b506ccdf154c9148083fae60362,
     type: 3}
   _enemyContainer: {fileID: 1335750805}
@@ -2124,6 +2123,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
         type: 3}
+      propertyPath: _ammoTypes
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
       propertyPath: _maxShield
       value: 50
       objectReference: {fileID: 0}
@@ -2183,6 +2187,35 @@ PrefabInstance:
       propertyPath: _damage.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: _ammoType.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: _ammoType.Array.data[0]
+      value: 
+      objectReference: {fileID: 3682781163553607249, guid: cb24fb92d4bf40d4588a4192fe100f33,
+        type: 3}
+    - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: _ammoType.Array.data[1]
+      value: 
+      objectReference: {fileID: 701587167046306578, guid: e23d612ed27a286499faba9dd8df9f2b,
+        type: 3}
+    - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: _ammoType.Array.data[2]
+      value: 
+      objectReference: {fileID: 1870081014813645350, guid: 2a0e18fe0bd3cdf40a62c30aeeed72de,
+        type: 3}
+    - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: _ammoType.Array.data[3]
+      value: 
+      objectReference: {fileID: 4440841092892743887, guid: ec901283ecb77134eab1c70748d687ea,
+        type: 3}
     - target: {fileID: 7188756234579100703, guid: a3a1e06eb45961c47bf7d7e2c554554e,
         type: 3}
       propertyPath: m_Name

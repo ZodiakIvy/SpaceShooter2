@@ -17,6 +17,7 @@ TagManager:
   - ShieldBubble1
   - ShieldBubble3
   - Plasma
+  - Homing
   layers:
   - Default
   - TransparentFX

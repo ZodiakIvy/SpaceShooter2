@@ -19,8 +19,6 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject _laser;
     [SerializeField]
-    private int _ammoTypes;
-    [SerializeField]
     private bool _tripleshotActive;
     [SerializeField]
     private int _lives = 3;
@@ -86,10 +84,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
-            FireLaser();
-            _ammo--;
-            _uiManager.ShotsFired(_ammo);
-            if (_ammo <= 0)
+            if (_ammo >= 1)
+            {
+                FireLaser();
+                _ammo--;
+                _uiManager.ShotsFired(_ammo);
+            }
+            else if (_ammo <= 0)
             {
                 _ammo = 0;
                 _audioSource.clip = _noShot;

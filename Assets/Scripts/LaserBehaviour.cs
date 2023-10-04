@@ -3,10 +3,9 @@
 public class LaserBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private float _laserSpeed = 8;
+    private float _laserSpeed = 7;
     [SerializeField]
     private bool _enemy1Attack = false;
-    private GameObject _enemy1AttackPrefab;
     private float _fireRate = 3f;
     private float _canFire = -1f;
 

@@ -4,9 +4,9 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] _powerUps;
+    private GameObject[] _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health
     [SerializeField]
-    private GameObject _plasmaShot;
+    private GameObject[] _ammoType; //0 = Laser, 1 = TripleShot, 2 = Plasma, 3 = HomingShot
     [SerializeField]
     private GameObject _enemy1Prefab;
     [SerializeField] 
@@ -17,6 +17,7 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(Enemy1_SpawnRoutine());
         StartCoroutine(PowerUp_SpawnRoutine());
+        StartCoroutine(Ammo_SpawnRoutine());
     }
 
     IEnumerator Enemy1_SpawnRoutine()
@@ -39,15 +40,25 @@ public class SpawnManager : MonoBehaviour
             float randomX = Random.Range(-8.5f, 7.6f);
             Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
             int randomPowerUp = Random.Range(0, 5);
-            
+
             GameObject newPowerUp = Instantiate(_powerUps[randomPowerUp], spawnPosition, Quaternion.identity);
             yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
-            
-            GameObject newAmmoType = Instantiate(_plasmaShot, spawnPosition, Quaternion.identity);
-            yield return new WaitForSecondsRealtime(20f);
         }
     }
 
+    IEnumerator Ammo_SpawnRoutine()
+    {
+        while (_stopSpawning == false) 
+        {
+            float randomX = Random.Range(-8.5f, 7.6f);
+            Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
+            int randomAmmoType = Random.Range(0, 2);
+
+            GameObject newAmmoType = Instantiate(_ammoType[randomAmmoType], spawnPosition, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(20f);
+        }
+    }
+    
     public void OnPlayerDeath()
     {
         _stopSpawning = true;
