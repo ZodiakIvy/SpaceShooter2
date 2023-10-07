@@ -19,7 +19,13 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject _laser;
     [SerializeField]
+    private GameObject _plasmaShot;
+    [SerializeField]
     private bool _tripleshotActive;
+    [SerializeField] 
+    private bool _plasmashotActive;
+    [SerializeField]
+    private float _newSpawnDuration = .1f;
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
@@ -82,12 +88,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         PlayerMovement();
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _plasmashotActive == false)
         {
             if (_ammo >= 1)
             {
                 FireLaser();
                 _ammo--;
+                _audioSource.Play();
                 _uiManager.ShotsFired(_ammo);
             }
             else if (_ammo <= 0)
@@ -97,11 +104,10 @@ public class PlayerBehaviour : MonoBehaviour
                 _audioSource.Play();
             }
         }
-
-       // else if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _plasmaShotActive == true)
-        //{
-        //    FireLaser();
-        //}
+       else if (Input.GetKey(KeyCode.Space) && Time.time > _canFire && _plasmashotActive == true)
+        {
+            FiringPlasma();
+        }
 
     }
     void PlayerMovement()
@@ -163,6 +169,27 @@ public class PlayerBehaviour : MonoBehaviour
         StartCoroutine(PowerDown0());
     }
 
+    void FiringPlasma()
+    {
+        Invoke(methodName: "FirePlasma", _newSpawnDuration);
+        _audioSource.clip = _laserSound;
+        _audioSource.Play();
+    }
+
+    void FirePlasma()
+    {
+        if (_plasmashotActive == true) 
+        { 
+            Instantiate(_plasmaShot, transform.position + new Vector3(-.16f, .75f, 0), Quaternion.identity);
+        }
+    }
+
+    public void PlasmaShotActive()
+    {
+        _plasmashotActive = true;
+        _uiManager.transform.GetChild(4).gameObject.SetActive(true);
+        StartCoroutine(PowerDown2());
+    }
     public void SpeedActive()
     {
         _speedActive = true;
@@ -177,6 +204,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _speedActive = false;
+    }
+
+    IEnumerator PowerDown2()
+    {
+        yield return new WaitForSeconds(5f);
+        _plasmashotActive = false;
+        _uiManager.transform.GetChild(4).gameObject.SetActive(false);
     }
 
     public void ShieldActive()
@@ -248,6 +282,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (_lives >= 3)
         {
             _lives = 3;
+            _uiManager.UpdateLives(3);
         }
     }
 

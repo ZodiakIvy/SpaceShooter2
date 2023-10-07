@@ -95,6 +95,22 @@ public class Enemy1Behaviour : MonoBehaviour
             
         }
 
+        if (other.CompareTag("Plasma"))
+        {
+            Destroy(other.gameObject);
+
+            if (_player != null)
+            {
+                _player.Score();
+            }
+
+            _anim.SetTrigger("OnEnemyDeath");
+            _moveSpeed = 0;
+            _audioSource.Play();
+            Destroy(GetComponent<BoxCollider2D>());
+            Destroy(this.gameObject, 2.4f);
+        }
+
         if (other.CompareTag ("Player"))
         {
             PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();

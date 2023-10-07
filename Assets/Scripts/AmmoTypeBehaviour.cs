@@ -33,7 +33,7 @@ public class AmmoTypeBehaviour : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            Autoshoot();
+           // Autoshoot();
         }
     }
 

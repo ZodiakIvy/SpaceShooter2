@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1524987741933232879}
   - component: {fileID: 9193749176693434734}
   - component: {fileID: 2037117321296887275}
-  - component: {fileID: 5931565601928192169}
+  - component: {fileID: -7242058508568140507}
   m_Layer: 0
   m_Name: plasma
   m_TagString: Plasma
@@ -121,7 +121,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.013888183, y: 0.027444476}
   m_Size: {x: 0.14543818, y: 2.9175274}
   m_Direction: 0
---- !u!114 &5931565601928192169
+--- !u!114 &-7242058508568140507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,14 +130,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1870081014813645350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 308de7f1ea746b84f9ab258540a6e67f, type: 3}
+  m_Script: {fileID: 11500000, guid: 24f2eb8923797164aaef8c76f64d192c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plasma: {fileID: 1870081014813645350}
-  _newSpawnDuration: 0.1
-  _forceMultiplier: 2
-  SpawnPos: {x: 0, y: 0, z: 0}
-  SpawnScreenPos: {x: 0, y: 0, z: 0}
-  CurrentSpawn: {fileID: 0}
-  SpawnReady: 0
-  SpawnParent: {fileID: 0}

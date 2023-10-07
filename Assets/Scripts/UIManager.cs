@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private float _ammo = 15;
     [SerializeField]
+    private bool _plasmashotActive;
+    [SerializeField]
     private Image _livesDisplayImg;
     [SerializeField]
     private Sprite[] _livesSprites;
@@ -21,6 +23,8 @@ public class UIManager : MonoBehaviour
     private Text _gameOverText;
     [SerializeField]
     private Text _restartText;
+    [SerializeField]
+    private TMP_Text _newAmmoText;
 
     //Handle to text
     // Start is called before the first frame update
@@ -31,6 +35,7 @@ public class UIManager : MonoBehaviour
         _gameOverText.gameObject.SetActive(false);
         StartCoroutine(GameOverFlickerRoutine());
         _restartText.gameObject.SetActive(false);
+        _newAmmoText.gameObject.SetActive(false);
     }
 
     IEnumerator GameOverFlickerRoutine()
