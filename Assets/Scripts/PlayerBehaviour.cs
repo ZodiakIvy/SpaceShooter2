@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -9,6 +10,12 @@ public class PlayerBehaviour : MonoBehaviour
     private float _speedMultiplier = 2;
     [SerializeField]
     private bool _speedActive;
+    [SerializeField]
+    private Slider _thrusterGauge;
+    [SerializeField]
+    private bool _isThrusting = false;
+    [SerializeField]
+    private float _gasTank = 100;
     [SerializeField]
     private float _ammo = 15;
     private float _canFire = 0.0f;
@@ -62,6 +69,14 @@ public class PlayerBehaviour : MonoBehaviour
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
         _audioSource = GetComponent<AudioSource>();
+        _thrusterGauge = GameObject.Find("HUD_Thruster").GetComponent<Slider>();
+        StartCoroutine(ThrusterRoutine());
+        StartCoroutine(ThrusterRefillRoutine());
+
+        if (_thrusterGauge == null)
+        {
+            Debug.LogError("The Thruster Bar is NULL");
+        }
 
         if (_spawnManager == null)
         {
@@ -72,6 +87,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Debug.LogError("The UI Manager is null.");
         }
+
+       
 
         if (_audioSource == null)
         {
@@ -109,20 +126,24 @@ public class PlayerBehaviour : MonoBehaviour
             FiringPlasma();
         }
 
+        
+
     }
     void PlayerMovement()
     {
         float _horizontalInput = Input.GetAxis("Horizontal");
         float _verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _gasTank >= 1)
         {
-            _speed = _speed + 3f;
+            IsThrusting();
+            StartCoroutine(ThrusterRoutine());
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            _speed = _speed - 3f;
+            StopThrusting();
+            StartCoroutine(ThrusterRefillRoutine());
         }
 
 
@@ -149,6 +170,48 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4.5f, 3f), 0);
+    }
+    
+    public void UpdateGasTank(float _gasTank)
+    {
+        if (_thrusterGauge.value - _gasTank <= 0)
+        {
+            StopThrusting();
+        }
+        
+        _thrusterGauge.value += _gasTank; 
+        
+    }
+
+    public void IsThrusting()
+    {
+        _isThrusting = true;
+        UpdateGasTank(-2);
+        _speed = 12f;
+    }
+
+    public void StopThrusting()
+    {
+        _isThrusting = false;
+        _speed = 5f;
+    }
+
+    IEnumerator ThrusterRoutine()
+    { 
+        while (_isThrusting == true) 
+        { 
+            UpdateGasTank(-20); 
+            yield return new WaitForSeconds(1.0f); 
+        } 
+    }
+
+    IEnumerator ThrusterRefillRoutine()
+    { 
+        while (_isThrusting == false) 
+        { 
+            UpdateGasTank(+20); 
+            yield return new WaitForSeconds(1.0f); 
+        } 
     }
 
     void FireLaser()
@@ -223,6 +286,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void MoreBullets()
     {
         _ammo += 15;
+        _audioSource.clip = _laserSound;
     }
 
     public void Damage()

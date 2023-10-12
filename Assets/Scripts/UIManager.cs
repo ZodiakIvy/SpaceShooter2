@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     private Text _restartText;
     [SerializeField]
     private TMP_Text _newAmmoText;
+   
 
     //Handle to text
     // Start is called before the first frame update
@@ -36,6 +37,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(GameOverFlickerRoutine());
         _restartText.gameObject.SetActive(false);
         _newAmmoText.gameObject.SetActive(false);
+   
     }
 
     IEnumerator GameOverFlickerRoutine()
