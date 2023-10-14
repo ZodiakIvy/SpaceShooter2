@@ -7,7 +7,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private float _speed;
     [SerializeField]
-    private float _speedMultiplier = 2;
+    private float _speedMultiplier = 2f;
     [SerializeField]
     private bool _speedActive;
     [SerializeField]
@@ -15,9 +15,13 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private bool _isThrusting = false;
     [SerializeField]
-    private float _gasTank = 100;
+    private float _gasTankFull = 100f;
     [SerializeField]
-    private float _ammo = 15;
+    private float _gasTank;
+    [SerializeField]
+    private float _thrusterRefillRate = 20f;
+    [SerializeField]
+    private int _ammo = 15;
     private float _canFire = 0.0f;
     [SerializeField]
     private GameObject[] _ammoType; //1 = _laser, 2 = _tripleShot, 3 = _plasma, 4 = _homing
@@ -70,12 +74,12 @@ public class PlayerBehaviour : MonoBehaviour
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
         _audioSource = GetComponent<AudioSource>();
         _thrusterGauge = GameObject.Find("HUD_Thruster").GetComponent<Slider>();
-        StartCoroutine(ThrusterRoutine());
-        StartCoroutine(ThrusterRefillRoutine());
+        _gasTank = _gasTankFull;
+        _thrusterGauge.value = _gasTank;
 
         if (_thrusterGauge == null)
         {
-            Debug.LogError("The Thruster Bar is NULL");
+            Debug.LogError("The Thruster Bar is NULL.");
         }
 
         if (_spawnManager == null)
@@ -85,10 +89,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (_uiManager == null)
         {
-            Debug.LogError("The UI Manager is null.");
+            Debug.LogError("The UI Manager is NULL.");
         }
 
-       
+       if (_thrusterGauge == null)
+        {
+            Debug.LogError("The Slider is NULL.");
+        }
 
         if (_audioSource == null)
         {
@@ -126,6 +133,12 @@ public class PlayerBehaviour : MonoBehaviour
             FiringPlasma();
         }
 
+        if (_gasTank < _gasTankFull)
+        {
+            _gasTank += _thrusterRefillRate * Time.deltaTime;
+            _gasTank = Mathf.Clamp(_gasTank, 0f, _gasTankFull);
+            _thrusterGauge.value = _gasTank;
+        }
         
 
     }
@@ -134,10 +147,18 @@ public class PlayerBehaviour : MonoBehaviour
         float _horizontalInput = Input.GetAxis("Horizontal");
         float _verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _gasTank >= 1)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            IsThrusting();
-            StartCoroutine(ThrusterRoutine());
+            if (_thrusterGauge.value >= 2)
+            {
+                IsThrusting();
+                StartCoroutine(ThrusterRoutine());
+            }
+           else if (_thrusterGauge.value <= 1)
+            {
+                _isThrusting = false;
+                StartCoroutine(ThrusterRefillRoutine());
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -174,7 +195,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void UpdateGasTank(float _gasTank)
     {
-        if (_thrusterGauge.value - _gasTank <= 0)
+        if ((_thrusterGauge.value - _gasTank) <= 0)
         {
             StopThrusting();
         }
@@ -186,14 +207,20 @@ public class PlayerBehaviour : MonoBehaviour
     public void IsThrusting()
     {
         _isThrusting = true;
-        UpdateGasTank(-2);
-        _speed = 12f;
+        if (_isThrusting == true)
+        {
+            UpdateGasTank(-2);
+            _speed = 12f;
+        }
     }
 
     public void StopThrusting()
     {
         _isThrusting = false;
-        _speed = 5f;
+        if (_isThrusting == false)
+        {
+            _speed = 5f;
+        }
     }
 
     IEnumerator ThrusterRoutine()
