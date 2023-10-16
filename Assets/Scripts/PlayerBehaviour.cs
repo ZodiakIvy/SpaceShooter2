@@ -11,8 +11,6 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private bool _speedActive;
     [SerializeField]
-    private float _thrusterSpeed;
-    [SerializeField]
     private Slider _thrusterGauge;
     [SerializeField]
     private bool _isThrusting = false;
@@ -75,10 +73,9 @@ public class PlayerBehaviour : MonoBehaviour
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
         _audioSource = GetComponent<AudioSource>();
-        _thrusterGauge = GameObject.Find("HUD_Thruster").GetComponent<Slider>();
+        _thrusterGauge = GameObject.Find("Thruster_Gauge").GetComponent<Slider>();
         _gasTank = _gasTankFull;
         _thrusterGauge.value = _gasTank;
-        _thrusterSpeed = _speed;
 
         if (_thrusterGauge == null)
         {
@@ -153,14 +150,13 @@ public class PlayerBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && _thrusterGauge.value > 2)
         {
             IsThrusting();
-            StartCoroutine(ThrusterRoutine());      
+            StartCoroutine(ThrusterRoutine());
         }
     
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) || _thrusterGauge.value < 1)
         {
             StopThrusting();
-           // yield return new WaitForSeconds(3.0f);
             StartCoroutine(ThrusterRefillRoutine());
         }
 
@@ -214,10 +210,8 @@ public class PlayerBehaviour : MonoBehaviour
     public void StopThrusting()
     {
         _isThrusting = false;
-        if (_isThrusting == false)
-        {
-            _speed = 5f;
-        }
+        _speed = 5f;
+        
     }
 
     IEnumerator ThrusterRoutine()
@@ -233,8 +227,8 @@ public class PlayerBehaviour : MonoBehaviour
     { 
         while (_isThrusting == false) 
         { 
-            UpdateGasTank(+20); 
-            yield return new WaitForSeconds(1.0f); 
+            yield return new WaitForSeconds(3.0f);
+            UpdateGasTank(+20);
         } 
     }
 
