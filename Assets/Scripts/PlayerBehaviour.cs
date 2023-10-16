@@ -11,6 +11,8 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private bool _speedActive;
     [SerializeField]
+    private float _thrusterSpeed;
+    [SerializeField]
     private Slider _thrusterGauge;
     [SerializeField]
     private bool _isThrusting = false;
@@ -76,6 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
         _thrusterGauge = GameObject.Find("HUD_Thruster").GetComponent<Slider>();
         _gasTank = _gasTankFull;
         _thrusterGauge.value = _gasTank;
+        _thrusterSpeed = _speed;
 
         if (_thrusterGauge == null)
         {
@@ -128,7 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
                 _audioSource.Play();
             }
         }
-       else if (Input.GetKey(KeyCode.Space) && Time.time > _canFire && _plasmashotActive == true)
+        else if (Input.GetKey(KeyCode.Space) && Time.time > _canFire && _plasmashotActive == true)
         {
             FiringPlasma();
         }
@@ -147,23 +150,17 @@ public class PlayerBehaviour : MonoBehaviour
         float _horizontalInput = Input.GetAxis("Horizontal");
         float _verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _thrusterGauge.value > 2)
         {
-            if (_thrusterGauge.value >= 2)
-            {
-                IsThrusting();
-                StartCoroutine(ThrusterRoutine());
-            }
-           else if (_thrusterGauge.value <= 1)
-            {
-                _isThrusting = false;
-                StartCoroutine(ThrusterRefillRoutine());
-            }
+            IsThrusting();
+            StartCoroutine(ThrusterRoutine());      
         }
+    
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             StopThrusting();
+           // yield return new WaitForSeconds(3.0f);
             StartCoroutine(ThrusterRefillRoutine());
         }
 
@@ -210,7 +207,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (_isThrusting == true)
         {
             UpdateGasTank(-2);
-            _speed = 12f;
+            _speed = _speed + 4f;
         }
     }
 
