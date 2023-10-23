@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-
+﻿using System.Drawing;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy1Behaviour : MonoBehaviour
 {
@@ -19,17 +20,17 @@ public class Enemy1Behaviour : MonoBehaviour
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
-        if (_player == null) 
-        { 
-            Debug.LogError("Player is NULL"); 
+        if (_player == null)
+        {
+            Debug.LogError("Player is NULL");
         }
-        
+
         _anim = GetComponent<Animator>();
         if (_anim == null)
         {
             Debug.LogError("The Animator is NULL");
         }
-        
+
         _audioSource = GetComponent<AudioSource>();
         if (_audioSource == null)
         {
@@ -66,15 +67,77 @@ public class Enemy1Behaviour : MonoBehaviour
 
     }
 
+    public enum MovementState
+    {
+        Up,
+        Right,
+        Down,
+        Left
+    }
+
+    public MovementState moveState = MovementState.Down;
+    //New Enemy Movement
+    //Task:
+    //Enable the Enemies to move in a new way, either from side to side, circling, or coming into the play field at an angle.
     void Enemy1Movement()
     {
-        transform.position += (new Vector3(0, -1, 0) * _moveSpeed * Time.deltaTime);
-        if (transform.position.y <= -5.3f)
-        {
-            float randomX = Random.Range(-8.5f, 7.6f);
-            transform.position = new Vector3(randomX, 7f, 0);
+        float randomX = Random.Range(-8.5f, 7.6f);
+        float randomY = Random.Range(-4.8f, 6f);
+
+        if (transform.position.x < -9 || transform.position.y < -5 || transform.position.x > 8f || transform.position.y > 10f)
+        {  
+            int direction = Random.Range(1, 4);
+
+            if (direction == 1)
+            {
+                transform.position = new Vector3(randomX, 7f, 0);
+                moveState = MovementState.Down;
+            }
+            else if (direction == 2)
+            {
+                transform.position = new Vector3(-8.5f, randomY, 0);
+                moveState = MovementState.Right;
+            }
+            else if(direction == 3)
+            {
+                transform.position = new Vector3(7.6f, randomY, 0);
+                moveState = MovementState.Left;
+            }
         }
+        if (moveState == MovementState.Down)
+        {
+            transform.position += Vector3.down * _moveSpeed * Time.deltaTime; 
+        }
+        else if (moveState == MovementState.Left)
+        {
+            transform.position += Vector3.left * _moveSpeed * Time.deltaTime;
+        }
+        else if (moveState == MovementState.Up)
+        {
+            transform.position += Vector3.up * _moveSpeed * Time.deltaTime;
+        }
+        else if (moveState == MovementState.Right)
+        {
+            transform.position += Vector3.right * _moveSpeed * Time.deltaTime;
+        }
+        
+
+        /*if (transform.position.y <= -5.3f)
+        {
+          float randomX = Random.Range(-8.5f, 7.6f);
+          
+          transform.position = new Vector3(randomX, 7f, 0);
+          
+          transform.position += Vector3.left * _moveSpeed * Time.deltaTime;
+        }
+        else
+        {
+            transform.position += Vector3.down * _moveSpeed * Time.deltaTime; //.down = (0, -1, 0)
+        }*/
     }
+
+    
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Hit: " + other.transform.name);
