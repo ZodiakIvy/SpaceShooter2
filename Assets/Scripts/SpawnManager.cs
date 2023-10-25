@@ -4,11 +4,15 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health. 5 = Plasma
+    private GameObject[] _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health. 5 = Plasma, 6 = SpeedDebuff
     [SerializeField]
     private GameObject[] _ammoType; //0 = Laser, 1 = TripleShot, 2 = Plasma, 3 = HomingShot
     [SerializeField]
     private GameObject _enemy1Prefab;
+    [SerializeField]
+    private float _spawnTime = 7f;
+    [SerializeField]
+    private int _waveCount = 1;
     [SerializeField] 
     private GameObject _enemyContainer;
     private bool _stopSpawning = false;
@@ -25,11 +29,16 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         while (_stopSpawning == false)
         {
-            float randomX = Random.Range(-8.5f, 7.6f);
-            Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
-            GameObject newEnemy1 = Instantiate(_enemy1Prefab, spawnPosition, Quaternion.identity);
-            newEnemy1.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSecondsRealtime(5f);
+            for (int i = 0; i < _waveCount; i++)
+            {
+                float randomX = Random.Range(-8.5f, 7.6f);
+                Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
+                GameObject newEnemy1 = Instantiate(_enemy1Prefab, spawnPosition, Quaternion.identity);
+                newEnemy1.transform.parent = _enemyContainer.transform;
+                yield return new WaitForSecondsRealtime(2f);
+            }
+            yield return new WaitForSecondsRealtime(_spawnTime);
+            _waveCount++;
         }
     }
 
@@ -39,7 +48,7 @@ public class SpawnManager : MonoBehaviour
         {
             float randomX = Random.Range(-8.5f, 7.6f);
             Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
-            int randomPowerUp = Random.Range(0, 6);
+            int randomPowerUp = Random.Range(0, 7);
 
             GameObject newPowerUp = Instantiate(_powerUps[randomPowerUp], spawnPosition, Quaternion.identity);
             yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));

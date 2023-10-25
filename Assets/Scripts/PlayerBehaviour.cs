@@ -9,7 +9,11 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private float _speedMultiplier = 2f;
     [SerializeField]
+    private float _speedDebuff = .5f;
+    [SerializeField]
     private bool _speedActive;
+    [SerializeField]
+    private bool _speedDebuffActive;
     [SerializeField]
     private Slider _thrusterGauge;
     [SerializeField]
@@ -172,6 +176,16 @@ public class PlayerBehaviour : MonoBehaviour
             transform.Translate(new Vector3(0, 1, 0) * _verticalInput * _speed * Time.deltaTime);
         }
 
+        if (_speedDebuffActive == true)
+        {
+            transform.Translate(new Vector3(1, 0, 0) * _horizontalInput * (_speed * _speedDebuff) * Time.deltaTime);
+            transform.Translate(new Vector3(0, 1, 0) * _verticalInput * (_speed * _speedDebuff) * Time.deltaTime);
+        }
+        else if (_speedDebuffActive == false)
+        {
+            transform.Translate(new Vector3(1, 0, 0) * _horizontalInput * _speed * Time.deltaTime);
+            transform.Translate(new Vector3(0, 1, 0) * _verticalInput * _speed * Time.deltaTime);
+        }
 
 
         if (transform.position.x >= 9.15f)
@@ -276,6 +290,12 @@ public class PlayerBehaviour : MonoBehaviour
         _speedActive = true;
         StartCoroutine(PowerDown1());
     }
+
+    public void SpeedDebuffActive()
+    {
+        _speedDebuffActive = true;
+        StartCoroutine(PowerDown3());
+    }
     IEnumerator PowerDown0()
     {
         yield return new WaitForSeconds(5f);
@@ -292,6 +312,12 @@ public class PlayerBehaviour : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _plasmashotActive = false;
         _uiManager.transform.GetChild(4).gameObject.SetActive(false);
+    }
+
+    IEnumerator PowerDown3()
+    {
+        yield return new WaitForSeconds(5f);
+        _speedDebuffActive = false;
     }
 
     public void ShieldActive()
