@@ -18,6 +18,10 @@ TagManager:
   - ShieldBubble3
   - Plasma
   - Homing
+  - Slow
+  - Health
+  - Ammo
+  - Enemy2
   layers:
   - Default
   - TransparentFX
