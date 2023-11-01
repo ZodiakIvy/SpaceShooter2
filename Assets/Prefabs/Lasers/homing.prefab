@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3565458862427234310}
   - component: {fileID: 6612436121301625735}
   - component: {fileID: 4041873863775960834}
-  - component: {fileID: 6131597468459505216}
+  - component: {fileID: 2471902070266589973}
   m_Layer: 0
   m_Name: homing
   m_TagString: Homing
@@ -121,7 +121,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.013888183, y: 0.027444476}
   m_Size: {x: 0.14543818, y: 2.9175274}
   m_Direction: 0
---- !u!114 &6131597468459505216
+--- !u!114 &2471902070266589973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,8 +130,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4440841092892743887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c923b31ddd75e845bd684a5ea9d532d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f74203059dc4d24db180b9ffa8e3433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _laserSpeed: 8
-  _enemy1Attack: 0
+  _enemy2Attack: 0
+  _laserSpeed: 6
+  _rotateSpeed: 200
+  _target: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e, type: 3}
+  _homingShot: {fileID: 6612436121301625735}

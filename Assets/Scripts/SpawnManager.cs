@@ -10,6 +10,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemy1Prefab;
     [SerializeField]
+    private GameObject _enemy2Prefab;
+    [SerializeField]
     private float _spawnTime = 7f;
     [SerializeField]
     private int _waveCount = 1;
@@ -21,6 +23,7 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(Enemy1_SpawnRoutine());
         StartCoroutine(PowerUp_SpawnRoutine());
+        StartCoroutine(Enemy2_SpawnRoutine());
         //StartCoroutine(Ammo_SpawnRoutine());
     }
 
@@ -36,6 +39,24 @@ public class SpawnManager : MonoBehaviour
                 GameObject newEnemy1 = Instantiate(_enemy1Prefab, spawnPosition, Quaternion.identity);
                 newEnemy1.transform.parent = _enemyContainer.transform;
                 yield return new WaitForSecondsRealtime(2f);
+            }
+            yield return new WaitForSecondsRealtime(_spawnTime);
+            _waveCount++;
+        }
+    }
+
+    IEnumerator Enemy2_SpawnRoutine()
+    {
+        yield return new WaitForSeconds(2f);
+        while (_stopSpawning == false)
+        {
+            for (int i = 0; i < _waveCount; i++)
+            {
+                float randomY = Random.Range(-4.8f, 6f);
+                Vector3 spawnPosition = transform.position + new Vector3(7.6f, randomY, 0);
+                GameObject newEnemy2 = Instantiate(_enemy2Prefab, spawnPosition, Quaternion.identity);
+                newEnemy2.transform.parent = _enemyContainer.transform;
+                yield return new WaitForSecondsRealtime(4f);
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
             _waveCount++;

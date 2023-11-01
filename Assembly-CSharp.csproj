@@ -63,8 +63,10 @@
     <Compile Include="Assets\Scripts\CameraShakeBehaviour.cs" />
     <Compile Include="Assets\Scripts\Enemy1AttackBehaviour.cs" />
     <Compile Include="Assets\Scripts\Enemy1Behaviour.cs" />
+    <Compile Include="Assets\Scripts\Enemy2AttackBehaviour.cs" />
     <Compile Include="Assets\Scripts\Enemy2Behaviour.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HomingBehaviour.cs" />
     <Compile Include="Assets\Scripts\LaserBehaviour.cs" />
     <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
     <Compile Include="Assets\Scripts\PowerUpBehaviour.cs" />
