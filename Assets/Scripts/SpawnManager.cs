@@ -47,7 +47,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator Enemy2_SpawnRoutine()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(6f);
         while (_stopSpawning == false)
         {
             for (int i = 0; i < _waveCount; i++)
@@ -71,9 +71,28 @@ public class SpawnManager : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
             int randomPowerUp = Random.Range(0, 7);
 
-            GameObject newPowerUp = Instantiate(_powerUps[randomPowerUp], spawnPosition, Quaternion.identity);
+            GameObject newPowerUp = Instantiate(_powerUps[0], spawnPosition, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(5f, 9f));
+
+            GameObject newPowerUp1 = Instantiate(_powerUps[1], spawnPosition, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
+
+            GameObject newPowerUp2 = Instantiate(_powerUps[2], spawnPosition, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
+
+            GameObject newPowerUp3 = Instantiate(_powerUps[3], spawnPosition, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
+
+            GameObject newPowerUp4 = Instantiate(_powerUps[4], spawnPosition, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(5f, 9f));
+
+            GameObject newPowerUp5 = Instantiate(_powerUps[5], spawnPosition, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(5f, 9f));
+
+            GameObject newPowerUp6 = Instantiate(_powerUps[6], spawnPosition, Quaternion.identity);
             yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
         }
+
     }
 
     IEnumerator Ammo_SpawnRoutine()

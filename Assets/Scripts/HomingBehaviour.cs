@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class HomingBehaviour : MonoBehaviour
 {
-    [SerializeField]
-    private bool _enemy2Attack = false;
+    //[SerializeField]
+    //private bool _enemy2Attack = false;
     [SerializeField]
     private float _laserSpeed = 6f;
     [SerializeField]
@@ -23,15 +22,14 @@ public class HomingBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Homing();
     }
 
     void Homing()
     {
-        if (_enemy2Attack == false)
-        {
+        
             Vector2 direction = (Vector2)_target.position - _homingShot.position;
 
             direction.Normalize();
@@ -50,25 +48,23 @@ public class HomingBehaviour : MonoBehaviour
                 }
                 Destroy(this.gameObject);
             }
-        }
-        else 
-        { 
         
-        }
     }
 
     public void EnemyHoming()
     {
-        _enemy2Attack = true;
+        //_enemy2Attack = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && _enemy2Attack == true)
+        if (other.CompareTag("Player"))
         {
-            PlayerBehaviour player = other.GetComponent<PlayerBehaviour>();
-            if (player != null)
-            { player.Damage(); }
+            PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();
+            player.Damage();
+            _laserSpeed = 0;
+            Destroy(GetComponent<BoxCollider2D>());
+            Destroy(this.gameObject);
         }
     }
 }

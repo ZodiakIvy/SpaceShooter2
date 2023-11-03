@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7825894991947372534}
-  - component: {fileID: 1028237921079717391}
   m_Layer: 0
   m_Name: Enemy2Attack
   m_TagString: Homing
@@ -32,23 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1028237921079717391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3778401668439075788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41760bbce2618044695e7fe365b42fb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _laserSpeed: 6
-  _rotateSpeed: 200
-  _target: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e, type: 3}
-  _homingShot: {fileID: 6612436121301625735, guid: ec901283ecb77134eab1c70748d687ea,
-    type: 3}
 --- !u!1001 &7039380570657185104
 PrefabInstance:
   m_ObjectHideFlags: 0
