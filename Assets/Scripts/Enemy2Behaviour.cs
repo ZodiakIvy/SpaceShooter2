@@ -49,16 +49,16 @@ public class Enemy2Behaviour : MonoBehaviour
             _fireRate = Random.Range(1f, 3f);
             _canFire = Time.time + _fireRate;
 
-            GameObject newEnemy2Attack = Instantiate(_enemy2AttackPrefab, transform.position + new Vector3(0, -.75f, 0), Quaternion.identity);
+            GameObject newEnemy2Attack = Instantiate(_enemy2AttackPrefab, transform.position + new Vector3(0, 2.5f, 0), Quaternion.identity);
             Destroy(newEnemy2Attack, 2f);
 
-            /* LaserBehaviour[] lasers = newEnemy2Attack.GetComponentsInChildren<LaserBehaviour>();
+            HomingBehaviour[] lasers = newEnemy2Attack.GetComponentsInChildren<HomingBehaviour>();
 
 
             for (int i = 0; i < lasers.Length; i++)
             {
-                lasers[i].LaserBehaviour();
-            } */
+                lasers[i].EnemyHoming();
+            }
         }
     }
 
@@ -69,7 +69,7 @@ public class Enemy2Behaviour : MonoBehaviour
         Down
     }
 
-    public MovementState moveState = MovementState.Left; 
+    public MovementState moveState = MovementState.Down; 
     //New Enemy Movement
     //Task:
     //Unique Movement Behavior(zig-zag)
@@ -81,7 +81,7 @@ public class Enemy2Behaviour : MonoBehaviour
 
         if (transform.position.x < -9 || transform.position.y < -5 || transform.position.x > 8f || transform.position.y > 10f)
         {
-            int direction = Random.Range(1, 3);
+            int direction = Random.Range(1, 2);
 
             if (direction == 1)
             {

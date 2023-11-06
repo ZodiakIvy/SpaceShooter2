@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health. 5 = Plasma, 6 = SpeedDebuff
+    private GameObject[] _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health. 5 = Plasma, 6 = SpeedDebuff, 7 = HomingShot
     [SerializeField]
     private GameObject[] _ammoType; //0 = Laser, 1 = TripleShot, 2 = Plasma, 3 = HomingShot
     [SerializeField]
@@ -69,7 +69,7 @@ public class SpawnManager : MonoBehaviour
         {
             float randomX = Random.Range(-8.5f, 7.6f);
             Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
-            int randomPowerUp = Random.Range(0, 7);
+            int randomPowerUp = Random.Range(0, 8);
 
             GameObject newPowerUp = Instantiate(_powerUps[0], spawnPosition, Quaternion.identity);
             yield return new WaitForSecondsRealtime(Random.Range(5f, 9f));
@@ -91,6 +91,9 @@ public class SpawnManager : MonoBehaviour
 
             GameObject newPowerUp6 = Instantiate(_powerUps[6], spawnPosition, Quaternion.identity);
             yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
+
+            GameObject newPowerUp7 = Instantiate(_powerUps[7], spawnPosition, Quaternion.identity);
+            yield return new WaitForSecondsRealtime(Random.Range(5f, 9f));
         }
 
     }

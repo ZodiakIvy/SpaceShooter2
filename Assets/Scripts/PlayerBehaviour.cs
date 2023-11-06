@@ -36,9 +36,13 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject _plasmaShot;
     [SerializeField]
+    private GameObject _homingShot;
+    [SerializeField]
     private bool _tripleshotActive;
     [SerializeField] 
     private bool _plasmashotActive;
+    [SerializeField]
+    private bool _homingshotActive;
     [SerializeField]
     private float _newSpawnDuration = .1f;
     [SerializeField]
@@ -135,6 +139,10 @@ public class PlayerBehaviour : MonoBehaviour
         else if (Input.GetKey(KeyCode.Space) && Time.time > _canFire && _plasmashotActive == true)
         {
             FiringPlasma();
+        }
+        else if (Input.GetKey(KeyCode.Space) && Time.time > _canFire && _homingshotActive == true)
+        {
+            HomingActivated();
         }
 
         if (_gasTank < _gasTankFull)
@@ -285,6 +293,27 @@ public class PlayerBehaviour : MonoBehaviour
         _uiManager.transform.GetChild(4).gameObject.SetActive(true);
         StartCoroutine(PowerDown2());
     }
+
+    void HomingActivated()
+    {
+        Invoke(methodName: "FireHoming", _newSpawnDuration);
+        _audioSource.clip = _laserSound;
+        _audioSource.Play();
+    }
+
+    void FireHoming()
+    {
+        if (_homingshotActive == true)
+        {
+            Instantiate(_homingShot, transform.position + new Vector3(-.16f, .75f, 0), Quaternion.identity);
+        }
+    }
+
+    public void HomingShotActive()
+    {
+        _homingshotActive = true;
+        StartCoroutine(PowerDown4());
+    }
     public void SpeedActive()
     {
         _speedActive = true;
@@ -318,6 +347,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _speedDebuffActive = false;
+    }
+
+    IEnumerator PowerDown4()
+    {
+        yield return new WaitForSeconds(5f);
+        _homingshotActive = false;
     }
 
     public void ShieldActive()

@@ -98,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04397118, y: -0.24142623}
+  m_Offset: {x: 0.018392801, y: 0.07455999}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8694179, y: 2.76609}
+  m_Size: {x: 0.92057467, y: 1.6601373}
   m_EdgeRadius: 0
 --- !u!114 &4060659413294117738
 MonoBehaviour:
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8157e1e43f3924290d1d049ef95760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy2AttackPrefab: {fileID: 4440841092892743887, guid: ec901283ecb77134eab1c70748d687ea,
+  _enemy2AttackPrefab: {fileID: 3778401668439075788, guid: a880c4430d3d87c479f881d2bb62184a,
     type: 3}
   _moveSpeed: 3
   amplitude: 2
@@ -161,12 +161,17 @@ PrefabInstance:
     - target: {fileID: 7475534986063858300, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
         type: 3}
       propertyPath: m_Name
-      value: Shield Bubble 1
+      value: Enemy2Shield
       objectReference: {fileID: 0}
     - target: {fileID: 7475534986063858300, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7475534986063858300, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy2Shield
       objectReference: {fileID: 0}
     - target: {fileID: 8437937492056151315, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
         type: 3}

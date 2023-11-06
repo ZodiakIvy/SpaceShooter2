@@ -22,6 +22,9 @@ TagManager:
   - Health
   - Ammo
   - Enemy2
+  - Enemy2Shield
+  - EnemyHoming
+  - EnemyLaser
   layers:
   - Default
   - TransparentFX

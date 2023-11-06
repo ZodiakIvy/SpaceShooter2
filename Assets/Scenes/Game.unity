@@ -983,9 +983,14 @@ MonoBehaviour:
   - {fileID: 3286669447419196872, guid: 9183a40a893bab949b5150f0e2915ba1, type: 3}
   - {fileID: 1552266276167984716, guid: 9969a18a53f61c74fb9b5935190ebf2b, type: 3}
   - {fileID: 3945015640913487024, guid: 751a52b6a06db2b4b85d2f414094d034, type: 3}
+  - {fileID: 3702778041681877488, guid: 18b0ca385f7e15d459406c564f4937dc, type: 3}
   _ammoType: []
   _enemy1Prefab: {fileID: 3069132567701881082, guid: 56f52b506ccdf154c9148083fae60362,
     type: 3}
+  _enemy2Prefab: {fileID: 6764084682619948412, guid: 0311a5e31f68b6049acd8addfd04220a,
+    type: 3}
+  _spawnTime: 7
+  _waveCount: 1
   _enemyContainer: {fileID: 1335750805}
 --- !u!4 &498640734
 Transform:
@@ -2460,6 +2465,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5842979002169062728, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188756233941464271, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188756234264709922, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188756234303031606, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
         type: 3}
       propertyPath: m_RootOrder
@@ -2546,6 +2571,12 @@ PrefabInstance:
       propertyPath: _maxShield
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: _homingShot
+      value: 
+      objectReference: {fileID: 4440841092892743887, guid: ec901283ecb77134eab1c70748d687ea,
+        type: 3}
     - target: {fileID: 7188756234579100702, guid: a3a1e06eb45961c47bf7d7e2c554554e,
         type: 3}
       propertyPath: _laserSound
@@ -2651,6 +2682,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188756234618253985, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188756235100328493, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188756235179613337, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267842670853755839, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3a1e06eb45961c47bf7d7e2c554554e, type: 3}

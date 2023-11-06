@@ -15,6 +15,16 @@ public class Enemy1Behaviour : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField]
     private AudioClip _explosion_sound;
+    [SerializeField]
+    private Rigidbody2D _enemyRigidbody;
+    [SerializeField]
+    private Transform _playerTransform;
+    [SerializeField]
+    private float _rammingDistance = 2f;
+    [SerializeField]
+    private float _rammingForce = 10f;
+    [SerializeField]
+    private Vector3 _originalPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +51,7 @@ public class Enemy1Behaviour : MonoBehaviour
             _audioSource.clip = _explosion_sound;
         }
 
+        _originalPosition = transform.position;
 
     }
 
@@ -49,12 +60,27 @@ public class Enemy1Behaviour : MonoBehaviour
     {
         Enemy1Movement();
 
+        float distance = Vector3.Distance(transform.position, _playerTransform.position);
+        if (distance < _rammingDistance)
+        {
+            Vector3 direction = (_playerTransform.position - transform.position).normalized;
+            _enemyRigidbody.AddForce(direction * _rammingForce);
+        }
+        else
+        {
+            transform.Translate(-transform.forward * _moveSpeed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, _originalPosition) < 0.1f)
+            {
+                transform.position = _originalPosition;
+            }
+        }
+
         if (Time.time > _canFire)
         {
             _fireRate = Random.Range(3f, 7f);
             _canFire = Time.time + _fireRate;
 
-            GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -.75f, 0), Quaternion.identity);
+            GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -2.75f, 0), Quaternion.identity);
 
             LaserBehaviour[] lasers = newEnemy1Attack.GetComponentsInChildren<LaserBehaviour>();
 
@@ -184,7 +210,23 @@ public class Enemy1Behaviour : MonoBehaviour
             Destroy(GetComponent<BoxCollider2D>()); 
             Destroy(this.gameObject, 2.4f);
         }
-                
+
+        if (other.CompareTag("Homing"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Homing Shot Hit");
+            if (_player != null)
+            {
+                _player.Score();
+            }
+
+            _anim.SetTrigger("OnEnemyDeath");
+            _moveSpeed = 0;
+
+            Destroy(GetComponent<BoxCollider2D>());
+            Destroy(this.gameObject);
+        }
+
     }
  
 }

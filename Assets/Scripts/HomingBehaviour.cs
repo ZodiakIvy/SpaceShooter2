@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class HomingBehaviour : MonoBehaviour
 {
-    //[SerializeField]
-    //private bool _enemy2Attack = false;
+    [SerializeField]
+    private bool _enemy2Attack = false;
     [SerializeField]
     private float _laserSpeed = 6f;
     [SerializeField]
     private float _rotateSpeed = 200f;
     [SerializeField]
-    private Transform _target;
+    private Transform _playerTransform;
+    [SerializeField]
+    private Transform _enemyTransform;
     [SerializeField]
     private Rigidbody2D _homingShot;
 
@@ -29,8 +31,10 @@ public class HomingBehaviour : MonoBehaviour
 
     void Homing()
     {
-        
-            Vector2 direction = (Vector2)_target.position - _homingShot.position;
+
+        if (_enemy2Attack == false)
+        {
+            Vector2 direction = (Vector2)_enemyTransform.position - _homingShot.position;
 
             direction.Normalize();
 
@@ -48,17 +52,40 @@ public class HomingBehaviour : MonoBehaviour
                 }
                 Destroy(this.gameObject);
             }
+        }
+        else
+        {
+            Vector2 direction = (Vector2)_playerTransform.position - _homingShot.position;
+
+
+            direction.Normalize();
+
+            float rotateAmount = Vector3.Cross(direction, transform.up).z;
+
+            _homingShot.angularVelocity = -rotateAmount * _rotateSpeed;
+
+            _homingShot.velocity = transform.up * _laserSpeed;
+
+            if (transform.position.x < -10 || transform.position.y < -10 || transform.position.x > 10f || transform.position.y > 10f)
+            {
+                if (transform.parent != null)
+                {
+                    Destroy(transform.parent.gameObject);
+                }
+                Destroy(this.gameObject);
+            }
+        }
         
     }
 
     public void EnemyHoming()
     {
-        //_enemy2Attack = true;
+        _enemy2Attack = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && _enemy2Attack == true)
         {
             PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();
             player.Damage();

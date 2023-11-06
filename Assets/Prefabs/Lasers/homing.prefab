@@ -136,5 +136,8 @@ MonoBehaviour:
   _enemy2Attack: 0
   _laserSpeed: 6
   _rotateSpeed: 200
-  _target: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e, type: 3}
+  _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+    type: 3}
+  _enemyTransform: {fileID: 4578882406945188063, guid: 56f52b506ccdf154c9148083fae60362,
+    type: 3}
   _homingShot: {fileID: 6612436121301625735}

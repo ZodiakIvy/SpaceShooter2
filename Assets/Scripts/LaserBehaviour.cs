@@ -6,6 +6,10 @@ public class LaserBehaviour : MonoBehaviour
     private float _laserSpeed = 7;
     [SerializeField]
     private bool _enemy1Attack = false;
+    [SerializeField]
+    private Transform _playerTransform;
+    [SerializeField]
+    private Transform _enemyTransform;
     private float _fireRate = 3f;
     private float _canFire = -1f;
 
@@ -27,8 +31,15 @@ public class LaserBehaviour : MonoBehaviour
             MoveUp();
         }
         else
-        { 
-            MoveDown();
+        {
+            if (_playerTransform.position.y < _enemyTransform.position.y)
+            {
+                MoveDown();
+            }
+            else
+            {
+                MoveUp();
+            }
         }
     }
 

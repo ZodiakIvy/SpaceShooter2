@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5464230191797983743}
   m_Layer: 0
   m_Name: Enemy1Attack
-  m_TagString: Untagged
+  m_TagString: EnemyLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b08fcfa4973e4743a4cd84c2f7b6348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _laserSpeed: 7
+  _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+    type: 3}
+  _enemyTransform: {fileID: 4578882406945188063, guid: 56f52b506ccdf154c9148083fae60362,
+    type: 3}
+  _laserSpeed: 8
 --- !u!1001 &2520296132468494057
 PrefabInstance:
   m_ObjectHideFlags: 0
