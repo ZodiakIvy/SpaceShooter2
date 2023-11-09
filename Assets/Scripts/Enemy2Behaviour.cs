@@ -183,7 +183,7 @@ public class Enemy2Behaviour : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        /*if (other.CompareTag("Homing"))
+        if (other.CompareTag("Homing"))
         {
             Destroy(other.gameObject);
             Debug.Log("Homing Shot Hit");
@@ -197,6 +197,6 @@ public class Enemy2Behaviour : MonoBehaviour
             GameObject newEnemy2 = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(newEnemy2, 2.4f);
             Destroy(this.gameObject);
-        }*/
+        }
     }
 }

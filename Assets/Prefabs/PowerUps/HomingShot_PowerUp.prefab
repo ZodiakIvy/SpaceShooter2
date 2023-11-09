@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1377895218376388831}
   m_Layer: 0
   m_Name: HomingShot_PowerUp
-  m_TagString: Untagged
+  m_TagString: Homing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

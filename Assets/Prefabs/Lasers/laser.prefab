@@ -135,3 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserSpeed: 8
   _enemy1Attack: 0
+  _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+    type: 3}
+  _enemyTransform: {fileID: 4578882406945188063, guid: 56f52b506ccdf154c9148083fae60362,
+    type: 3}

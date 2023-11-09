@@ -105,8 +105,19 @@ MonoBehaviour:
   _enemyRigidbody: {fileID: 7764056546158518243}
   _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
     type: 3}
+  _powerUpTransform:
+  - {fileID: 2022011097606924554, guid: 9183a40a893bab949b5150f0e2915ba1, type: 3}
+  - {fileID: 1552266276167984712, guid: 9969a18a53f61c74fb9b5935190ebf2b, type: 3}
+  - {fileID: 434817933344180571, guid: 18b0ca385f7e15d459406c564f4937dc, type: 3}
+  - {fileID: 426450279233544013, guid: 751a52b6a06db2b4b85d2f414094d034, type: 3}
+  - {fileID: 612103525046297348, guid: a7b1a205fba64504eb6ae5b764e2e178, type: 3}
+  - {fileID: 4295768986935919496, guid: f4af4eba644326841bb0c2fa0ef24bc1, type: 3}
+  - {fileID: 1530484263299196443, guid: 3d7828b320f567746aab9d24e4492555, type: 3}
+  - {fileID: 5514052648626350699, guid: 6014344027bb20b4ebd165d6ed8355d4, type: 3}
   _rammingDistance: 2
   _rammingForce: 10
+  _originalPosition: {x: 0, y: 0, z: 0}
+  _powerUps: {fileID: 0}
   moveState: 2
 --- !u!61 &4651477261684524602
 BoxCollider2D:

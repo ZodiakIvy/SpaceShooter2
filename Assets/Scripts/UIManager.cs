@@ -20,6 +20,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Sprite[] _livesSprites;
     [SerializeField]
+    private int _lives;
+    [SerializeField]
+    private TMP_Text _healthText;
+    [SerializeField]
     private Text _gameOverText;
     [SerializeField]
     private Text _restartText;
@@ -53,7 +57,22 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLives(int _lives) 
     { 
-        _livesDisplayImg.sprite = _livesSprites[_lives]; 
+        _livesDisplayImg.sprite = _livesSprites[_lives];
+
+        if (_lives == 3)
+        {
+            _healthText.text = "Health Full";
+        }
+
+        if (_lives == 2)
+        {
+            _healthText.text = " ";
+        }
+
+        if (_lives == 1)
+        {
+            _healthText.text = "WARNING";
+        }
     }
     public void Enemy1Hit(int _score)
     {

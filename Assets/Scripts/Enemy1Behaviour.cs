@@ -20,11 +20,14 @@ public class Enemy1Behaviour : MonoBehaviour
     [SerializeField]
     private Transform _playerTransform;
     [SerializeField]
+    private Transform[] _powerUpTransform;
+    [SerializeField]
     private float _rammingDistance = 2f;
     [SerializeField]
     private float _rammingForce = 10f;
     [SerializeField]
     private Vector3 _originalPosition;
+  
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +54,6 @@ public class Enemy1Behaviour : MonoBehaviour
             _audioSource.clip = _explosion_sound;
         }
 
-        _originalPosition = transform.position;
 
     }
 
@@ -61,19 +63,29 @@ public class Enemy1Behaviour : MonoBehaviour
         Enemy1Movement();
 
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
+        int[] x = { 0, 7 };
+        float powerUpdistance = Vector3.Distance(transform.position, _powerUpTransform[x[0]].transform.position);
         if (distance < _rammingDistance)
         {
             Vector3 direction = (_playerTransform.position - transform.position).normalized;
             _enemyRigidbody.AddForce(direction * _rammingForce);
         }
-        else
+
+        if (powerUpdistance < _rammingDistance && Time.time > _canFire)
         {
-            transform.Translate(-transform.forward * _moveSpeed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, _originalPosition) < 0.1f)
+            _fireRate = .5f;
+            _canFire = Time.time + _fireRate;
+
+            GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -2.75f, 0), Quaternion.identity);
+
+            LaserBehaviour[] lasers = newEnemy1Attack.GetComponentsInChildren<LaserBehaviour>();
+
+            for (int i = 0; i < lasers.Length; i++)
             {
-                transform.position = _originalPosition;
+                lasers[i].AssignEnemyLaser();
             }
         }
+     
 
         if (Time.time > _canFire)
         {

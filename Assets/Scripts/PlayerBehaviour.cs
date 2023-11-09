@@ -306,12 +306,14 @@ public class PlayerBehaviour : MonoBehaviour
         if (_homingshotActive == true)
         {
             Instantiate(_homingShot, transform.position + new Vector3(-.16f, .75f, 0), Quaternion.identity);
+            Destroy(_homingShot, 2.4f);
         }
     }
 
     public void HomingShotActive()
     {
         _homingshotActive = true;
+        _uiManager.transform.GetChild(5).gameObject.SetActive(true);
         StartCoroutine(PowerDown4());
     }
     public void SpeedActive()
@@ -353,6 +355,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _homingshotActive = false;
+        _uiManager.transform.GetChild(5).gameObject.SetActive(false);
     }
 
     public void ShieldActive()

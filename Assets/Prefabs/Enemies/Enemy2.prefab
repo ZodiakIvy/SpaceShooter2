@@ -163,30 +163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy2Shield
       objectReference: {fileID: 0}
-    - target: {fileID: 7475534986063858300, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7475534986063858300, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy2Shield
-      objectReference: {fileID: 0}
     - target: {fileID: 8437937492056151315, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8437937492056151315, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.4208454
-      objectReference: {fileID: 0}
-    - target: {fileID: 8437937492056151315, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.1891369
       objectReference: {fileID: 0}
     - target: {fileID: 8437937492056151315, guid: 8575cf1afafa06b4fa7a5a7007fbf747,
         type: 3}
