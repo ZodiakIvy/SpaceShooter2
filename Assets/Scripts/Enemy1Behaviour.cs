@@ -10,6 +10,7 @@ public class Enemy1Behaviour : MonoBehaviour
     private float _canFire = -1f;
     [SerializeField]
     private float _moveSpeed = 4;
+    [SerializeField]
     private Animator _anim;
     private PlayerBehaviour _player;
     private AudioSource _audioSource;

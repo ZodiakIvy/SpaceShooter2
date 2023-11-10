@@ -144,6 +144,9 @@ public class Enemy2Behaviour : MonoBehaviour
         {
             _shieldBubble1.SetActive(false);
             _shieldActive = false;
+            PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();
+            player.Damage();
+            Debug.Log("Player Collided");
         }
         else 
         {

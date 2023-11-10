@@ -101,6 +101,7 @@ MonoBehaviour:
   _enemy1AttackPrefab: {fileID: 9017377484880139328, guid: 8bc9ff30ca49b184c8756c3b91a1c5c0,
     type: 3}
   _moveSpeed: 4
+  _anim: {fileID: 0}
   _explosion_sound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _enemyRigidbody: {fileID: 7764056546158518243}
   _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
@@ -117,7 +118,6 @@ MonoBehaviour:
   _rammingDistance: 2
   _rammingForce: 10
   _originalPosition: {x: 0, y: 0, z: 0}
-  _powerUps: {fileID: 0}
   moveState: 2
 --- !u!61 &4651477261684524602
 BoxCollider2D:
