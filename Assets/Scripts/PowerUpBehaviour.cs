@@ -8,7 +8,17 @@ public class PowerUpBehaviour : MonoBehaviour
     private int _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health, 5 = PlasmaShot, 6 = SpeedDebuff, 7 = Homing
     [SerializeField]
     private AudioClip _clip;
-  
+    [SerializeField]
+    private Rigidbody2D _playerRigidbody;
+    [SerializeField]
+    private Transform _playerTransform;
+    [SerializeField]
+    private Transform _powerUpTransform;
+    [SerializeField]
+    private float _proximity = 6f;
+    [SerializeField]
+    private float _magnetForce = 10f;
+
     // Update is called once per frame
     void Update()
     {
@@ -16,6 +26,22 @@ public class PowerUpBehaviour : MonoBehaviour
         if (transform.position.y <= -5.3f)
         {
             Destroy(this.gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Magnet();
+        }
+    }
+
+    public void Magnet()
+    {
+        float distance = Vector3.Distance(transform.position, _powerUpTransform.position);
+        float _proximity = Vector3.Distance(transform.position, _playerTransform.position);
+        if (distance < _proximity)
+        {
+            Vector3 direction = (_powerUpTransform.position - transform.position).normalized;
+            _playerRigidbody.AddForce(direction * _magnetForce);
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

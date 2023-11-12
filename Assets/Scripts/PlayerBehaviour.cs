@@ -70,6 +70,16 @@ public class PlayerBehaviour : MonoBehaviour
     private AudioClip _noShot;
     private AudioSource _audioSource;
     private CameraShakeBehaviour _cameraShakeBehaviour;
+    [SerializeField]
+    private Rigidbody2D[] _powerUpRigidbody;
+    [SerializeField]
+    private Transform _playerTransform;
+    [SerializeField]
+    private Transform[] _powerUpTransform;
+    [SerializeField]
+    private float _proximity = 2f;
+    [SerializeField]
+    private float _magnetForce = 10f;
 
 
     // Start is called before the first frame update
@@ -150,6 +160,11 @@ public class PlayerBehaviour : MonoBehaviour
             _gasTank += _thrusterRefillRate * Time.deltaTime;
             _gasTank = Mathf.Clamp(_gasTank, 0f, _gasTankFull);
             _thrusterGauge.value = _gasTank;
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Magnet();
         }
         
 
@@ -363,6 +378,18 @@ public class PlayerBehaviour : MonoBehaviour
         _shieldActive = true;
         _shieldHealth = 3;
         _shieldBubble3.SetActive(true);
+    }
+
+    public void Magnet()
+    {
+        float distance = Vector3.Distance(transform.position, _playerTransform.position);
+        int[] x = { 0, 1, 2, 3, 4, 5, 6, 7 };
+        float powerUpdistance = Vector3.Distance(transform.position, _powerUpTransform[x[0]].transform.position);
+        if (distance < _proximity)
+        {
+            Vector3 direction = (_playerTransform.position - transform.position).normalized;
+            _powerUpRigidbody[x[0]].AddForce(direction * _magnetForce);
+        }
     }
 
     public void MoreBullets()
