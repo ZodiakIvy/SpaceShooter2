@@ -64,7 +64,7 @@ public class Enemy1Behaviour : MonoBehaviour
         Enemy1Movement();
 
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
-        int[] x = { 0, 7 };
+        int[] x = { 0, 1, 2, 3, 4, 5, 6, 7 };
         float powerUpdistance = Vector3.Distance(transform.position, _powerUpTransform[x[0]].transform.position);
         if (distance < _rammingDistance)
         {
