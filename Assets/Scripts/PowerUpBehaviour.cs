@@ -14,10 +14,6 @@ public class PowerUpBehaviour : MonoBehaviour
     private Transform _playerTransform;
     [SerializeField]
     private Transform _powerUpTransform;
-    [SerializeField]
-    private float _proximity = 6f;
-    [SerializeField]
-    private float _magnetForce = 10f;
 
     // Update is called once per frame
     void Update()
@@ -28,22 +24,9 @@ public class PowerUpBehaviour : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Magnet();
-        }
     }
 
-    public void Magnet()
-    {
-        float distance = Vector3.Distance(transform.position, _powerUpTransform.position);
-        float _proximity = Vector3.Distance(transform.position, _playerTransform.position);
-        if (distance < _proximity)
-        {
-            Vector3 direction = (_powerUpTransform.position - transform.position).normalized;
-            _playerRigidbody.AddForce(direction * _magnetForce);
-        }
-    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag ("Player"))

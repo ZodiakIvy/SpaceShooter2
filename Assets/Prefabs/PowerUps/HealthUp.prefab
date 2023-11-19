@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552266276167984716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.87, z: 0}
+  m_LocalPosition: {x: 0.09982271, y: 1.2093873, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,3 +114,6 @@ MonoBehaviour:
   _moveSpeed: 3
   _powerUps: 4
   _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  _playerRigidbody: {fileID: 0}
+  _playerTransform: {fileID: 0}
+  _powerUpTransform: {fileID: 0}

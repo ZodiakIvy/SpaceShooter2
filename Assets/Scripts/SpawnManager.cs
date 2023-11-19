@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] 
     private GameObject _enemyContainer;
     private bool _stopSpawning = false;
-    private GameManager _gameManager;
+    [SerializeField]
     private PlayerBehaviour _player;
     private string[] _sceneNames = { "Game - Level 1", "Game - Level 2", "Game - Level 3", "Game - Level 4", "Game - Level 5" };
     private int _currentSceneIndex = 0;
@@ -31,12 +31,6 @@ public class SpawnManager : MonoBehaviour
         if (_player == null)
         {
             Debug.LogError("Player is NULL");
-        }
-
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        if (_gameManager == null)
-        {
-            Debug.LogError("The Game Manager is NULL");
         }
     }
 
@@ -101,7 +95,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
             
-            if (_waveCount == 8)
+            if (_waveCount == 4)
             {
                 Enemy1_SpawnRoutine();
                 SceneManager.LoadScene(_sceneNames[_currentSceneIndex]);
