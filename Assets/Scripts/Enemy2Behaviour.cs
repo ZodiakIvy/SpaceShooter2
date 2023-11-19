@@ -124,7 +124,7 @@ public class Enemy2Behaviour : MonoBehaviour
             _shieldActive = false;
 
         }
-        else
+        else if (other.tag == "Laser" && _shieldActive == false)
         {
             Destroy(other.gameObject);
             Debug.Log("Laser Hit");
@@ -148,7 +148,7 @@ public class Enemy2Behaviour : MonoBehaviour
             player.Damage();
             Debug.Log("Player Collided");
         }
-        else 
+        else if (other.tag == "Player" && _shieldActive == false)
         {
             PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();
             player.Damage();
@@ -170,7 +170,7 @@ public class Enemy2Behaviour : MonoBehaviour
             _shieldBubble1.SetActive(false);
             _shieldActive = false;
         }
-        else 
+        else if (other.CompareTag("Plasma") && _shieldActive == false)
         { 
             Destroy(other.gameObject);
             Debug.Log("Plasma Shot Hit");

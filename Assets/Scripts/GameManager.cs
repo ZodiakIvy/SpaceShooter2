@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] 
     private bool _isGameOver;
+    
     // Update is called once per frame
     void Update()
     {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+
     }
     public void GameOver() 
     {

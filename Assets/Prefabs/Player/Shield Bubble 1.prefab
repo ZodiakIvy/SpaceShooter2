@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 240711413276929333}
   m_Layer: 0
   m_Name: Shield Bubble 1
-  m_TagString: Enemy2Shield
+  m_TagString: ShieldBubble1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8437937492056151315
 Transform:
   m_ObjectHideFlags: 0
