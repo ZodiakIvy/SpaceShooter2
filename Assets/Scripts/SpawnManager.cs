@@ -13,6 +13,10 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemy1Prefab;
     [SerializeField]
+    private GameObject _enemy1Level2Prefab;
+    [SerializeField]
+    private GameObject _enemy1Level3Prefab;
+    [SerializeField]
     private GameObject _enemy2Prefab;
     [SerializeField]
     private float _spawnTime = 7f;
@@ -23,8 +27,7 @@ public class SpawnManager : MonoBehaviour
     private bool _stopSpawning = false;
     [SerializeField]
     private PlayerBehaviour _player;
-    private string[] _sceneNames = { "Game - Level 1", "Game - Level 2", "Game - Level 3", "Game - Level 4", "Game - Level 5" };
-    private int _currentSceneIndex = 0;
+    
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
@@ -53,31 +56,31 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawning()
     {
         StartCoroutine(Enemy1_SpawnRoutine());
+        StartCoroutine(Enemy2_SpawnRoutine());
         StartCoroutine(PowerUp_SpawnRoutine_Level1());
     }
 
     public void StartSpawningLevel2()
     {
-        StartCoroutine(Enemy1_SpawnRoutine());
+        StartCoroutine(Enemy1_SpawnRoutine_Level2());
         StartCoroutine(PowerUp_SpawnRoutine_Level2());
     }
 
     public void StartSpawningLevel3()
     {
-        StartCoroutine(Enemy1_SpawnRoutine());
+        StartCoroutine(Enemy1_SpawnRoutine_Level3());
         StartCoroutine(PowerUp_SpawnRoutine_Level3());
     }
 
     public void StartSpawningLevel4()
     {
-        StartCoroutine(Enemy1_SpawnRoutine());
         StartCoroutine(PowerUp_SpawnRoutine_Level4());
-        StartCoroutine(Enemy2_SpawnRoutine());
     }
 
     public void StartSpawningLevel5()
     {
         StartCoroutine(PowerUp_SpawnRoutine_Level5());
+        StartCoroutine(BossBattle_SpawnRoutine());
     }
 
     IEnumerator Enemy1_SpawnRoutine()
@@ -97,9 +100,9 @@ public class SpawnManager : MonoBehaviour
             
             if (_waveCount == 4)
             {
-                Enemy1_SpawnRoutine();
-                SceneManager.LoadScene(_sceneNames[_currentSceneIndex]);
-                _currentSceneIndex = (_currentSceneIndex + 1) % _sceneNames.Length;
+                StartSpawningLevel2();
+                StopCoroutine(PowerUp_SpawnRoutine_Level1());
+                StopCoroutine(Enemy1_SpawnRoutine());
             }
             else
             {
@@ -109,9 +112,68 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    IEnumerator Enemy1_SpawnRoutine_Level2()
+    {
+        yield return new WaitForSeconds(3f);
+        while (_stopSpawning == false)
+        {
+            for (int i = 0; i < _waveCount; i++)
+            {
+                float randomX = Random.Range(-8.5f, 7.6f);
+                Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
+                GameObject newLevel2Enemy1 = Instantiate(_enemy1Level2Prefab, spawnPosition, Quaternion.identity);
+                newLevel2Enemy1.transform.parent = _enemyContainer.transform;
+                yield return new WaitForSecondsRealtime(2f);
+            }
+            yield return new WaitForSecondsRealtime(_spawnTime);
+
+            if (_waveCount == 4)
+            {
+                StartSpawningLevel3();
+                StopCoroutine(PowerUp_SpawnRoutine_Level2());
+                StopCoroutine(Enemy1_SpawnRoutine_Level2());
+            }
+            else
+            {
+                Enemy1_SpawnRoutine_Level2();
+            }
+            _waveCount++;
+        }
+    }
+
+    IEnumerator Enemy1_SpawnRoutine_Level3()
+    {
+        yield return new WaitForSeconds(3f);
+        while (_stopSpawning == false)
+        {
+            for (int i = 0; i < _waveCount; i++)
+            {
+                float randomX = Random.Range(-8.5f, 7.6f);
+                Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
+                GameObject newLevel3Enemy1 = Instantiate(_enemy1Level3Prefab, spawnPosition, Quaternion.identity);
+                newLevel3Enemy1.transform.parent = _enemyContainer.transform;
+                yield return new WaitForSecondsRealtime(2f);
+            }
+            yield return new WaitForSecondsRealtime(_spawnTime);
+
+            if (_waveCount == 4)
+            {
+                StartSpawningLevel4();
+                StopCoroutine(PowerUp_SpawnRoutine_Level3());
+                StopCoroutine(Enemy1_SpawnRoutine_Level3());
+            }
+            else
+            {
+                Enemy1_SpawnRoutine_Level3();
+            }
+            _waveCount++;
+        }
+    }
+
+
     IEnumerator Enemy2_SpawnRoutine()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(93f);
         while (_stopSpawning == false)
         {
             for (int i = 0; i < _waveCount; i++)
@@ -123,7 +185,28 @@ public class SpawnManager : MonoBehaviour
                 yield return new WaitForSecondsRealtime(4f);
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
+
+
+            if (_waveCount == 4)
+            {
+                StartSpawningLevel5();
+                StopCoroutine(PowerUp_SpawnRoutine_Level4());
+                StopCoroutine(Enemy2_SpawnRoutine());
+            }
+            else
+            {
+                Enemy2_SpawnRoutine();
+            }
             _waveCount++;
+        }
+    }
+
+    IEnumerator BossBattle_SpawnRoutine()
+    {
+        yield return new WaitForSeconds(3f);
+        while (_stopSpawning == false)
+        {
+
         }
     }
 
@@ -317,7 +400,6 @@ public class SpawnManager : MonoBehaviour
         }
 
     }
-    
     public void OnPlayerDeath()
     {
         _stopSpawning = true;
