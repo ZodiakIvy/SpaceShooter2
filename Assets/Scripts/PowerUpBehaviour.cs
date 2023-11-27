@@ -14,6 +14,21 @@ public class PowerUpBehaviour : MonoBehaviour
     private Transform _playerTransform;
     [SerializeField]
     private Transform _powerUpTransform;
+    [SerializeField]
+    private float _rammingDistance = 2f;
+    [SerializeField]
+    private GameObject _enemy1AttackPrefab;
+    private float _canFire = -1f;
+    private Enemy1Behaviour _enemy1Behaviour;
+
+    private void Start()
+    {
+        _enemy1Behaviour = GameObject.FindGameObjectWithTag("EnemyLaser").GetComponent<Enemy1Behaviour>();
+        if (_enemy1Behaviour == null)
+        {
+            Debug.LogError("Enemy on PowerUp Behaviour is NULL.");
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -24,9 +39,19 @@ public class PowerUpBehaviour : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        PowerUpShot();
     }
 
-    
+    void PowerUpShot()
+    {
+        float powerUpdistance = Vector3.Distance(transform.position, _powerUpTransform.transform.position);
+
+        if (powerUpdistance < _rammingDistance && Time.time > _canFire)
+        {
+            _enemy1Behaviour.Enemy1Attack();
+        }
+
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag ("Player"))
