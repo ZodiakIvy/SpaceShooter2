@@ -25,6 +25,7 @@ TagManager:
   - Enemy2Shield
   - EnemyHoming
   - EnemyLaser
+  - Boss
   layers:
   - Default
   - TransparentFX

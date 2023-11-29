@@ -4,11 +4,12 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - _tripleshotPrefab: {fileID: 6495722717953212760, guid: 6014344027bb20b4ebd165d6ed8355d4,
+  - _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  - _playerRigidbody: {instanceID: 0}
+  - _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
       type: 3}
-  - _speedPrefab: {fileID: 4330129998581949817, guid: 3d7828b320f567746aab9d24e4492555,
-      type: 3}
-  - _shieldPrefab: {fileID: 4384872693715077767, guid: a7b1a205fba64504eb6ae5b764e2e178,
+  - _powerUpTransform: {instanceID: 0}
+  - _enemy1AttackPrefab: {fileID: 4184803176062248863, guid: e4ce17fec2437064bad342c7c6d8e529,
       type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

@@ -134,3 +134,9 @@ MonoBehaviour:
   _moveSpeed: 3
   _powerUps: 6
   _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+    type: 3}
+  _powerUpTransform: {fileID: 4295768986935919496}
+  _rammingDistance: 2
+  _enemy1AttackPrefab: {fileID: 9017377484880139328, guid: 8bc9ff30ca49b184c8756c3b91a1c5c0,
+    type: 3}

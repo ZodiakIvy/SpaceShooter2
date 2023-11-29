@@ -27,13 +27,25 @@ public class SpawnManager : MonoBehaviour
     private bool _stopSpawning = false;
     [SerializeField]
     private PlayerBehaviour _player;
-    
+    private UIManager _uiManager;
+    [SerializeField]
+    private BossBehaviour _bossBehaviour;
+
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
+        _bossBehaviour = GameObject.Find("BossBehaviour").GetComponent<BossBehaviour>();
+
+
         if (_player == null)
         {
             Debug.LogError("Player is NULL");
+        }
+
+        if (_uiManager == null)
+        {
+            Debug.LogError("The UI Manager is NULL.");
         }
     }
 
@@ -80,6 +92,7 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawningLevel5()
     {
         StartCoroutine(PowerUp_SpawnRoutine_Level5());
+        _uiManager.transform.GetChild(9).gameObject.SetActive(true);
         StartCoroutine(BossBattle_SpawnRoutine());
     }
 
@@ -98,7 +111,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
             
-            if (_waveCount == 4)
+            if (_waveCount == 2)
             {
                 StartSpawningLevel2();
                 StopCoroutine(PowerUp_SpawnRoutine_Level1());
@@ -127,7 +140,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
 
-            if (_waveCount == 4)
+            if (_waveCount == 2)
             {
                 StartSpawningLevel3();
                 StopCoroutine(PowerUp_SpawnRoutine_Level2());
@@ -156,7 +169,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
 
-            if (_waveCount == 4)
+            if (_waveCount == 2)
             {
                 StartSpawningLevel4();
                 StopCoroutine(PowerUp_SpawnRoutine_Level3());
@@ -187,7 +200,7 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(_spawnTime);
 
 
-            if (_waveCount == 4)
+            if (_waveCount == 2)
             {
                 StartSpawningLevel5();
                 StopCoroutine(PowerUp_SpawnRoutine_Level4());
@@ -206,7 +219,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         while (_stopSpawning == false)
         {
-
+            _bossBehaviour.StartCoroutine(BossMovement());
         }
     }
 

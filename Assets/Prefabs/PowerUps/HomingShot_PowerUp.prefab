@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3702778041681877488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.116957515, y: 1.6865679, z: 0}
+  m_LocalPosition: {x: 0.22050308, y: 0.97287446, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -134,6 +134,9 @@ MonoBehaviour:
   _moveSpeed: 3
   _powerUps: 7
   _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
-  _playerRigidbody: {fileID: 0}
-  _playerTransform: {fileID: 0}
-  _powerUpTransform: {fileID: 0}
+  _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+    type: 3}
+  _powerUpTransform: {fileID: 434817933344180571}
+  _rammingDistance: 2
+  _enemy1AttackPrefab: {fileID: 9017377484880139328, guid: 8bc9ff30ca49b184c8756c3b91a1c5c0,
+    type: 3}

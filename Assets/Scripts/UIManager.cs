@@ -29,6 +29,8 @@ public class UIManager : MonoBehaviour
     private Text _restartText;
     [SerializeField]
     private TMP_Text _newAmmoText;
+    [SerializeField]
+    private Text _bossBattleText;
    
 
     //Handle to text
@@ -41,6 +43,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(GameOverFlickerRoutine());
         _restartText.gameObject.SetActive(false);
         _newAmmoText.gameObject.SetActive(false);
+        _bossBattleText.gameObject.SetActive(false);
    
     }
 

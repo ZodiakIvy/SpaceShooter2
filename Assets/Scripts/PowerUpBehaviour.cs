@@ -9,8 +9,6 @@ public class PowerUpBehaviour : MonoBehaviour
     [SerializeField]
     private AudioClip _clip;
     [SerializeField]
-    private Rigidbody2D _playerRigidbody;
-    [SerializeField]
     private Transform _playerTransform;
     [SerializeField]
     private Transform _powerUpTransform;
@@ -18,16 +16,10 @@ public class PowerUpBehaviour : MonoBehaviour
     private float _rammingDistance = 2f;
     [SerializeField]
     private GameObject _enemy1AttackPrefab;
-    private float _canFire = -1f;
-    private Enemy1Behaviour _enemy1Behaviour;
 
     private void Start()
     {
-        _enemy1Behaviour = GameObject.FindGameObjectWithTag("EnemyLaser").GetComponent<Enemy1Behaviour>();
-        if (_enemy1Behaviour == null)
-        {
-            Debug.LogError("Enemy on PowerUp Behaviour is NULL.");
-        }
+        
     }
 
     // Update is called once per frame
@@ -39,18 +31,16 @@ public class PowerUpBehaviour : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        PowerUpShot();
+        Magnet();
     }
 
-    void PowerUpShot()
+    void Magnet()
     {
-        float powerUpdistance = Vector3.Distance(transform.position, _powerUpTransform.transform.position);
-
-        if (powerUpdistance < _rammingDistance && Time.time > _canFire)
+        if (Input.GetKey(KeyCode.C))
         {
-            _enemy1Behaviour.Enemy1Attack();
-        }
-
+            float step = (_moveSpeed * 9) * Time.deltaTime;
+            _powerUpTransform.transform.position = Vector3.MoveTowards(_powerUpTransform.transform.position, _playerTransform.transform.position, step);
+        } 
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

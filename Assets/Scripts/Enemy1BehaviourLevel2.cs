@@ -16,6 +16,17 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField]
     private AudioClip _explosion_sound;
+    [SerializeField]
+    private Rigidbody2D _enemyRigidbody;
+    [SerializeField]
+    private float _rammingDistance = 2f;
+    public float dodgeDistance = 3f;
+    public float dodgeSpeed = 10f;
+    public float dodgeTime = 0.5f;
+    public float dodgeDelay = 0.5f;
+    public float dodgeDirection = 1f;
+    private bool isDodging = false;
+    private Vector3 dodgeTarget;
 
 
     // Start is called before the first frame update
@@ -67,6 +78,16 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
             }
         }
 
+        if (isDodging)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, dodgeTarget, dodgeSpeed * Time.deltaTime);
+            if (transform.position == dodgeTarget)
+            {
+                isDodging = false;
+                Invoke("ResetDodge", dodgeDelay);
+            }
+        }
+
     }
 
     public enum MovementState
@@ -82,7 +103,7 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
         float randomX = Random.Range(-8.5f, 7.6f);
         float randomY = Random.Range(-4.8f, 6f);
 
-        if (transform.position.x < -9 || transform.position.y < -5 || transform.position.x > 8f || transform.position.y > 10f)
+            if (transform.position.x < -9 || transform.position.y < -5 || transform.position.x > 8f || transform.position.y > 10f)
         {
             int direction = Random.Range(1, 4);
 
@@ -129,6 +150,17 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
             if (_player != null)
             {
                 _player.Score();
+            }
+
+            if (other.CompareTag("Laser"))
+            {
+                Vector3 direction = transform.position - other.transform.position;
+                if (Mathf.Abs(direction.x) < 2f)
+                {
+                    isDodging = true;
+                    dodgeTarget = transform.position + new Vector3(dodgeDistance * dodgeDirection, 0f, 0f);
+                    dodgeDirection *= -1f;
+                }
             }
 
             _anim.SetTrigger("OnEnemyDeath");
