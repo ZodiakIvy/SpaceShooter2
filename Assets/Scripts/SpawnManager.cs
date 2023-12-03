@@ -4,12 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
 {
+    private bool _stopSpawning = false;
+
     [SerializeField]
-    private GameObject[] _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health. 5 = Plasma, 6 = SpeedDebuff, 7 = HomingShot
+    private BossBehaviour _bossBehaviour;
+
     [SerializeField]
-    private GameObject _powerUpContainer;
+    private float _spawnTime = 7f;
     [SerializeField]
     private float _moveSpeed = 3;
+
     [SerializeField]
     private GameObject _enemy1Prefab;
     [SerializeField]
@@ -19,24 +23,25 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemy2Prefab;
     [SerializeField]
-    private float _spawnTime = 7f;
+    private GameObject _enemyContainer;
+    [SerializeField]
+    private GameObject[] _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health. 5 = Plasma, 6 = SpeedDebuff, 7 = HomingShot
+    [SerializeField]
+    private GameObject _powerUpContainer;
+    
     [SerializeField]
     private int _waveCount = 1;
-    [SerializeField] 
-    private GameObject _enemyContainer;
-    private bool _stopSpawning = false;
+    
     [SerializeField]
     private PlayerBehaviour _player;
+
     private UIManager _uiManager;
-    [SerializeField]
-    private BossBehaviour _bossBehaviour;
 
     void Start()
     {
+        _bossBehaviour = GameObject.Find("BossBehaviour").GetComponent<BossBehaviour>();
         _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
-        _bossBehaviour = GameObject.Find("BossBehaviour").GetComponent<BossBehaviour>();
-
 
         if (_player == null)
         {
@@ -63,6 +68,11 @@ public class SpawnManager : MonoBehaviour
         {
             _powerUps.transform.position = Vector3.MoveTowards(_powerUps.transform.position, _player.transform.position, Time.deltaTime * _moveSpeed);
         }
+    }
+
+    public void OnPlayerDeath()
+    {
+        _stopSpawning = true;
     }
 
     public void StartSpawning()
@@ -94,6 +104,15 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(PowerUp_SpawnRoutine_Level5());
         _uiManager.transform.GetChild(9).gameObject.SetActive(true);
         StartCoroutine(BossBattle_SpawnRoutine());
+    }
+
+    IEnumerator BossBattle_SpawnRoutine()
+    {
+        yield return new WaitForSeconds(3f);
+        while (_stopSpawning == false)
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     IEnumerator Enemy1_SpawnRoutine()
@@ -211,15 +230,6 @@ public class SpawnManager : MonoBehaviour
                 Enemy2_SpawnRoutine();
             }
             _waveCount++;
-        }
-    }
-
-    IEnumerator BossBattle_SpawnRoutine()
-    {
-        yield return new WaitForSeconds(3f);
-        while (_stopSpawning == false)
-        {
-            _bossBehaviour.StartCoroutine(BossMovement());
         }
     }
 
@@ -413,8 +423,5 @@ public class SpawnManager : MonoBehaviour
         }
 
     }
-    public void OnPlayerDeath()
-    {
-        _stopSpawning = true;
-    }
+ 
 }

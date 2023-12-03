@@ -3,19 +3,23 @@
 public class PowerUpBehaviour : MonoBehaviour
 {
     [SerializeField]
+    private AudioClip _clip;
+
+    [SerializeField]
     private float _moveSpeed = 3;
     [SerializeField]
-    private int _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health, 5 = PlasmaShot, 6 = SpeedDebuff, 7 = Homing
+    private float _rammingDistance = 2f;
+
     [SerializeField]
-    private AudioClip _clip;
+    private GameObject _enemy1AttackPrefab;
+
+    [SerializeField]
+    private int _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health, 5 = PlasmaShot, 6 = SpeedDebuff, 7 = Homing
+    
     [SerializeField]
     private Transform _playerTransform;
     [SerializeField]
     private Transform _powerUpTransform;
-    [SerializeField]
-    private float _rammingDistance = 2f;
-    [SerializeField]
-    private GameObject _enemy1AttackPrefab;
 
     private void Start()
     {

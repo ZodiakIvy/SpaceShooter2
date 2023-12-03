@@ -5,35 +5,42 @@ using UnityEngine;
 
 public class Enemy2Behaviour : MonoBehaviour
 {
+    private Animator _anim;
+
+    [SerializeField]
+    private bool _shieldActive = true;
+
+    public float amplitude = 2f;
+
+    private float _canFire = -1f;
+    private float _fireRate = 3f;
+    [SerializeField]
+    private float _moveSpeed = 2f;
+
     [SerializeField]
     private GameObject _enemy2AttackPrefab;
     [SerializeField]
-    private float _moveSpeed = 2f;
-    private float _fireRate = 3f;
-    private float _canFire = -1f;
-    public float amplitude = 2f;
-    private Vector3 pos1;
-    [SerializeField]
     private GameObject _explosionPrefab;
-    private Animator _anim;
-    private PlayerBehaviour _player;
-    [SerializeField]
-    private bool _shieldActive = true;
     [SerializeField]
     private GameObject _shieldBubble1;
+
+    private PlayerBehaviour _player;
+
+    private Vector3 pos1;
+    
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
-        if (_player == null)
-        {
-            Debug.LogError("Player is NULL");
-        }
-
         _anim = GetComponent<Animator>();
         if (_anim == null)
         {
             Debug.LogError("The Animator is NULL");
+        }
+
+        _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is NULL");
         }
 
         pos1 = transform.position;
@@ -44,29 +51,14 @@ public class Enemy2Behaviour : MonoBehaviour
     {
         Enemy2Movement();
 
-        if (Time.time > _canFire)
-        {
-            _fireRate = Random.Range(1f, 3f);
-            _canFire = Time.time + _fireRate;
-
-            GameObject newEnemy2Attack = Instantiate(_enemy2AttackPrefab, transform.position + new Vector3(0, 2.5f, 0), Quaternion.identity);
-            Destroy(newEnemy2Attack, 2f);
-
-            HomingBehaviour[] lasers = newEnemy2Attack.GetComponentsInChildren<HomingBehaviour>();
-
-
-            for (int i = 0; i < lasers.Length; i++)
-            {
-                lasers[i].EnemyHoming();
-            }
-        }
+        EnemyHomingShot();
     }
 
     public enum MovementState
     {
-        Right,
+        Down,
         Left,
-        Down
+        Right
     }
 
     public MovementState moveState = MovementState.Down; 
@@ -114,9 +106,46 @@ public class Enemy2Behaviour : MonoBehaviour
         }
     }
 
+    void EnemyHomingShot()
+    {
+        if (Time.time > _canFire)
+        {
+            _fireRate = Random.Range(1f, 3f);
+            _canFire = Time.time + _fireRate;
+
+            GameObject newEnemy2Attack = Instantiate(_enemy2AttackPrefab, transform.position + new Vector3(0, 2.5f, 0), Quaternion.identity);
+            Destroy(newEnemy2Attack, 2f);
+
+            HomingBehaviour[] lasers = newEnemy2Attack.GetComponentsInChildren<HomingBehaviour>();
+
+
+            for (int i = 0; i < lasers.Length; i++)
+            {
+                lasers[i].EnemyHoming();
+            }
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Hit: " + other.transform.name);
+
+        if (other.CompareTag("Homing"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Homing Shot Hit");
+            if (_player != null)
+            {
+                _player.Score();
+            }
+
+            _moveSpeed = 0;
+
+            GameObject newEnemy2 = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(newEnemy2, 2.4f);
+            Destroy(this.gameObject);
+        }
+
         if (other.tag == "Laser" && _shieldActive == true)
         {
 
@@ -128,6 +157,27 @@ public class Enemy2Behaviour : MonoBehaviour
         {
             Destroy(other.gameObject);
             Debug.Log("Laser Hit");
+            if (_player != null)
+            {
+                _player.Score();
+            }
+
+            _moveSpeed = 0;
+            Destroy(GetComponent<BoxCollider2D>());
+            GameObject newEnemy2 = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(newEnemy2, 2.4f);
+            Destroy(this.gameObject);
+        }
+
+        if (other.CompareTag("Plasma") && _shieldActive == true)
+        {
+            _shieldBubble1.SetActive(false);
+            _shieldActive = false;
+        }
+        else if (other.CompareTag("Plasma") && _shieldActive == false)
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Plasma Shot Hit");
             if (_player != null)
             {
                 _player.Score();
@@ -165,41 +215,8 @@ public class Enemy2Behaviour : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (other.CompareTag("Plasma") && _shieldActive == true)
-        {
-            _shieldBubble1.SetActive(false);
-            _shieldActive = false;
-        }
-        else if (other.CompareTag("Plasma") && _shieldActive == false)
-        { 
-            Destroy(other.gameObject);
-            Debug.Log("Plasma Shot Hit");
-            if (_player != null)
-            {
-                _player.Score();
-            }
+        
 
-            _moveSpeed = 0;
-            Destroy(GetComponent<BoxCollider2D>());
-            GameObject newEnemy2 = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(newEnemy2, 2.4f);
-            Destroy(this.gameObject);
-        }
-
-        if (other.CompareTag("Homing"))
-        {
-            Destroy(other.gameObject);
-            Debug.Log("Homing Shot Hit");
-            if (_player != null)
-            {
-                _player.Score();
-            }
-
-            _moveSpeed = 0;
-            
-            GameObject newEnemy2 = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(newEnemy2, 2.4f);
-            Destroy(this.gameObject);
-        }
+        
     }
 }

@@ -3,16 +3,21 @@
 public class Enemy1AttackBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private Transform _playerTransform;
+    private float _laserSpeed = 8f;
+
     [SerializeField]
     private Transform _enemyTransform;
     [SerializeField]
-    private float _laserSpeed = 8f;
-  
+    private Transform _playerTransform;
 
     void Update()
     {
 
+        Enemy1Attack();
+    }
+
+    void Enemy1Attack()
+    {
         if (_playerTransform.position.y < _enemyTransform.position.y)
         {
             transform.position += (Vector3.down * _laserSpeed * Time.deltaTime);

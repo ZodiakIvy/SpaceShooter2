@@ -20,6 +20,7 @@ public class BossBehaviour : MonoBehaviour
     public void Start()
     {
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
+        StartCoroutine(BossMovement());
     }
 
     // Update is called once per frame
