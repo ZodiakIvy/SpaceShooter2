@@ -5,11 +5,12 @@ using UnityEngine;
 public class BossAttack1Behaviour : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 4;
-    [SerializeField]
     private float _amplitude = 1;
     [SerializeField]
     private float _frequency = 2;
+    [SerializeField]
+    private float _speed = 4;
+    
     [SerializeField]
     private Vector3 _startPosition;
     // Start is called before the first frame update

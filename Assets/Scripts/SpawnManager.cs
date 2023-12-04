@@ -6,7 +6,6 @@ public class SpawnManager : MonoBehaviour
 {
     private bool _stopSpawning = false;
 
-    [SerializeField]
     private BossBehaviour _bossBehaviour;
 
     [SerializeField]
@@ -32,7 +31,6 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private int _waveCount = 1;
     
-    [SerializeField]
     private PlayerBehaviour _player;
 
     private UIManager _uiManager;
@@ -40,14 +38,18 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         _bossBehaviour = GameObject.Find("BossBehaviour").GetComponent<BossBehaviour>();
-        _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
-        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
+        if (_bossBehaviour != null)
+        {
+            Debug.LogError("Boss is NULL");
+        }
 
+        _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
         if (_player == null)
         {
             Debug.LogError("Player is NULL");
         }
 
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         if (_uiManager == null)
         {
             Debug.LogError("The UI Manager is NULL.");
@@ -111,6 +113,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         while (_stopSpawning == false)
         {
+            _bossBehaviour.BossSuper();
             gameObject.SetActive(true);
         }
     }

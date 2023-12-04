@@ -6,16 +6,19 @@ public class HomingBehaviour : MonoBehaviour
 {
     [SerializeField]
     private bool _enemy2Attack = false;
+
     [SerializeField]
     private float _laserSpeed = 6f;
     [SerializeField]
     private float _rotateSpeed = 200f;
+
     [SerializeField]
-    private Transform _playerTransform;
+    private Rigidbody2D _homingShot;
+
     [SerializeField]
     private Transform _enemyTransform;
     [SerializeField]
-    private Rigidbody2D _homingShot;
+    private Transform _playerTransform;
 
     // Start is called before the first frame update
     void Start()

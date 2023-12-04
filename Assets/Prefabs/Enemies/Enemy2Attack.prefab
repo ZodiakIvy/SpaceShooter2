@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7825894991947372534}
-  - component: {fileID: -9173779660542559610}
+  - component: {fileID: 3318946548496048584}
+  - component: {fileID: 494610796802356739}
   m_Layer: 0
   m_Name: Enemy2Attack
   m_TagString: Homing
@@ -32,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-9173779660542559610
+--- !u!114 &3318946548496048584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,9 +42,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 3778401668439075788}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41760bbce2618044695e7fe365b42fb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f74203059dc4d24db180b9ffa8e3433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemy2Attack: 1
+  _laserSpeed: 6
+  _rotateSpeed: 200
+  _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+    type: 3}
+  _enemyTransform: {fileID: 5957551748464021838, guid: 7b35161a7d31c9f498310b6000686106,
+    type: 3}
+  _homingShot: {fileID: 494610796802356739}
+--- !u!50 &494610796802356739
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3778401668439075788}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &7039380570657185104
 PrefabInstance:
   m_ObjectHideFlags: 0

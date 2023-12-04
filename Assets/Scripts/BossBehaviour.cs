@@ -6,17 +6,20 @@ using UnityEngine;
 public class BossBehaviour : MonoBehaviour
 {
     private CameraShakeBehaviour _cameraShakeBehaviour;
+
+    private float _canFire = -1f;
+    private float _fireRate = 3f;
+    [SerializeField]
+    private float _moveSpeed = 4;
+
     [SerializeField]
     private GameObject _bossAttackPrefab;
     [SerializeField]
     private GameObject _enemy2AttackPrefab;
-    private float _fireRate = 3f;
-    private float _canFire = -1f;
-    [SerializeField]
-    private float _moveSpeed = 4;
+    
     [SerializeField]
     private Transform _playerTransform;
-    // Start is called before the first frame update
+ 
     public void Start()
     {
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();

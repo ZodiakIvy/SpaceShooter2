@@ -150,6 +150,13 @@ MonoBehaviour:
   _moveSpeed: 4
   _anim: {fileID: 0}
   _explosion_sound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _enemyRigidbody: {fileID: 1510427994607745628}
+  _rammingDistance: 2
+  dodgeDistance: 3
+  dodgeSpeed: 10
+  dodgeTime: 0.5
+  dodgeDelay: 0.5
+  dodgeDirection: 1
   moveState: 1
 --- !u!82 &3121989962909522575
 AudioSource:

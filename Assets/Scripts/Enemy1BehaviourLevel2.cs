@@ -5,39 +5,39 @@ using UnityEngine;
 public class Enemy1BehaviourLevel2 : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemy1AttackPrefab;
-    private float _fireRate = 3f;
-    private float _canFire = -1f;
-    [SerializeField]
-    private float _moveSpeed = 4;
-    [SerializeField]
     private Animator _anim;
-    private PlayerBehaviour _player;
-    private AudioSource _audioSource;
+
     [SerializeField]
     private AudioClip _explosion_sound;
-    [SerializeField]
-    private Rigidbody2D _enemyRigidbody;
-    [SerializeField]
-    private float _rammingDistance = 2f;
+
+    private AudioSource _audioSource;
+
+    private bool isDodging = false;
+
+    private float _canFire = -1f;
+    public float dodgeDelay = 0.5f;
+    public float dodgeDirection = 1f;
     public float dodgeDistance = 3f;
     public float dodgeSpeed = 10f;
     public float dodgeTime = 0.5f;
-    public float dodgeDelay = 0.5f;
-    public float dodgeDirection = 1f;
-    private bool isDodging = false;
+    private float _fireRate = 3f;
+    [SerializeField]
+    private float _moveSpeed = 4;
+
+    [SerializeField]
+    private GameObject _enemy1AttackPrefab;
+    
+    private PlayerBehaviour _player;
+    
+    [SerializeField]
+    private Rigidbody2D _enemyRigidbody;
+    
     private Vector3 dodgeTarget;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
-        if (_player == null)
-        {
-            Debug.LogError("Player is NULL");
-        }
-
         _anim = GetComponent<Animator>();
         if (_anim == null)
         {
@@ -54,6 +54,11 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
             _audioSource.clip = _explosion_sound;
         }
 
+        _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is NULL");
+        }
 
     }
 
@@ -62,6 +67,23 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
     {
         Level2Enemy1Movement();
 
+        Enemy1Attack();
+
+        DodgeMethod();
+
+    }
+
+    public enum MovementState
+    {
+        Down,
+        Left,
+        Right
+    }
+
+    public MovementState moveState = MovementState.Down;
+    
+    void Enemy1Attack()
+    {
         if (Time.time > _canFire)
         {
             _fireRate = Random.Range(3f, 7f);
@@ -77,7 +99,10 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
                 lasers[i].AssignEnemyLaser();
             }
         }
-
+    }
+    
+    void DodgeMethod()
+    {
         if (isDodging)
         {
             transform.position = Vector3.MoveTowards(transform.position, dodgeTarget, dodgeSpeed * Time.deltaTime);
@@ -87,23 +112,14 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
                 Invoke("ResetDodge", dodgeDelay);
             }
         }
-
     }
 
-    public enum MovementState
-    {
-        Right,
-        Down,
-        Left
-    }
-
-    public MovementState moveState = MovementState.Down;
     void Level2Enemy1Movement()
     {
         float randomX = Random.Range(-8.5f, 7.6f);
         float randomY = Random.Range(-4.8f, 6f);
 
-            if (transform.position.x < -9 || transform.position.y < -5 || transform.position.x > 8f || transform.position.y > 10f)
+        if (transform.position.x < -9 || transform.position.y < -5 || transform.position.x > 8f || transform.position.y > 10f)
         {
             int direction = Random.Range(1, 4);
 
@@ -115,14 +131,15 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
             else if (direction == 2)
             {
                 transform.position = new Vector3(-8.5f, randomY, 0);
-                moveState = MovementState.Right;
+                moveState = MovementState.Left;
             }
             else if (direction == 3)
             {
                 transform.position = new Vector3(7.6f, randomY, 0);
-                moveState = MovementState.Left;
+                moveState = MovementState.Right;
             }
         }
+        
         if (moveState == MovementState.Down)
         {
             transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
@@ -143,6 +160,23 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Hit: " + other.transform.name);
+
+        if (other.CompareTag("Homing"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Homing Shot Hit");
+            if (_player != null)
+            {
+                _player.Score();
+            }
+
+            _anim.SetTrigger("OnEnemyDeath");
+            _moveSpeed = 0;
+
+            Destroy(GetComponent<BoxCollider2D>());
+            Destroy(this.gameObject);
+        }
+
         if (other.CompareTag("Laser"))
         {
             Destroy(other.gameObject);
@@ -198,21 +232,7 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
             Destroy(this.gameObject, 2.4f);
         }
 
-        if (other.CompareTag("Homing"))
-        {
-            Destroy(other.gameObject);
-            Debug.Log("Homing Shot Hit");
-            if (_player != null)
-            {
-                _player.Score();
-            }
-
-            _anim.SetTrigger("OnEnemyDeath");
-            _moveSpeed = 0;
-
-            Destroy(GetComponent<BoxCollider2D>());
-            Destroy(this.gameObject);
-        }
+        
 
     }
 }

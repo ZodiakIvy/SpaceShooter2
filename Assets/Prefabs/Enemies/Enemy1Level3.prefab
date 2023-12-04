@@ -151,7 +151,8 @@ MonoBehaviour:
   _anim: {fileID: 0}
   _explosion_sound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _enemyRigidbody: {fileID: 8940124693754464241}
-  _playerTransform: {fileID: 0}
+  _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
+    type: 3}
   _rammingDistance: 2
   _rammingForce: 10
   moveState: 2

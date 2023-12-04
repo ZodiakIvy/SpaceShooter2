@@ -7,8 +7,6 @@ public class PowerUpBehaviour : MonoBehaviour
 
     [SerializeField]
     private float _moveSpeed = 3;
-    [SerializeField]
-    private float _rammingDistance = 2f;
 
     [SerializeField]
     private GameObject _enemy1AttackPrefab;
@@ -29,13 +27,9 @@ public class PowerUpBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += (new Vector3(0, -1, 0) * _moveSpeed * Time.deltaTime);
-        if (transform.position.y <= -5.3f)
-        {
-            Destroy(this.gameObject);
-        }
-
         Magnet();
+
+        PowerUpMovement();
     }
 
     void Magnet()
@@ -45,6 +39,15 @@ public class PowerUpBehaviour : MonoBehaviour
             float step = (_moveSpeed * 9) * Time.deltaTime;
             _powerUpTransform.transform.position = Vector3.MoveTowards(_powerUpTransform.transform.position, _playerTransform.transform.position, step);
         } 
+    }
+
+    void PowerUpMovement()
+    {
+        transform.position += (new Vector3(0, -1, 0) * _moveSpeed * Time.deltaTime);
+        if (transform.position.y <= -5.3f)
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
