@@ -204,13 +204,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8157e1e43f3924290d1d049ef95760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shieldActive: 1
+  amplitude: 2
+  _moveSpeed: 3
   _enemy2AttackPrefab: {fileID: 3778401668439075788, guid: a880c4430d3d87c479f881d2bb62184a,
     type: 3}
-  _moveSpeed: 3
-  amplitude: 2
   _explosionPrefab: {fileID: 4453301767212026358, guid: 13f3429e26cc3fd40869d8627ce669eb,
     type: 3}
-  _shieldActive: 1
   _shieldBubble1: {fileID: 2756009710242800548}
   moveState: 1
 --- !u!95 &1971457957967846639
@@ -223,7 +223,7 @@ Animator:
   m_GameObject: {fileID: 5957551748464021835}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 479a197f1787375448a70d77ac8564ae, type: 2}
+  m_Controller: {fileID: 9100000, guid: b952e339d0f7b474c9ef741578047933, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

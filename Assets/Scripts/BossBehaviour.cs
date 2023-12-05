@@ -11,12 +11,16 @@ public class BossBehaviour : MonoBehaviour
     private float _fireRate = 3f;
     [SerializeField]
     private float _moveSpeed = 4;
+    [SerializeField]
+    private float _shotgunAngle = 15;
 
     [SerializeField]
     private GameObject _bossAttackPrefab;
     [SerializeField]
     private GameObject _enemy2AttackPrefab;
-    
+    [SerializeField]
+    private GameObject[] _shotgunAB;
+
     [SerializeField]
     private Transform _playerTransform;
  
@@ -29,7 +33,7 @@ public class BossBehaviour : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-     
+        
     }
 
     public enum MovementState
@@ -44,48 +48,79 @@ public class BossBehaviour : MonoBehaviour
     {
         transform.position = new Vector3(0, 10f, 0);
         moveState = MovementState.Down;
-        if (transform.position.y < 3.66f)
+        while (true)
         {
-            _moveSpeed = 0;
-            BossAttack1();
-            yield return new WaitForSecondsRealtime(4f);
-            moveState = MovementState.Up;
-
-
-            if (transform.position.y >= 10.01f)
+            if (transform.position.y < 3.66f)
             {
                 _moveSpeed = 0;
-                BossAttack2();
-                yield return new WaitForSecondsRealtime(5f);
-                moveState = MovementState.Down;
+                BossAttack1();
+                yield return new WaitForSecondsRealtime(4f);
+                moveState = MovementState.Up;
+
+
+                if (transform.position.y >= 10.01f)
+                {
+                    _moveSpeed = 0;
+                    BossAttack2();
+                    yield return new WaitForSecondsRealtime(5f);
+                    moveState = MovementState.Down;
+                }
+
+                yield return new WaitForSecondsRealtime(15f);
+                BossSuper();
             }
 
-            yield return new WaitForSecondsRealtime(15f);
-            BossSuper();
-        }
+            if (moveState == MovementState.Down)
+            {
+                transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
+            }
 
-        if (moveState == MovementState.Down)
-        {
-            transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
-        }
+            if (moveState == MovementState.Up)
+            {
+                transform.position += Vector3.up * _moveSpeed * Time.deltaTime;
+            }
 
-        if (moveState == MovementState.Up)
-        {
-            transform.position += Vector3.up * _moveSpeed * Time.deltaTime;
+            yield return null;
         }
+        
     }
 
-    public void BossAttack1()
+    public void BossAttack1() //Shotgun
     {
-           GameObject bossAttack1 = Instantiate(_bossAttackPrefab, transform.position + Vector3.MoveTowards(_bossAttackPrefab.transform.position, _playerTransform.transform.position, _moveSpeed * Time.deltaTime), Quaternion.identity);
+           
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject bossAttack1 = Instantiate(_bossAttackPrefab, _shotgunAB[i].transform.position, Quaternion.identity);
 
-           LaserBehaviour[] lasers = bossAttack1.GetComponentsInChildren<LaserBehaviour>();
+            LaserBehaviour[] lasers = bossAttack1.GetComponentsInChildren<LaserBehaviour>();
 
 
-            for (int i = 0; i < lasers.Length; i++)
+            for (int j = 0; j < lasers.Length; j++)
             {
-                lasers[i].AssignEnemyLaser();
+                lasers[j].AssignEnemyLaser();
             }
+
+            Vector3 attackAngle = new Vector3(0, 0, _shotgunAngle);
+
+            if (i == 1)
+            {
+                attackAngle *= -1;
+            }
+
+            bossAttack1 = Instantiate(_bossAttackPrefab, _shotgunAB[i].transform.position, Quaternion.Euler(attackAngle));
+
+            lasers = bossAttack1.GetComponentsInChildren<LaserBehaviour>();
+
+
+            for (int j = 0; j < lasers.Length; j++)
+            {
+                lasers[j].AssignEnemyLaser();
+            }
+
+
+        }
+        
+        
     }
 
     public void BossAttack2()

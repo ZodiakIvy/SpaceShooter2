@@ -10,6 +10,8 @@ public class BossAttack1Behaviour : MonoBehaviour
     private float _frequency = 2;
     [SerializeField]
     private float _speed = 4;
+
+    
     
     [SerializeField]
     private Vector3 _startPosition;
@@ -22,27 +24,10 @@ public class BossAttack1Behaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            ShotGun();
-        }
+        transform.Translate(Vector3.down * _speed * Time.deltaTime);
     }
 
-    public void ShotGun()
-    {
-        float randomX = Random.Range(240, 330);
-        float randomY = Random.Range(-.7f, -1f);
-        transform.position += (new Vector3(randomX, randomY, 0) * _speed * Time.deltaTime);
-        if (transform.position.y >= 5.3f)
-        {
-            if (transform.parent != null)
-            {
-                Destroy(transform.parent.gameObject);
-            }
-
-            Destroy(this.gameObject);
-        }
-    }
+    
 
     public void SpiralLaser()
     {

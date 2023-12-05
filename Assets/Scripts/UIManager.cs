@@ -85,21 +85,26 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateLives(int _lives)
+    public void UpdateLives(int lives)
     {
-        _livesDisplayImg.sprite = _livesSprites[_lives];
+        if (lives < 0 || lives > 3)
+        {
+            return;
+        }
+        
+        _livesDisplayImg.sprite = _livesSprites[lives];
 
-        if (_lives == 3)
+        if (lives == 3)
         {
             _healthText.text = "Health Full";
         }
 
-        if (_lives == 2)
+        if (lives == 2)
         {
             _healthText.text = " ";
         }
 
-        if (_lives == 1)
+        if (lives == 1)
         {
             _healthText.text = "WARNING";
         }

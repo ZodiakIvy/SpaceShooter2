@@ -14,6 +14,8 @@ public class SpawnManager : MonoBehaviour
     private float _moveSpeed = 3;
 
     [SerializeField]
+    private GameObject _boss1;
+    [SerializeField]
     private GameObject _enemy1Prefab;
     [SerializeField]
     private GameObject _enemy1Level2Prefab;
@@ -37,11 +39,6 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        _bossBehaviour = GameObject.Find("BossBehaviour").GetComponent<BossBehaviour>();
-        if (_bossBehaviour != null)
-        {
-            Debug.LogError("Boss is NULL");
-        }
 
         _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
         if (_player == null)
@@ -111,11 +108,9 @@ public class SpawnManager : MonoBehaviour
     IEnumerator BossBattle_SpawnRoutine()
     {
         yield return new WaitForSeconds(3f);
-        while (_stopSpawning == false)
-        {
-            _bossBehaviour.BossSuper();
-            gameObject.SetActive(true);
-        }
+        GameObject boss = Instantiate(_boss1, new Vector3(0, 10, 0), Quaternion.identity);
+        boss.transform.parent = _enemyContainer.transform;
+
     }
 
     IEnumerator Enemy1_SpawnRoutine()

@@ -31,7 +31,8 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
     
     [SerializeField]
     private Rigidbody2D _enemyRigidbody;
-    
+
+    private Vector3 _currentPosition;
     private Vector3 dodgeTarget;
 
 
@@ -114,6 +115,11 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
         }
     }
 
+    void ResetDodge()
+    {
+        transform.position = _currentPosition;
+    }
+
     void Level2Enemy1Movement()
     {
         float randomX = Random.Range(-8.5f, 7.6f);
@@ -191,6 +197,7 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
                 Vector3 direction = transform.position - other.transform.position;
                 if (Mathf.Abs(direction.x) < 2f)
                 {
+                    _currentPosition = transform.position;
                     isDodging = true;
                     dodgeTarget = transform.position + new Vector3(dodgeDistance * dodgeDirection, 0f, 0f);
                     dodgeDirection *= -1f;
