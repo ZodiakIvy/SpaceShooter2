@@ -21,8 +21,10 @@ public class Enemy2Behaviour : MonoBehaviour
     private GameObject _enemy2AttackPrefab;
     [SerializeField]
     private GameObject _explosionPrefab;
+    GameObject player;
     [SerializeField]
     private GameObject _shieldBubble1;
+    
 
     private PlayerBehaviour _player;
 
@@ -41,6 +43,11 @@ public class Enemy2Behaviour : MonoBehaviour
         if (_player == null)
         {
             Debug.LogError("Player is NULL");
+        }
+
+        if (player != null)
+        {
+            _player = player.GetComponent<PlayerBehaviour>();
         }
 
         pos1 = transform.position;

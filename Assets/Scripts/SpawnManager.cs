@@ -111,6 +111,8 @@ public class SpawnManager : MonoBehaviour
         GameObject boss = Instantiate(_boss1, new Vector3(0, 10, 0), Quaternion.identity);
         boss.transform.parent = _enemyContainer.transform;
 
+        yield return null;
+
     }
 
     IEnumerator Enemy1_SpawnRoutine()
@@ -133,6 +135,8 @@ public class SpawnManager : MonoBehaviour
                 StartSpawningLevel2();
                 StopCoroutine(PowerUp_SpawnRoutine_Level1());
                 StopCoroutine(Enemy1_SpawnRoutine());
+
+                yield return null;
             }
             else
             {
@@ -162,6 +166,8 @@ public class SpawnManager : MonoBehaviour
                 StartSpawningLevel3();
                 StopCoroutine(PowerUp_SpawnRoutine_Level2());
                 StopCoroutine(Enemy1_SpawnRoutine_Level2());
+
+                yield return null;
             }
             else
             {
@@ -191,6 +197,8 @@ public class SpawnManager : MonoBehaviour
                 StartSpawningLevel4();
                 StopCoroutine(PowerUp_SpawnRoutine_Level3());
                 StopCoroutine(Enemy1_SpawnRoutine_Level3());
+
+                yield return null;
             }
             else
             {
@@ -222,6 +230,8 @@ public class SpawnManager : MonoBehaviour
                 StartSpawningLevel5();
                 StopCoroutine(PowerUp_SpawnRoutine_Level4());
                 StopCoroutine(Enemy2_SpawnRoutine());
+
+                yield return null;
             }
             else
             {

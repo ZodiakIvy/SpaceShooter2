@@ -6,6 +6,7 @@ public class Enemy1Behaviour : MonoBehaviour
 {
     [SerializeField]
     private GameObject _enemy1AttackPrefab;
+    GameObject player;
     private float _fireRate = 3f;
     private float _canFire = -1f;
     [SerializeField]
@@ -26,6 +27,11 @@ public class Enemy1Behaviour : MonoBehaviour
         if (_player == null)
         {
             Debug.LogError("Player is NULL");
+        }
+
+        if (player != null)
+        {
+            _player = player.GetComponent<PlayerBehaviour>();
         }
 
         _anim = GetComponent<Animator>();
@@ -60,7 +66,7 @@ public class Enemy1Behaviour : MonoBehaviour
     {
         if (Time.time > _canFire)
         {
-            _fireRate = Random.Range(3f, 7f);
+            _fireRate = Random.Range(.2f, .7f);
             _canFire = Time.time + _fireRate;
 
             GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -2.75f, 0), Quaternion.identity);

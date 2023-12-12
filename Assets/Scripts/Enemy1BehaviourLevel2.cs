@@ -26,7 +26,8 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
 
     [SerializeField]
     private GameObject _enemy1AttackPrefab;
-    
+    GameObject player;
+
     private PlayerBehaviour _player;
     
     [SerializeField]
@@ -61,6 +62,11 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
             Debug.LogError("Player is NULL");
         }
 
+        if (player != null)
+        {
+            _player = player.GetComponent<PlayerBehaviour>();
+        }
+
     }
 
     // Update is called once per frame
@@ -87,7 +93,7 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
     {
         if (Time.time > _canFire)
         {
-            _fireRate = Random.Range(3f, 7f);
+            _fireRate = Random.Range(.2f, .5f);
             _canFire = Time.time + _fireRate;
 
             GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -2.75f, 0), Quaternion.identity);
