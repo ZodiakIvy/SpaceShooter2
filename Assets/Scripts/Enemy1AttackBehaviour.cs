@@ -18,23 +18,14 @@ public class Enemy1AttackBehaviour : MonoBehaviour
 
     void Enemy1Attack()
     {
-        if (_playerTransform.position.y < _enemyTransform.position.y)
-        {
+        //if (_playerTransform.position.y <= _enemyTransform.position.y)
+        //{
             transform.position += (Vector3.down * _laserSpeed * Time.deltaTime);
-        }
-        else
-        {
-            transform.position += (Vector3.up * _laserSpeed * Time.deltaTime);
-        }
-
-        if (transform.position.y <= -5.3f || transform.position.y >= 7f)
-        {
-            if (transform.parent != null)
-            {
-                Destroy(transform.parent.gameObject);
-            }
-            Destroy(this.gameObject);
-        }
+        //}
+        //else
+        //{
+        //    transform.position += (Vector3.up * _laserSpeed * Time.deltaTime);
+        //}
     }
 
 
