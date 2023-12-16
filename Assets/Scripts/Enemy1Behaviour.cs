@@ -66,10 +66,10 @@ public class Enemy1Behaviour : MonoBehaviour
     {
         if (Time.time > _canFire)
         {
-            _fireRate = Random.Range(.2f, .7f);
+            _fireRate = Random.Range(3f, 5f);
             _canFire = Time.time + _fireRate;
 
-            GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -2.75f, 0), Quaternion.identity);
+            GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0.15f, -.5f, 0), Quaternion.identity);
 
             LaserBehaviour[] lasers = newEnemy1Attack.GetComponentsInChildren<LaserBehaviour>();
 

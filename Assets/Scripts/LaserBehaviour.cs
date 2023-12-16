@@ -5,26 +5,13 @@ public class LaserBehaviour : MonoBehaviour
     [SerializeField]
     private bool _enemy1Attack = false;
 
-    //private float _canFire = -1f;
-    //private float _fireRate = 3f;
     [SerializeField]
     private float _laserSpeed = 7;
-
-    [SerializeField]
-    private Transform _enemyTransform;
-    [SerializeField]
-    private Transform _playerTransform;
 
     // Update is called once per frame
     void Update()
     {
-        // idk if this is needed on the Laser since it is being used on the object that is shooting.
-        /* if (Time.time > _canFire)
-        {
-            _fireRate = Random.Range(3f, 7f);
-            _canFire = Time.time + _fireRate;
-        } */
-            Laser();
+         Laser();
     }
 
     public void AssignEnemyLaser()
@@ -40,15 +27,9 @@ public class LaserBehaviour : MonoBehaviour
         }
         else
         {
-            if (_playerTransform.position.y < _enemyTransform.position.y)
-            {
-                MoveDown();
-            }
-            else
-            {
-                MoveUp();
-            }
+            MoveDown();
         }
+   
     }
 
 

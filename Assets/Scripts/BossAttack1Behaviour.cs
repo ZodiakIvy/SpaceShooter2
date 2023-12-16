@@ -24,15 +24,18 @@ public class BossAttack1Behaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        MoveDown();
     }
 
     
-
+    public void MoveDown()
+    {
+        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+    }
     public void SpiralLaser()
     {
         float verticalOffset = _amplitude * Mathf.Sin(Time.time * _frequency);
-        transform.position = _startPosition + new Vector3(0f, verticalOffset, 0f) + transform.right * _speed * Time.deltaTime;
+        transform.position += _startPosition + new Vector3(0f, verticalOffset, 0f) + transform.right * _speed * Time.deltaTime;
     }
 }
 

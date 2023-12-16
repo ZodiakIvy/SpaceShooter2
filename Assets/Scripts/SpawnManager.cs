@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 public class SpawnManager : MonoBehaviour
 {
     private bool _stopSpawning = false;
+    private bool _stopSpawning_level01 = false;
+    private bool _stopSpawning_level02 = false;
+    private bool _stopSpawning_level03 = false;
+    private bool _stopSpawning_level04 = false;
 
     private BossBehaviour _bossBehaviour;
 
@@ -77,7 +81,6 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawning()
     {
         StartCoroutine(Enemy1_SpawnRoutine());
-        StartCoroutine(Enemy2_SpawnRoutine());
         StartCoroutine(PowerUp_SpawnRoutine_Level1());
     }
 
@@ -95,6 +98,7 @@ public class SpawnManager : MonoBehaviour
 
     public void StartSpawningLevel4()
     {
+        StartCoroutine(Enemy2_SpawnRoutine());
         StartCoroutine(PowerUp_SpawnRoutine_Level4());
     }
 
@@ -105,20 +109,10 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(BossBattle_SpawnRoutine());
     }
 
-    IEnumerator BossBattle_SpawnRoutine()
+    IEnumerator Enemy1_SpawnRoutine() //THIS IS LEVEL 1
     {
         yield return new WaitForSeconds(3f);
-        GameObject boss = Instantiate(_boss1, new Vector3(0, 10, 0), Quaternion.identity);
-        boss.transform.parent = _enemyContainer.transform;
-
-        yield return null;
-
-    }
-
-    IEnumerator Enemy1_SpawnRoutine()
-    {
-        yield return new WaitForSeconds(3f);
-        while (_stopSpawning == false)
+        while (_stopSpawning == false && _stopSpawning_level01 == false)
         {
             for (int i = 0; i < _waveCount; i++)
             {
@@ -130,11 +124,10 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
             
-            if (_waveCount == 2)
+            if (_waveCount >= 2)
             {
                 StartSpawningLevel2();
-                StopCoroutine(PowerUp_SpawnRoutine_Level1());
-                StopCoroutine(Enemy1_SpawnRoutine());
+                _stopSpawning_level01 = true;
 
                 yield return null;
             }
@@ -146,26 +139,25 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    IEnumerator Enemy1_SpawnRoutine_Level2()
+    IEnumerator Enemy1_SpawnRoutine_Level2() //THIS IS LEVEL 2
     {
         yield return new WaitForSeconds(3f);
-        while (_stopSpawning == false)
+        while (_stopSpawning == false && _stopSpawning_level02 == false)
         {
             for (int i = 0; i < _waveCount; i++)
             {
                 float randomX = Random.Range(-8.5f, 7.6f);
-                Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
+                Vector3 spawnPosition = transform.position + new Vector3(randomX, 6, 0);
                 GameObject newLevel2Enemy1 = Instantiate(_enemy1Level2Prefab, spawnPosition, Quaternion.identity);
                 newLevel2Enemy1.transform.parent = _enemyContainer.transform;
                 yield return new WaitForSecondsRealtime(2f);
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
 
-            if (_waveCount == 2)
+            if (_waveCount >= 2)
             {
                 StartSpawningLevel3();
-                StopCoroutine(PowerUp_SpawnRoutine_Level2());
-                StopCoroutine(Enemy1_SpawnRoutine_Level2());
+                _stopSpawning_level02 = true;
 
                 yield return null;
             }
@@ -177,26 +169,26 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    IEnumerator Enemy1_SpawnRoutine_Level3()
+    IEnumerator Enemy1_SpawnRoutine_Level3() //THIS IS LEVEL 3
     {
         yield return new WaitForSeconds(3f);
-        while (_stopSpawning == false)
+        while (_stopSpawning == false && _stopSpawning_level03 == false)
         {
             for (int i = 0; i < _waveCount; i++)
             {
                 float randomX = Random.Range(-8.5f, 7.6f);
-                Vector3 spawnPosition = transform.position + new Vector3(randomX, 9, 0);
+                Vector3 spawnPosition = transform.position + new Vector3(randomX, 6, 0);
                 GameObject newLevel3Enemy1 = Instantiate(_enemy1Level3Prefab, spawnPosition, Quaternion.identity);
                 newLevel3Enemy1.transform.parent = _enemyContainer.transform;
                 yield return new WaitForSecondsRealtime(2f);
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
 
-            if (_waveCount == 2)
+            if (_waveCount >= 2)
             {
                 StartSpawningLevel4();
+                _stopSpawning_level03 = true;
                 StopCoroutine(PowerUp_SpawnRoutine_Level3());
-                StopCoroutine(Enemy1_SpawnRoutine_Level3());
 
                 yield return null;
             }
@@ -209,10 +201,10 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-    IEnumerator Enemy2_SpawnRoutine()
+    IEnumerator Enemy2_SpawnRoutine() //THIS IS LEVEL 4
     {
-        yield return new WaitForSeconds(93f);
-        while (_stopSpawning == false)
+        yield return new WaitForSeconds(3f);
+        while (_stopSpawning == false && _stopSpawning_level04 == false)
         {
             for (int i = 0; i < _waveCount; i++)
             {
@@ -220,7 +212,7 @@ public class SpawnManager : MonoBehaviour
                 Vector3 spawnPosition = transform.position + new Vector3(7.6f, randomY, 0);
                 GameObject newEnemy2 = Instantiate(_enemy2Prefab, spawnPosition, Quaternion.identity);
                 newEnemy2.transform.parent = _enemyContainer.transform;
-                yield return new WaitForSecondsRealtime(4f);
+                yield return new WaitForSecondsRealtime(2f);
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
 
@@ -229,7 +221,7 @@ public class SpawnManager : MonoBehaviour
             {
                 StartSpawningLevel5();
                 StopCoroutine(PowerUp_SpawnRoutine_Level4());
-                StopCoroutine(Enemy2_SpawnRoutine());
+                _stopSpawning_level04 = true;
 
                 yield return null;
             }
@@ -239,6 +231,16 @@ public class SpawnManager : MonoBehaviour
             }
             _waveCount++;
         }
+    }
+
+    IEnumerator BossBattle_SpawnRoutine() //THIS IS LEVEL 5
+    {
+        yield return new WaitForSeconds(3f);
+        GameObject boss = Instantiate(_boss1, new Vector3(0, 10, 0), Quaternion.identity);
+        boss.transform.parent = _enemyContainer.transform;
+
+        yield return null;
+
     }
 
     IEnumerator PowerUp_SpawnRoutine_Level1()

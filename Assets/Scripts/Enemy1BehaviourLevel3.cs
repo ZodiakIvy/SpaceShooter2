@@ -24,6 +24,12 @@ public class Enemy1BehaviourLevel3 : MonoBehaviour
     private float _rammingDistance = 2f;
     [SerializeField]
     private float _rammingForce = 10f;
+    [SerializeField]
+    private float _amplitude = 1;
+    [SerializeField]
+    private float _frequency = 2;
+    [SerializeField]
+    private Vector3 _startPosition;
 
 
     // Start is called before the first frame update
@@ -70,7 +76,7 @@ public class Enemy1BehaviourLevel3 : MonoBehaviour
 
         if (Time.time > _canFire)
         {
-            _fireRate = Random.Range(3f, 7f);
+            _fireRate = Random.Range(1f, 3f);
             _canFire = Time.time + _fireRate;
 
             GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -2.75f, 0), Quaternion.identity);
@@ -125,7 +131,9 @@ public class Enemy1BehaviourLevel3 : MonoBehaviour
         }
         if (moveState == MovementState.Down)
         {
-            transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
+           //if this works as inteneded then when moving Down the enemy will move in a wave pattern.
+            float verticalOffset = _amplitude * Mathf.Sin(Time.time * _frequency);
+            transform.position += _startPosition + new Vector3(0f, verticalOffset, 0f) + transform.right * _moveSpeed * Time.deltaTime;
         }
         else if (moveState == MovementState.Left)
         {

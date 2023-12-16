@@ -15,7 +15,7 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
     private bool isDodging = false;
 
     private float _canFire = -1f;
-    public float dodgeDelay = 0.5f;
+    public float dodgeDelay = 2f;
     public float dodgeDirection = 1f;
     public float dodgeDistance = 3f;
     public float dodgeSpeed = 10f;
@@ -93,10 +93,10 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
     {
         if (Time.time > _canFire)
         {
-            _fireRate = Random.Range(.2f, .5f);
+            _fireRate = Random.Range(2f, 5f);
             _canFire = Time.time + _fireRate;
 
-            GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(0, -2.75f, 0), Quaternion.identity);
+            GameObject newEnemy1Attack = Instantiate(_enemy1AttackPrefab, transform.position + new Vector3(.15f, -.5f, 0), Quaternion.identity);
 
             LaserBehaviour[] lasers = newEnemy1Attack.GetComponentsInChildren<LaserBehaviour>();
 
@@ -108,7 +108,7 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
         }
     }
     
-    void DodgeMethod()
+   void DodgeMethod()
     {
         if (isDodging)
         {
@@ -125,13 +125,13 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
     {
         transform.position = _currentPosition;
     }
-
+    
     void Level2Enemy1Movement()
     {
         float randomX = Random.Range(-8.5f, 7.6f);
         float randomY = Random.Range(-4.8f, 6f);
 
-        if (transform.position.x < -9 || transform.position.y < -5 || transform.position.x > 8f || transform.position.y > 10f)
+        if (transform.position.x < -10 || transform.position.y < -5 || transform.position.x > 10f || transform.position.y > 10f)
         {
             int direction = Random.Range(1, 4);
 
@@ -143,12 +143,12 @@ public class Enemy1BehaviourLevel2 : MonoBehaviour
             else if (direction == 2)
             {
                 transform.position = new Vector3(-8.5f, randomY, 0);
-                moveState = MovementState.Left;
+                moveState = MovementState.Right;
             }
             else if (direction == 3)
             {
                 transform.position = new Vector3(7.6f, randomY, 0);
-                moveState = MovementState.Right;
+                moveState = MovementState.Left;
             }
         }
         
