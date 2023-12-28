@@ -69,8 +69,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1388356697305820144}
-  - component: {fileID: 1388356697305820147}
   - component: {fileID: 3750505721178486406}
+  - component: {fileID: 3378762059571490778}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -97,32 +97,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1388356697305820147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388356697305820146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d769ef5701bae4a865df2f8cb6fa4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 4
-  _shotgunAngle: 15
-  _shotgunAngle2: 20
-  _shotgunAngle3: 30
-  _bossAttackPrefab: {fileID: 5246198803861348468, guid: b24150a6375a2cb49b851421b2f0b0ee,
-    type: 3}
-  _enemy2AttackPrefab: {fileID: 1870081014813645350, guid: 2a0e18fe0bd3cdf40a62c30aeeed72de,
-    type: 3}
-  _shotgunAB:
-  - {fileID: 1388356695717506776}
-  - {fileID: 1388356696256250237}
-  _playerTransform: {fileID: 7188756234579100700, guid: a3a1e06eb45961c47bf7d7e2c554554e,
-    type: 3}
-  moveState: 0
 --- !u!61 &3750505721178486406
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,6 +123,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8829641, y: 6.032894}
   m_EdgeRadius: 0
+--- !u!114 &3378762059571490778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388356697305820146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d769ef5701bae4a865df2f8cb6fa4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  _moveSpeed: 4
+  _newSpawnDuration: 0.1
+  _shotgunAngle: 15
+  _shotgunAngle2: 20
+  _shotgunAngle3: 30
+  _bossAttackPrefab: {fileID: 5246198803861348468, guid: b24150a6375a2cb49b851421b2f0b0ee,
+    type: 3}
+  _bossAttack2Prefab: {fileID: 1870081014813645350, guid: 2a0e18fe0bd3cdf40a62c30aeeed72de,
+    type: 3}
+  _bossSuper: {fileID: 5805696424058179470, guid: a8218657089924548a0594bfdeec07a9,
+    type: 3}
+  _plasmaSpawnAB: []
+  _shotgunAB: []
+  _playerTransform: {fileID: 0}
+  moveState: 0
 --- !u!1 &7641062440974806706
 GameObject:
   m_ObjectHideFlags: 0

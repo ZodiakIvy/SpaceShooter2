@@ -242,8 +242,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (_homingshotActive == true)
         {
-            Instantiate(_homingShot, transform.position + new Vector3(-.16f, .75f, 0), Quaternion.identity);
-            Destroy(_homingShot, 2.4f);
+            GameObject homing = Instantiate(_homingShot, transform.position + new Vector3(-.16f, .75f, 0), Quaternion.identity);
+            Destroy(homing, 2.4f);
         }
     }
 

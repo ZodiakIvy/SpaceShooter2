@@ -30,6 +30,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
+    private GameObject _playerPosition;
+    [SerializeField]
     private GameObject[] _powerUps; //0 = TripleShot, 1 = Speed, 2 = Shield, 3 = Ammo, 4 = Health. 5 = Plasma, 6 = SpeedDebuff, 7 = HomingShot
     [SerializeField]
     private GameObject _powerUpContainer;
@@ -69,7 +71,7 @@ public class SpawnManager : MonoBehaviour
     {
         foreach (var _powerUps in _powerUps)
         {
-            _powerUps.transform.position = Vector3.MoveTowards(_powerUps.transform.position, _player.transform.position, Time.deltaTime * _moveSpeed);
+            _powerUps.transform.position = Vector3.MoveTowards(_powerUps.transform.position, _playerPosition.transform.position, Time.deltaTime * _moveSpeed);
         }
     }
 
@@ -104,9 +106,9 @@ public class SpawnManager : MonoBehaviour
 
     public void StartSpawningLevel5()
     {
+        StartCoroutine(BossBattle_SpawnRoutine());
         StartCoroutine(PowerUp_SpawnRoutine_Level5());
         _uiManager.transform.GetChild(9).gameObject.SetActive(true);
-        StartCoroutine(BossBattle_SpawnRoutine());
     }
 
     IEnumerator Enemy1_SpawnRoutine() //THIS IS LEVEL 1
@@ -217,7 +219,7 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(_spawnTime);
 
 
-            if (_waveCount == 2)
+            if (_waveCount >= 2)
             {
                 StartSpawningLevel5();
                 StopCoroutine(PowerUp_SpawnRoutine_Level4());
@@ -239,7 +241,7 @@ public class SpawnManager : MonoBehaviour
         GameObject boss = Instantiate(_boss1, new Vector3(0, 10, 0), Quaternion.identity);
         boss.transform.parent = _enemyContainer.transform;
 
-        yield return null;
+        
 
     }
 

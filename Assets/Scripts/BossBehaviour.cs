@@ -49,6 +49,7 @@ public class BossBehaviour : MonoBehaviour
     public void Start()
     {
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
+        //transform.position = new Vector3(0, 10f, 0);
         StartCoroutine(BossMovement());
     }
 
@@ -74,7 +75,7 @@ public class BossBehaviour : MonoBehaviour
 
     public IEnumerator BossMovement()
     {
-        transform.position = new Vector3(0, 10f, 0);
+        
         moveState = MovementState.Down;
         _movingDown = true;
         while (_movingDown == true)
