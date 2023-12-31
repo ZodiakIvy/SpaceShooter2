@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 3378762059571490778}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,8 +147,12 @@ MonoBehaviour:
     type: 3}
   _bossSuper: {fileID: 5805696424058179470, guid: a8218657089924548a0594bfdeec07a9,
     type: 3}
-  _plasmaSpawnAB: []
-  _shotgunAB: []
+  _plasmaSpawnAB:
+  - {fileID: 7641062440974806706}
+  - {fileID: 8441874279681256326}
+  _shotgunAB:
+  - {fileID: 1388356695717506776}
+  - {fileID: 1388356696256250237}
   _playerTransform: {fileID: 0}
   moveState: 0
 --- !u!1 &7641062440974806706

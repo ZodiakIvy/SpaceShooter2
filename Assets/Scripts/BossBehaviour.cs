@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossBehaviour : MonoBehaviour
 {
@@ -35,11 +34,21 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject _bossAttack2Prefab;
     [SerializeField]
+    private float _bossHealth;
+    [SerializeField]
+    private float _bossHealthFull = 500f;
+    [SerializeField]
     private GameObject _bossSuper;
     [SerializeField]
     private GameObject[] _plasmaSpawnAB;
+    GameObject player;
     [SerializeField]
     private GameObject[] _shotgunAB;
+
+    private PlayerBehaviour _player;
+
+    [SerializeField]
+    private Slider _bossLife;
 
     [SerializeField]
     private Transform _playerTransform;
@@ -49,12 +58,38 @@ public class BossBehaviour : MonoBehaviour
     public void Start()
     {
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
-        //transform.position = new Vector3(0, 10f, 0);
+        if (_cameraShakeBehaviour != null ) 
+        {
+            Debug.LogError("The Camera Shaker is NULL");
+        }
+
+        _bossLife = GameObject.Find("BossHealthBar").GetComponent<Slider>();
+        if (_bossLife == null)
+        {
+            Debug.LogError("The Thruster Bar is NULL.");
+        }
+
+        _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is NULL");
+        }
+
+        if (player != null)
+        {
+            _player = player.GetComponent<PlayerBehaviour>();
+        }
+
+        _bossHealth = _bossHealthFull;
+        _bossLife.value = _bossHealth;
+
+        transform.position = new Vector3(0, 10f, 0);
+
         StartCoroutine(BossMovement());
     }
 
-    // Update is called once per frame
-    public void Update()
+        // Update is called once per frame
+        public void Update()
     {
         _fireRate = Random.Range(3f, 5f);
         _canFire = Time.time + _fireRate;
@@ -75,9 +110,28 @@ public class BossBehaviour : MonoBehaviour
 
     public IEnumerator BossMovement()
     {
-        
+        if (moveState == MovementState.Down)
+        {
+            _movingDown = true;
+            transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
+        }
+
+        if (moveState == MovementState.Right)
+        {
+            _movingRight = true;
+            transform.rotation = Quaternion.Slerp(_down.rotation, _right.rotation, _overTime);
+            Quaternion target = Quaternion.Euler(0, 0, 90);
+            transform.position += Vector3.right * _moveSpeed * Time.deltaTime;
+        }
+
+        if (moveState == MovementState.Up)
+        {
+            _movingUp = true;
+            transform.position += Vector3.up * _moveSpeed * Time.deltaTime;
+        }
+
         moveState = MovementState.Down;
-        _movingDown = true;
+       
         while (_movingDown == true)
         {
             if (transform.position.y < 3.66f)
@@ -85,12 +139,12 @@ public class BossBehaviour : MonoBehaviour
                 _moveSpeed = 0;
                 BossAttack1();
                 yield return new WaitForSecondsRealtime(3f);
-                _moveSpeed = 4;
-                moveState = MovementState.Up;
             }
-            yield return null;
         }
+        yield return null;
 
+        _moveSpeed = 4;
+        moveState = MovementState.Up;
         _movingDown = false;
         _movingUp = true;
 
@@ -101,8 +155,8 @@ public class BossBehaviour : MonoBehaviour
                 _moveSpeed = 0;
                 BossAttack1();
             }
-            yield return null;
         }
+        yield return null;
 
         _movingUp = false;
         transform.position = new Vector3(-10, 3, 0);
@@ -124,8 +178,8 @@ public class BossBehaviour : MonoBehaviour
                 yield return new WaitForSecondsRealtime(3f);
                 _ultimate = true;
             }
-            yield return null;
         }
+        yield return null;
 
 
         while (_ultimate == true)
@@ -142,31 +196,7 @@ public class BossBehaviour : MonoBehaviour
             }
 
         }
-
         yield return null;
-
-
-        if (moveState == MovementState.Down)
-        {
-            _movingDown = true;
-            transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
-        }
-
-        if (moveState == MovementState.Right)
-        {
-            _movingRight = true;
-            transform.rotation = Quaternion.Slerp(_down.rotation, _right.rotation, _overTime);
-            Quaternion target = Quaternion.Euler(0, 0, 90);
-            transform.position += Vector3.right * _moveSpeed * Time.deltaTime;
-        }
-
-        if (moveState == MovementState.Up)
-        {
-            _movingUp = true;
-            transform.position += Vector3.up * _moveSpeed * Time.deltaTime;
-        }
-
-
     }
 
     public void BossAttack1() //Shotgun
@@ -234,7 +264,60 @@ public class BossBehaviour : MonoBehaviour
 
     }
 
+    public void UpdateBossLife(float _bossHealth)
+    {
 
+        if ((_bossLife.value - _bossHealth) <= 0)
+        {
+            _cameraShakeBehaviour.Shake();
+            //YouWin();
+        }
+    }
 
+    public void Damage()
+    {
+        UpdateBossLife(_bossHealth--);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Hit: " + other.transform.name);
+        if (other.CompareTag("Laser"))
+        {
+            Destroy(other.gameObject);
+
+            if (_player != null)
+            {
+                _player.Score();
+            }
+        }
+
+        if (other.CompareTag("Plasma"))
+        {
+            Destroy(other.gameObject);
+
+            if (_player != null)
+            {
+                _player.Score();
+            }
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            PlayerBehaviour player = other.transform.GetComponent<PlayerBehaviour>();
+            player.Damage();
+        }
+
+        if (other.CompareTag("Homing"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Homing Shot Hit");
+            if (_player != null)
+            {
+                _player.Score();
+            }
+        }
+
+    }
 
 }

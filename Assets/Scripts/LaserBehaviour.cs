@@ -69,6 +69,13 @@ public class LaserBehaviour : MonoBehaviour
                 if (player != null)
                 { player.Damage(); }
             }
+
+        if (other.tag == "Boss")
+        {
+            BossBehaviour boss = other.GetComponent<BossBehaviour>();
+            if (boss != null)
+            { boss.Damage(); }
+        }
     }
 
 }

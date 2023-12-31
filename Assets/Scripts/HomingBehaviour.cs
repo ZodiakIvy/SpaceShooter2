@@ -96,5 +96,15 @@ public class HomingBehaviour : MonoBehaviour
             Destroy(GetComponent<BoxCollider2D>());
             Destroy(this.gameObject);
         }
+
+        if (other.tag == "Boss")
+        {
+            BossBehaviour boss = other.GetComponent<BossBehaviour>();
+            if (boss != null)
+            { boss.Damage(); }
+            _laserSpeed = 0;
+            Destroy(GetComponent<BoxCollider2D>());
+            Destroy(this.gameObject);
+        }
     }
 }
