@@ -145,6 +145,8 @@ MonoBehaviour:
     type: 3}
   _bossAttack2Prefab: {fileID: 1870081014813645350, guid: 2a0e18fe0bd3cdf40a62c30aeeed72de,
     type: 3}
+  _bossHealth: 0
+  _bossHealthFull: 500
   _bossSuper: {fileID: 5805696424058179470, guid: a8218657089924548a0594bfdeec07a9,
     type: 3}
   _plasmaSpawnAB:
@@ -153,6 +155,7 @@ MonoBehaviour:
   _shotgunAB:
   - {fileID: 1388356695717506776}
   - {fileID: 1388356696256250237}
+  _bossLife: {fileID: 0}
   _playerTransform: {fileID: 0}
   moveState: 0
 --- !u!1 &7641062440974806706
