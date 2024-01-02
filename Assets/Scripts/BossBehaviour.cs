@@ -4,30 +4,32 @@ using UnityEngine.UI;
 
 public class BossBehaviour : MonoBehaviour
 {
-    private AudioSource _audioSource;
+    //private AudioSource _audioSource;
     [SerializeField]
     private AudioClip _laserSound;
 
+    /*
     private bool _movingDown;
     private bool _movingRight;
     private bool _movingUp;
     private bool _ultimate;
+    */
     
     private CameraShakeBehaviour _cameraShakeBehaviour;
 
-    private float _canFire = -1f;
-    private float _fireRate = 3f;
+    private float _canFire = 0.0f;
+    private float _fireRate = 2f;
     [SerializeField]
     private float _moveSpeed = 4;
-    [SerializeField]
-    private float _newSpawnDuration = .1f;
+    //[SerializeField]
+    //private float _newSpawnDuration = .1f;
     [SerializeField]
     private float _shotgunAngle = 15;
     [SerializeField]
     private float _shotgunAngle2 = 20;
     [SerializeField]
     private float _shotgunAngle3 = 30;
-    private float _overTime = 0.0f;
+    //private float _overTime = 0.0f;
 
     [SerializeField]
     private GameObject _bossAttackPrefab;
@@ -36,9 +38,11 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField]
     private float _bossHealth;
     [SerializeField]
-    private float _bossHealthFull = 500f;
+    private float _bossHealthFull = 50f;
     [SerializeField]
     private GameObject _bossSuper;
+    [SerializeField]
+    private GameObject _explosionPrefab;
     [SerializeField]
     private GameObject[] _plasmaSpawnAB;
     GameObject player;
@@ -47,20 +51,18 @@ public class BossBehaviour : MonoBehaviour
 
     private PlayerBehaviour _player;
 
-    [SerializeField]
     private Slider _bossLife;
 
-    [SerializeField]
-    private Transform _playerTransform;
-    private Transform _down; 
-    private Transform _right;
+    //private Transform _playerTransform;
+    //private Transform _down; 
+    //private Transform _right;
 
     public void Start()
     {
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
         if (_cameraShakeBehaviour != null ) 
         {
-            Debug.LogError("The Camera Shaker is NULL");
+            Debug.LogError("The Camera Shaker is NULL on the Boss");
         }
 
         _bossLife = GameObject.Find("BossHealthBar").GetComponent<Slider>();
@@ -89,36 +91,31 @@ public class BossBehaviour : MonoBehaviour
         // Update is called once per frame
         public void Update()
     {
-        _fireRate = Random.Range(3f, 5f);
-        _canFire = Time.time + _fireRate;
-        if (Time.time > _canFire)
-        {
-            BossAttack1();
-;       }
+        
 
         BossMovement();
     }
 
-    /*public enum MovementState
+    public enum MovementState
     {
         Down,
+        /*
         Right,
         Up
+        */
     }
 
-    public MovementState moveState = MovementState.Down; */
+    public MovementState moveState = MovementState.Down;
 
     void BossMovement()
     {
-        transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
 
-        /*if (moveState == MovementState.Down)
+        if (moveState == MovementState.Down)
         {
-            _movingDown = true;
             transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
         }
 
-        if (moveState == MovementState.Right)
+        /*if (moveState == MovementState.Right)
         {
             _movingRight = true;
             transform.rotation = Quaternion.Slerp(_down.rotation, _right.rotation, _overTime);
@@ -130,22 +127,33 @@ public class BossBehaviour : MonoBehaviour
         {
             _movingUp = true;
             transform.position += Vector3.up * _moveSpeed * Time.deltaTime;
-        }
+        }*/
 
-         moveState = MovementState.Down; */
-        
-       /*
-        while (_movingDown == true)
+        moveState = MovementState.Down;
+
+
+
+        if (transform.position.y < 3.66f && Time.time > _canFire)
         {
-            if (transform.position.y < 3.66f)
-            {
-                _moveSpeed = 0;
-                BossAttack1();
-                yield return new WaitForSecondsRealtime(3f);
-            }
-        }
-        yield return null;
+            _fireRate = 2f;
+            _canFire = Time.time + _fireRate;
+            
+            _moveSpeed = 0;
 
+            BossAttack1();
+            
+        }
+
+       /* moveState = MovementState.Right;
+
+        if (transform.position.x >= 10.5)
+        {
+            transform.position = new Vector3(11f, transform.position.y, 0);
+
+        } */
+    }
+    
+        /*
         _moveSpeed = 4;
         moveState = MovementState.Up;
         _movingDown = false;
@@ -201,11 +209,11 @@ public class BossBehaviour : MonoBehaviour
         }
         yield return null;
        */
-    }
+    
 
     public void BossAttack1() //Shotgun
     {
-           
+  
         for (int i = 0; i < 10; i++)
         {
             Instantiate(_bossAttackPrefab, _shotgunAB[i].transform.position, Quaternion.identity);
@@ -239,12 +247,15 @@ public class BossBehaviour : MonoBehaviour
 
             Instantiate(_bossAttackPrefab, _shotgunAB[i].transform.position, Quaternion.Euler(attackAngle3));
 
+            
         }
+
         
-        
+
+
     }
 
-    public void BossAttack2() //PlasmaShot
+    /* public void BossAttack2() //PlasmaShot
     { 
         for (int i = 0; i < 2; i++)
         {
@@ -267,7 +278,7 @@ public class BossBehaviour : MonoBehaviour
         Instantiate(_bossSuper, transform.position + new Vector3(0, 7.5f, 0) , Quaternion.identity);
 
     }
-
+    
     public void UpdateBossLife(float _bossHealth)
     {
 
@@ -275,12 +286,22 @@ public class BossBehaviour : MonoBehaviour
         {
             _cameraShakeBehaviour.Shake();
             //YouWin();
+            
         }
     }
-
+    */
     public void Damage()
     {
-        UpdateBossLife(_bossHealth--);
+        _bossLife.value--;
+        if (_bossLife.value <= 0)
+        {
+            _cameraShakeBehaviour.Shake();
+            GameObject newExplosion = Instantiate(_explosionPrefab, new Vector3(0, 5, 0), Quaternion.identity);
+            Destroy(newExplosion, 2.4f);
+            Destroy(this.gameObject);
+        }
+    
+
     }
 
     void OnTriggerEnter2D(Collider2D other)

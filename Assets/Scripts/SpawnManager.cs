@@ -240,8 +240,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         GameObject boss = Instantiate(_boss1, new Vector3(0, 10, 0), Quaternion.identity);
         boss.transform.parent = _enemyContainer.transform;
-
-        
+        yield return null;
 
     }
 

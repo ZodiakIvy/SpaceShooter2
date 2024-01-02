@@ -344,7 +344,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _moveSpeed: 4
-  _newSpawnDuration: 0.1
   _shotgunAngle: 15
   _shotgunAngle2: 20
   _shotgunAngle3: 30
@@ -353,8 +352,10 @@ MonoBehaviour:
   _bossAttack2Prefab: {fileID: 1870081014813645350, guid: 2a0e18fe0bd3cdf40a62c30aeeed72de,
     type: 3}
   _bossHealth: 0
-  _bossHealthFull: 500
+  _bossHealthFull: 50
   _bossSuper: {fileID: 5805696424058179470, guid: a8218657089924548a0594bfdeec07a9,
+    type: 3}
+  _explosionPrefab: {fileID: 6645283297170917618, guid: 8c75391be57038940a22d9988f0f1953,
     type: 3}
   _plasmaSpawnAB:
   - {fileID: 4511306997264852541}
@@ -362,8 +363,6 @@ MonoBehaviour:
   _shotgunAB:
   - {fileID: 4511306997308281637}
   - {fileID: 4511306997676783349}
-  _bossLife: {fileID: 0}
-  _playerTransform: {fileID: 0}
   moveState: 0
 --- !u!1 &4511306997264852541
 GameObject:

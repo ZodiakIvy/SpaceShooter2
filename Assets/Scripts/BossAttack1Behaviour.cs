@@ -25,17 +25,40 @@ public class BossAttack1Behaviour : MonoBehaviour
     void Update()
     {
         MoveDown();
+        
     }
 
     
     public void MoveDown()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
+
+        if (transform.position.x < -10 || transform.position.y < -10 || transform.position.x > 10f || transform.position.y > 10f)
+        {
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
+            Destroy(this.gameObject);
+        }
     }
     public void SpiralLaser()
     {
         float verticalOffset = _amplitude * Mathf.Sin(Time.time * _frequency);
         transform.position += _startPosition + new Vector3(0f, verticalOffset, 0f) + transform.right * _speed * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == ("Player"))
+        {
+            PlayerBehaviour player = other.GetComponent<PlayerBehaviour>();
+            if (player != null)
+            player.Damage();
+            _speed = 0;
+            Destroy(GetComponent<CapsuleCollider>());
+            Destroy(this.gameObject);
+        }
     }
 }
 
