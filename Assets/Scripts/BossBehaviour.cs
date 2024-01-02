@@ -83,9 +83,7 @@ public class BossBehaviour : MonoBehaviour
         _bossHealth = _bossHealthFull;
         _bossLife.value = _bossHealth;
 
-        transform.position = new Vector3(0, 10f, 0);
-
-        StartCoroutine(BossMovement());
+        
     }
 
         // Update is called once per frame
@@ -97,20 +95,24 @@ public class BossBehaviour : MonoBehaviour
         {
             BossAttack1();
 ;       }
+
+        BossMovement();
     }
 
-    public enum MovementState
+    /*public enum MovementState
     {
         Down,
         Right,
         Up
     }
 
-    public MovementState moveState = MovementState.Down;
+    public MovementState moveState = MovementState.Down; */
 
-    public IEnumerator BossMovement()
+    void BossMovement()
     {
-        if (moveState == MovementState.Down)
+        transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
+
+        /*if (moveState == MovementState.Down)
         {
             _movingDown = true;
             transform.position += Vector3.down * _moveSpeed * Time.deltaTime;
@@ -130,8 +132,9 @@ public class BossBehaviour : MonoBehaviour
             transform.position += Vector3.up * _moveSpeed * Time.deltaTime;
         }
 
-        moveState = MovementState.Down;
-       
+         moveState = MovementState.Down; */
+        
+       /*
         while (_movingDown == true)
         {
             if (transform.position.y < 3.66f)
@@ -197,6 +200,7 @@ public class BossBehaviour : MonoBehaviour
 
         }
         yield return null;
+       */
     }
 
     public void BossAttack1() //Shotgun
