@@ -64,11 +64,11 @@ public class LaserBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player" && _enemy1Attack == true)
-            {
-                PlayerBehaviour player = other.GetComponent<PlayerBehaviour>();
-                if (player != null)
-                { player.Damage(); }
-            }
+        {
+            PlayerBehaviour player = other.GetComponent<PlayerBehaviour>();
+            if (player != null)
+            { player.Damage(); }
+        }
 
         if (other.tag == "Boss")
         {
