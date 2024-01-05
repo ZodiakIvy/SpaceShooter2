@@ -126,7 +126,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
             
-            if (_waveCount >= 2)
+            if (_waveCount >= 4)
             {
                 StartSpawningLevel2();
                 _stopSpawning_level01 = true;
@@ -156,7 +156,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
 
-            if (_waveCount >= 2)
+            if (_waveCount >= 4)
             {
                 StartSpawningLevel3();
                 _stopSpawning_level02 = true;
@@ -186,7 +186,7 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(_spawnTime);
 
-            if (_waveCount >= 2)
+            if (_waveCount >= 4)
             {
                 StartSpawningLevel4();
                 _stopSpawning_level03 = true;
@@ -219,7 +219,7 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(_spawnTime);
 
 
-            if (_waveCount >= 2)
+            if (_waveCount >= 4)
             {
                 StartSpawningLevel5();
                 StopCoroutine(PowerUp_SpawnRoutine_Level4());
@@ -400,12 +400,12 @@ public class SpawnManager : MonoBehaviour
             //1 = Speed
             GameObject newPowerUp1 = Instantiate(_powerUps[1], spawnPosition, Quaternion.identity);
             newPowerUp1.transform.parent = _powerUpContainer.transform;
-            yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
+            yield return new WaitForSecondsRealtime(Random.Range(4f, 10f));
 
             //2 = Shield
             GameObject newPowerUp2 = Instantiate(_powerUps[2], spawnPosition, Quaternion.identity);
             newPowerUp2.transform.parent = _powerUpContainer.transform;
-            yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
+            yield return new WaitForSecondsRealtime(Random.Range(5f, 7f));
 
             //3 = Ammo
             GameObject newPowerUp3 = Instantiate(_powerUps[3], spawnPosition, Quaternion.identity);
@@ -430,7 +430,7 @@ public class SpawnManager : MonoBehaviour
             //7 = HomingShot
             GameObject newPowerUp7 = Instantiate(_powerUps[7], spawnPosition, Quaternion.identity);
             newPowerUp7.transform.parent = _powerUpContainer.transform;
-            yield return new WaitForSecondsRealtime(9f);
+            yield return new WaitForSecondsRealtime(4f);
         }
 
     }

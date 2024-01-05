@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private float _ammo = 15;
-
+  
     [SerializeField]
     private Image _livesDisplayImg;
 

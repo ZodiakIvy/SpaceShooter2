@@ -38,7 +38,7 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField]
     private float _bossHealth;
     [SerializeField]
-    private float _bossHealthFull = 50f;
+    private float _bossHealthFull = 500f;
     [SerializeField]
     private GameObject _bossSuper;
     [SerializeField]
@@ -49,9 +49,15 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject[] _shotgunAB;
 
+    private GameManager _gameManager;
+
     private PlayerBehaviour _player;
 
     private Slider _bossLife;
+
+    private SpawnManager _spawnManager;
+
+    private UIManager _uiManager;
 
     //private Transform _playerTransform;
     //private Transform _down; 
@@ -60,7 +66,7 @@ public class BossBehaviour : MonoBehaviour
     public void Start()
     {
         _cameraShakeBehaviour = GameObject.Find("Camera_Shaker").GetComponent<CameraShakeBehaviour>();
-        if (_cameraShakeBehaviour != null ) 
+        if (_cameraShakeBehaviour == null ) 
         {
             Debug.LogError("The Camera Shaker is NULL on the Boss");
         }
@@ -71,6 +77,8 @@ public class BossBehaviour : MonoBehaviour
             Debug.LogError("The Thruster Bar is NULL.");
         }
 
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+
         _player = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
         if (_player == null)
         {
@@ -80,6 +88,18 @@ public class BossBehaviour : MonoBehaviour
         if (player != null)
         {
             _player = player.GetComponent<PlayerBehaviour>();
+        }
+
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (_spawnManager == null)
+        {
+            Debug.LogError("The Spawn Manager is NULL.");
+        }
+
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
+        if (_uiManager == null)
+        {
+            Debug.LogError("The UI Manager is NULL.");
         }
 
         _bossHealth = _bossHealthFull;
@@ -214,7 +234,7 @@ public class BossBehaviour : MonoBehaviour
     public void BossAttack1() //Shotgun
     {
   
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 2; i++)
         {
             Instantiate(_bossAttackPrefab, _shotgunAB[i].transform.position, Quaternion.identity);
 
@@ -299,9 +319,19 @@ public class BossBehaviour : MonoBehaviour
             GameObject newExplosion = Instantiate(_explosionPrefab, new Vector3(0, 5, 0), Quaternion.identity);
             Destroy(newExplosion, 2.4f);
             Destroy(this.gameObject);
+            _spawnManager.OnPlayerDeath();
+            YouWin();
         }
-    
 
+
+
+    }
+
+    void YouWin()
+    {
+        _gameManager.GameOver();
+        _uiManager.transform.GetChild(10).gameObject.SetActive(true);
+        _uiManager.transform.GetChild(11).gameObject.SetActive(true);
     }
 
     void OnTriggerEnter2D(Collider2D other)
